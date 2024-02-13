@@ -2,8 +2,8 @@
 
 <h1 align="center"> No Country Bootcamp </h1>
 
-<span>![</span><span>AnzenLogo</span><span>]</span><span>(</span><span>https://raw.githubusercontent.com/No-Country/c16-71-t-python/AnzenControlStock/Images
-/background_2.jpeg</span><span>)</span>
+
+![readme-java3](https://github.com/CodeSystem2022/No-Country/c16-71-t-python/blob/main/AnzenControlStock/Images/background_2.jpeg)
 
 <p>
 
