@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "dashBoard.apps.DashboardConfig",
+    "login.apps.LoginConfig"
 ]
 
 MIDDLEWARE = [
@@ -75,12 +76,17 @@ WSGI_APPLICATION = "AnzenControlStock.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+     'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'anzendb',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',  # Cambia esto si tu base de datos está en otro host
+        'PORT': '3306',        # Cambia el puerto si es necesario
     }
 }
 
+AUTH_USER_MODEL = 'login.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
