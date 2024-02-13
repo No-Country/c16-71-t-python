@@ -2,7 +2,7 @@
 
 <h1 align="center"> No Country Bootcamp </h1>
 
-<span>![</span><span>AnzenLogo</span><span>]</span><span>(</span><span>https://github.com/No-Country/c16-71-t-python/blob/main/AnzenControlStock/Images/IsoLogo_mk1.jpeg</span><span>)</span>
+![Azen](https://github.com/No-Country/c16-71-t-python/blob/main/AnzenControlStock/Images/IsoLogo_mk1.jpeg)
 
 
 <p>
