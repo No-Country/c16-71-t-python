@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 
     <!--Custome CSS-->
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="/AnzenControlStock/css/style.css">
     <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -28,12 +28,11 @@
 
     {% include 'partials/topnav.html' %}
 
-    <div class="container">
+    {% block content %}
 
-        {% block content %}
+    {% endblock %}
 
-        {% endblock %}
-    </div>
+
 
 
     <!-- Optional JavaScript; choose one of the two! -->
