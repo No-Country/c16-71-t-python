@@ -1,6 +1,37 @@
 {% extends 'partials/base.html' %}
 {% block title %}Staff Page{% endblock %}
-<!DOCTYPE html>
+
+{% block content %}
+<div class="row my-4">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
+        <table class="table bg-white">
+            <thead class="bg-info text-white">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customer %}
+                <tr>
+                    <th scope="row"><a class="btn btn-info btn-sm"
+                            href="">View</a></th>
+                    <td>{{ customer.username }}</td>
+                    <td>{{ customer.profile.phone }}</td>
+                    <td>{{ customer.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+<!--<!DOCTYPE html>
 <html>
 
 <head>
@@ -49,3 +80,4 @@
 </body>
 
 </html>
+-->
