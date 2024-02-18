@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-g+b_i)n822b$+ukyj3!%adx#rx%+hdlhg%vp$dxn^u)fds__93"
+
+secret_key= os.getenv("SECRETKEY")
+SECRET_KEY = secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,18 +79,26 @@ WSGI_APPLICATION = "AnzenControlStock.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+load_dotenv('database.env')
+
+name = os.getenv("NAME")
+user = os.getenv("USER")
+password = os.getenv("PASSWORD")
+host = os.getenv("HOST")
+port = os.getenv("PORT")
+
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'anzendb',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',  # Cambia esto si tu base de datos está en otro host
-        'PORT': '3306',        # Cambia el puerto si es necesario
+        'NAME': name,
+        'USER': user,
+        'PASSWORD': password,
+        'HOST': host,  # Cambia esto si tu base de datos está en otro host
+        'PORT': port,       # Cambia el puerto si es necesario
     }
 }
 
-AUTH_USER_MODEL = 'login.User'
+AUTH_USER_MODEL = 'login.CustomUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
