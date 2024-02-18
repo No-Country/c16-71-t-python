@@ -1,0 +1,49 @@
+{% load static %}
+<title>{% block title %}Resgistro{% endblock %}</title>
+
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static '/AnzenControlStock/static/inicio.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="imagenes/logo.jpeg" type="image/x-icon">
+    <title>ControlStock</title>
+</head>
+<body>
+    <!-- INICIO DEL CONTENEDOR -->
+    <div class="contenedor">
+        <div class="contenedor-izquierda">
+            <form action="">
+                <h1>Registro</h1>
+                <div class="input-caja">
+                    <label for="">Nombre</label>
+                    <input type="text">
+                </div>
+                <div class="input-caja">
+                    <label for="">Correo electronico</label>
+                    <input type="email">
+                </div>
+                <div class="input-caja">
+                    <label for="">Contraseña</label>
+                    <input type="password">
+                </div>
+                <div class="input-caja">
+                    <label for="">Repetir contraseña</label>
+                    <input type="password">
+                </div>
+                <button type="submit">Siguiente</button>
+            </form>
+        </div>
+        <div class="contenedor-derecha">
+            <span class = "contenedor-derecha__texto">Tu stock seguro con ANZEN</span>
+        </div>
+    </div>
+    <!-- FIN DEL CONTENEDOR -->
+</body>
+
+
+{% endblock %}
