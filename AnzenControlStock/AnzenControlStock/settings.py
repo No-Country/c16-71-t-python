@@ -88,7 +88,7 @@ host = os.getenv("HOST")
 port = os.getenv("PORT")
 
 DATABASES = {
-     'default': {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': name,
         'USER': user,
