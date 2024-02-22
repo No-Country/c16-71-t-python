@@ -15,7 +15,7 @@ from django.shortcuts import render
 Empleado = get_user_model()
 CustomUser= get_user_model()
 # Create your views here.
-  
+
 @method_decorator(csrf_exempt, name='dispatch')
 class LoginView(View):
 
