@@ -7,7 +7,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     nombre= models.CharField(max_length=32)
     es_empresa = models.BooleanField(null=True)
-    
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
@@ -22,10 +22,16 @@ class Empresa(models.Model):
         primary_key=True,
     )
     nombre_de_la_empresa= models.CharField(max_length=32)
-    foto_de_perfil= models.CharField(max_length=32)# sacar ? , o modificar depende la forma de ingresar la imagen en el front
+    foto_de_perfil = models.ImageField(upload_to="fotos/", null=True, blank=True)
     categoria_de_negocio= models.CharField(max_length=32)
     teléfono= models.IntegerField(null=True)
     correo_electrónico_de_la_empresa= models.CharField(max_length=32)
+
+    def es_extension_valida(self):
+        extensiones_validas = [".jpg", ".jpeg", ".png", ".gif"]
+        return any(
+            self.foto_perfil.name.lower().endswith(ext) for ext in extensiones_validas
+        )
 
 
 class Empleado(models.Model):
@@ -35,5 +41,3 @@ class Empleado(models.Model):
         primary_key=True,
     )
     rol = models.CharField(max_length=32)
-
-
