@@ -28,8 +28,8 @@
     padding: 15px;
 }
 
-.contenedor-derecha{
-    background-image: url("../imagenes/right_side.png");
+.contenedor-derecha {
+    background-image: url('{% static "right_side.png" %}');
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
