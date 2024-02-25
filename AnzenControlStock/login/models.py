@@ -16,7 +16,7 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
     
-     @classmethod
+    @classmethod
     def register(cls, nombre, email, password): 
         """
     Este método crea un nuevo usuario en el sistema con el rol de empresa.
