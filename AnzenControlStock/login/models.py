@@ -51,14 +51,16 @@ class Empresa(models.Model):
         - SimpleUploadedFile: Un nuevo archivo de imagen con un nombre único generado.
 
         Uso en el Frontend:
-        -   foto_de_perfil = request.FILES.get("foto_de_perfil")    #Suponiendo que "foto_de_perfil"
+        -   #Importar modulo Empresa
+            foto_de_perfil = request.FILES.get("foto_de_perfil")    #Suponiendo que "foto_de_perfil"
                                                                     sea el id del input tipo file
             if foto_de_perfil:
-                foto_de_perfil = generate_unique_filename(foto_de_perfil) #Sobreescribir con el nombre generado
+                foto_de_perfil = Empresa.generate_unique_filename(foto_de_perfil) #Sobreescribir con el nombre generado
 
             #Por ultimo debe pasarse todos los datos (incluido foto_de_perfil) al metodo del backend para
             guardar todo en la base de datos
         """
+
         extension = os.path.splitext(file.name)[1]
         unique_name = f"{uuid.uuid4()}{extension}"
         return SimpleUploadedFile(unique_name, file.read())
