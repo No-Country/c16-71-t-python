@@ -1,5 +1,4 @@
 from django.contrib.auth import login, authenticate, get_user_model
-from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.http import HttpResponse
@@ -8,7 +7,6 @@ from .models import CustomUser, Empresa
 import random
 import string
 from django.db import IntegrityError
-from django.shortcuts import render
 
 
 
