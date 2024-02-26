@@ -32,8 +32,8 @@ class CustomUser(AbstractUser):
     :param password: La contraseña para la cuenta del usuario.
     :type password: str
     :return: El objeto de usuario recién creado si el registro fue exitoso.
-             -1 si la dirección de correo electrónico ya está en uso.
-             -2 si ocurre algún error durante el registro.
+            -1 si la dirección de correo electrónico ya está en uso.
+            -2 si ocurre algún error durante el registro.
         """
         if CustomUser.validate_email(email):
             try:
@@ -83,7 +83,7 @@ class Empresa(models.Model):
 
     @classmethod
     def register(cls, user_id, nombre_de_la_empresa, foto_de_perfil,
-                 categoria_de_negocio, teléfono, correo_electrónico_de_la_empresa):
+                categoria_de_negocio, teléfono, correo_electrónico_de_la_empresa):
         """
     Registra una nueva empresa en el sistema.
 
@@ -100,7 +100,7 @@ class Empresa(models.Model):
     :param correo_electrónico_de_la_empresa: El correo electrónico de la empresa.
     :type correo_electrónico_de_la_empresa: str
     :return: La instancia de Empresa creada si el registro fue exitoso.
-             -2 si ocurre algún error durante el registro.
+            -2 si ocurre algún error durante el registro.
         """
         try:
             empresa = Empresa.objects.create(
