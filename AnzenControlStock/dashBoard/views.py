@@ -7,11 +7,8 @@ from login.models import Empresa
 
 # Create your views here.
 
-def index(request):
-    return render(request, 'dashboard/index.html')
-
-def inicio(request):
-    return render(request, 'dashboard/inicio.html')
+def main(request):
+    return render(request, 'dashboard/main.html')
 
 def staff(request):
     return render(request, 'dashboard/staff.html')
@@ -21,6 +18,9 @@ def products(request):
 
 def order(request):
     return render(request, 'dashboard/order.html')
+
+def inicio(request):
+    return render(request, 'dashboard/inicio.html')
 
 def registro(request):
     if request.method == 'GET':
