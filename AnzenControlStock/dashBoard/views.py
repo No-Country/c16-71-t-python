@@ -35,15 +35,15 @@ def registro(request):
                 print("Ocurrio un error durante el registro")
             else:
                 print("El usuario ",new_user.nombre, "fue creado")
-                return render(request, "dashboard/registro2.html", {"id_user": new_user.id})
+                return redirect("dashboard-registro2", id_user=new_user.id) #Se le pasa el name del url
             return HttpResponse("Hubo un problema durante el registro. Verifica tus datos.")
 
-def registro2(request):
+def registro2(request,id_user):
     if request.method == 'GET':
         return render(
             request,
             "dashboard/registro2.html",
-            {"form_action": reverse("dashboard-registro2")},
+            {"id_user": id_user},
         )
     if request.method == 'POST':
         print("POST*********",request.POST)
