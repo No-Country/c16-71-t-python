@@ -21,6 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+STATIC_DIR = os.path.join(BASE_DIR,"static")
+
 # SECURITY WARNING: keep the secret key used in production secret!
 
 secret_key= os.getenv("SECRETKEY")
@@ -90,11 +92,11 @@ port = os.getenv("PORT")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': name,
-        'USER': user,
-        'PASSWORD': password,
-        'HOST': host,  # Cambia esto si tu base de datos está en otro host
-        'PORT': port,       # Cambia el puerto si es necesario
+        'NAME': 'sys',
+        'USER': 'root',
+        'PASSWORD': 'admin',
+        'HOST': '127.0.0.1',  # Cambia esto si tu base de datos está en otro host
+        'PORT': '3306',       # Cambia el puerto si es necesario
     }
 }
 
@@ -150,4 +152,6 @@ STATIC_ROOT = (BASE_DIR/"asert/")
 LOGIN_REDIRECT_URL = 'dashboard-inicio'
 
 LOGIN_URL = 'user-login'
+
+STATICFILES_DIRS = [STATIC_DIR,]
 
