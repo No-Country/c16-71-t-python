@@ -116,15 +116,30 @@ class Empresa(models.Model):
         except Exception as e:
             return -2
 
-    def es_extension_valida(self):
+    @classmethod
+    def es_extension_valida(cls, foto):
+        """
+        Verifica si la extensión de un archivo de imagen es válida.
+
+        Parámetros:
+        - cls: La referencia a la propia clase, necesario para el uso de @classmethod.
+        - foto (InMemoryUploadedFile): El archivo de imagen que se va a verificar.
+
+        Retorna:
+        - bool: True si la extensión del archivo es válida, False de lo contrario.
+
+        Uso:
+        - Utiliza este método para validar si la extensión de un archivo de imagen es una de las permitidas.
+
+        """
         extensiones_validas = [".jpg", ".jpeg", ".png", ".gif"]
         return any(
-            self.foto_perfil.name.lower().endswith(ext) for ext in extensiones_validas
+            foto.lower().endswith(ext) for ext in extensiones_validas
         )
 
     # Genera un nombre único para el archivo utilizando UUID y conserva la extensión.
     @classmethod
-    def generate_unique_filename(file):
+    def generate_unique_filename(cls, file):
         """
         Genera un nombre de archivo único para un archivo de imagen.
 
@@ -146,9 +161,9 @@ class Empresa(models.Model):
             guardar todo en la base de datos
         """
 
-        extension = os.path.splitext(file.name)[1]
+        extension = os.path.splitext(file)[1]
         unique_name = f"{uuid.uuid4()}{extension}"
-        return SimpleUploadedFile(unique_name, file.read())
+        return SimpleUploadedFile(unique_name, file)
 
 
 class Empleado(models.Model):
