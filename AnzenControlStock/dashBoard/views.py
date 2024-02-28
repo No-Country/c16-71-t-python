@@ -69,4 +69,7 @@ def registro2(request,id_user):
             return redirect("dashboard-registro2", id_user=id_user)
         else:
             print("Se creo la empresa", new_empresa.nombre_de_la_empresa)
+            #Iniciar sesion automaticamente
+            request.session["id_user"] = id_user
+            print ("Sesion iniciada"+ str(request.session.get("id_user")))
             return redirect("dashboard-main")
