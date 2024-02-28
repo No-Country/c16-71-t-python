@@ -25,8 +25,8 @@ STATIC_DIR = os.path.join(BASE_DIR,"static")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-secret_key= os.getenv("SECRETKEY")
-SECRET_KEY = secret_key
+secret_key= os.getenv("SECRET_KEY")
+SECRET_KEY = 'tr8szcq^6udq0%thfg*k9&=q!1l-#h9c^r^zs^r_%x9(enqvc4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -91,8 +91,8 @@ port = os.getenv("PORT")
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sys',
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'AnzenDB',
         'USER': 'root',
         'PASSWORD': 'admin',
         'HOST': '127.0.0.1',  # Cambia esto si tu base de datos está en otro host
