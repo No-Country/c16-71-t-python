@@ -47,17 +47,26 @@ def registro2(request,id_user):
         )
     if request.method == 'POST':
         print("POST*********",request.POST)
-        if Empresa.es_extension_valida(request.POST['foto_perfil']):
-            foto_de_perfil = Empresa.generate_unique_filename(request.POST['foto_perfil'])
+        foto_de_perfil = request.FILES.get("foto_perfil")
+        if foto_de_perfil:
+            foto_de_perfil = Empresa.generate_unique_filename(foto_de_perfil)
 
-            new_empresa = Empresa.register(
-                request.POST['id_user'],
-                foto_de_perfil,
-                request.POST['categoria_de_negocio'],
-                request.POST['teléfono'],
-                request.POST['correo_electrónico_de_la_empresa']
-            )
-            if new_empresa == -2:
-                print("Ocurrio un error")
-            else:
-                print("Se creo la empresa", new_empresa.nombre_de_la_empresa)
+        new_empresa = Empresa.register(
+            request.POST['id_user'],
+            request.POST['nombre_de_empresa'],
+            foto_de_perfil,
+            request.POST['categoria_de_negocio'],
+            request.POST['teléfono'],
+            request.POST['correo_electrónico_de_la_empresa']
+        )
+        if not isinstance(new_empresa, int):
+            if not new_empresa.es_extension_valida(foto_de_perfil):
+                print('Error: La extension de la foto de perfil no es valida, pruebe con una de las siguientes: ".jpg", ".jpeg", ".png", ".gif"')
+                new_empresa.foto_de_perfil = None
+
+        if new_empresa == -2:
+            print("Ocurrio un error")
+            return redirect("dashboard-registro2", id_user=id_user)
+        else:
+            print("Se creo la empresa", new_empresa.nombre_de_la_empresa)
+            return redirect("dashboard-main")

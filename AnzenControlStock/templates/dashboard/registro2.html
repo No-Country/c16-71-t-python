@@ -15,7 +15,7 @@
     <!-- INICIO DEL CONTENEDOR -->
     <div class="contenedor">
         <div class="contenedor-izquierda">
-            <form method="post" action="{{ form_action }}">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h1>Registro</h1>
                 <div class="input-caja1">
@@ -44,8 +44,8 @@
                     <input type="number" id='teléfono' name='teléfono'>
                 </div>
                 <div class="input-caja">
-                    <label for="correo_electrónido_de_la_empresa">Correo electronico</label>
-                    <input type="email" id='correo_electrónido_de_la_empresa' name='correo_electrónido_de_la_empresa'>
+                    <label for="correo_electrónico_de_la_empresa">Correo electronico</label>
+                    <input type="email" id='correo_electrónico_de_la_empresa' name='correo_electrónico_de_la_empresa'>
                 </div>
                 <button type="submit">Registrarse</button>
             </form>
