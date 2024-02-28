@@ -1,0 +1,55 @@
+{% extends "partials/base.html"%}
+
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+
+{% block title %}
+Stock ANZEN
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% include 'dashboard/sidebar.html' %}
+
+{% include 'dashboard/navbar.html' %}
+
+<div class="main">
+    <div class="main-header">
+        <div class="main-header__left">
+            <p>Paginas / Inicio</p>
+            <span>Inicio</span>
+        </div>
+        <div class="main-header__right">
+            <a href="#">
+                <i class="lni lni-cog"></i>
+                <span class = "sidebar__text">Iniciar sesion</span>
+            </a>
+        </div>
+    </div>
+    <div class="main-center">
+        <div class="caja1">
+            <div class = "caja1__texto">
+                <span>Ventas de hoy</span>
+                <span>$1,953,000</span>
+            </div>
+            <div class="alerta">
+            </div>
+        </div>
+        <div class="caja2">
+            <span>Cantidad de productos en niveles bajos o agotados</span>
+            <div class="alerta">
+            </div>
+        </div>
+        <div class="caja3">
+            <span>Vendedor Destacado</span>
+            <div class="alerta"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script src="{% static 'javascript/main.js' %}"></script>
+{% endblock %}

@@ -5,22 +5,57 @@ from django.urls import reverse
 from login.models import CustomUser
 from login.models import Empresa
 
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, get_user_model
+
 # Create your views here.
 
 def main(request):
-    return render(request, 'dashboard/main.html')
+    if request.method == 'GET':
+        if request.session.get('id_user'):
+            messages.error(request, "Hola")
+            return render(request, 'dashboard/dashboard.html')
 
 def staff(request):
-    return render(request, 'dashboard/staff.html')
+    if request.method == 'GET':
+        if request.session.get('id_user'):
+            return render(request, 'dashboard/staff.html')
 
 def products(request):
-    return render(request, 'dashboard/products.html')
+    if request.method == 'GET':
+        if request.session.get('id_user'):
+            return render(request, 'dashboard/products.html')
 
 def order(request):
     return render(request, 'dashboard/order.html')
 
 def inicio(request):
-    return render(request, 'dashboard/inicio.html')
+    if request.method == 'GET':
+        if request.session.get('id_user'):
+            return render(request, 'dashboard/inicio.html')
+    if request.method == 'POST':
+        usuario = authenticate(
+            request,
+            email=request.POST["email"],
+            password=request.POST["password"]
+        )
+
+        if usuario is not None:
+            login(request, usuario)
+
+            empresa = Empresa.objects.get(user_id=usuario.id)
+            if empresa is not None:
+                request.session["id_user"] = usuario.id
+                print ("Sesion iniciada "+ str(request.session.get("id_user")))
+                messages.success(request, "Sesión iniciada correctamente")
+                return redirect("dashboard-main")
+
+            return HttpResponse(
+                "Iniciando Sesion empresa"
+            )  # return render(request, 'index_empleado.html', {'objeto': empleado})
+        else:
+            return HttpResponse("Error en usuario o contraseña")
+
 
 def registro(request):
     if request.method == 'GET':
@@ -69,7 +104,13 @@ def registro2(request,id_user):
             return redirect("dashboard-registro2", id_user=id_user)
         else:
             print("Se creo la empresa", new_empresa.nombre_de_la_empresa)
-            #Iniciar sesion automaticamente
+            # Iniciar sesion automaticamente
             request.session["id_user"] = id_user
-            print ("Sesion iniciada"+ str(request.session.get("id_user")))
+            print ("Sesion iniciada "+ str(request.session.get("id_user")))
+            messages.success(request, "Sesión iniciada correctamente")
             return redirect("dashboard-main")
+
+
+def cerrar_sesion(request):
+    request.session["id_user"] = None
+    return redirect("dashboard-inicio")
