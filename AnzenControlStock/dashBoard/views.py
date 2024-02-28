@@ -14,7 +14,7 @@ def main(request):
     if request.method == 'GET':
         if request.session.get('id_user'):
             messages.error(request, "Hola")
-            return render(request, 'dashboard/dashboard.html')
+            return render(request, 'dashboard/dashboard.html', {'seccion_actual':'inicio'})
 
 def staff(request):
     if request.method == 'GET':
