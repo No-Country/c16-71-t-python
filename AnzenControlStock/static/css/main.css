@@ -103,7 +103,14 @@ a.sidebar-link {
     margin-right: .75rem;
 }
 
-a.sidebar-link:hover {
+a.sidebar-link:hover{
+    background-color: rgba(255, 255, 255, .075);
+    border-left: 3px solid #F87906;
+}
+
+
+/*Para cuando un boton del sidebar quede seleccionado*/
+.sidebar-item.selected{
     background-color: rgba(255, 255, 255, .075);
     border-left: 3px solid #F87906;
 }

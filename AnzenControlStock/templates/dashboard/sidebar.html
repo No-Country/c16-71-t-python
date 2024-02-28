@@ -1,0 +1,60 @@
+{% load static %}
+<div class="wrapper">
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button">
+                    <img src="{% static 'imagenes/Nuevo logo.png' %}" lt="logo" width="30px">
+                </button>
+                <div class="sidebar-logo">
+                    <a href="#">
+                        <img src="{% static 'imagenes/letraLogo.png' %}" lt="logo" width="150px">
+                    </a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item{% if seccion_actual == 'inicio' %} selected{% endif %}">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-home"></i>
+                        <span class = "sidebar__text">Inicio</span>
+                    </a>
+                </li>
+                <li class="sidebar-item{% if seccion_actual == 'inventario' %} selected{% endif %}">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span class = "sidebar__text">Inventario</span>
+                    </a>
+                </li>
+                <li class="sidebar-item{% if seccion_actual == 'empleados' %} selected{% endif %}">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-users"></i>
+                        <span class = "sidebar__text">Empleados</span>
+                    </a>
+                </li>
+                <li class="sidebar-item{% if seccion_actual == 'proveedores' %} selected{% endif %}">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-delivery"></i>
+                        <span class = "sidebar__text">Provedores</span>
+                    </a>
+                </li>
+                <hr class = "separador">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-user"></i>
+                        <span class = "sidebar__text">Perfil</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-cog"></i>
+                        <span class = "sidebar__text">Iniciar sesion</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" class="sidebar-link">
+                    <i class="lni lni-exit"></i>
+                    <span>Salir</span>
+                </a>
+            </div>
+        </aside>
+    </div>
