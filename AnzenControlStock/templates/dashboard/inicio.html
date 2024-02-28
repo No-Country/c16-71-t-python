@@ -15,19 +15,19 @@
     <!-- INICIO DEL CONTENEDOR -->
     <div class="contenedor">
         <div class="contenedor-izquierda">
-            <form action="">
+            <form method="post">
                 <h1>Inicia Sesion</h1>
                 <div class="input-caja">
-                    <label for="">Correo electronico</label>
-                    <input type="text">
+                    <label for="email">Correo electronico</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@ejemplo.com">
                 </div>
                 <div class="input-caja">
-                    <label for="">Contraseña</label>
-                    <input type="password">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password">
                 </div>
                 <div class="registro-olvidaste">
                     <div class="registro">
-                        <a href="registro.html">Registro</a>
+                        <a href="{% url 'dashboard-registro' %}">Registro</a>
                     </div>
                     <div class="olvidaste">
                         <a href="#">¿Olvidaste tu contraseña?</a>
