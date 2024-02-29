@@ -16,6 +16,12 @@ def main(request):
             messages.error(request, "Hola")
             return render(request, 'dashboard/dashboard.html', {'seccion_actual':'inicio'})
 
+def inventario(request):
+    if request.method == 'GET':
+        if request.session.get('id_user'):
+            messages.error(request, "Hola")
+            return render(request, 'dashboard/inventario.html')
+
 def staff(request):
     if request.method == 'GET':
         if request.session.get('id_user'):
