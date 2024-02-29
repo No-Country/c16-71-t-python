@@ -76,7 +76,7 @@ class Empresa(models.Model):
         primary_key=True,
     )
     nombre_de_la_empresa= models.CharField(max_length=32)
-    foto_de_perfil = models.CharField(max_length=255, null=True, blank=True)#models.ImageField(upload_to="fotos/", null=True, blank=True)
+    foto_de_perfil = models.ImageField(upload_to="fotos/", null=True, blank=True)#models.CharField(max_length=255, null=True, blank=True)
     categoria_de_negocio= models.CharField(max_length=32)
     teléfono= models.IntegerField(null=True)
     correo_electrónico_de_la_empresa= models.CharField(max_length=32)
@@ -135,7 +135,7 @@ class Empresa(models.Model):
         """
         extensiones_validas = [".jpg", ".jpeg", ".png", ".gif"]
         return any(
-            self.foto_de_perfil.lower().endswith(ext) for ext in extensiones_validas
+            self.foto_de_perfil.name.lower().endswith(ext) for ext in extensiones_validas
         )
 
     # Genera un nombre único para el archivo utilizando UUID y conserva la extensión.

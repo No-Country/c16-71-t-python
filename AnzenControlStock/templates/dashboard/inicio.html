@@ -9,13 +9,34 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="imagenes/logo.jpeg" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/jquery.toast.css' %}">
     <title>ControlStock</title>
 </head>
 <body>
+    <!-- Toast -->
+    {% if messages %}
+    {% for message in messages %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/jquery.toast.js' %}"></script>
+    <script>
+        $.toast({
+            heading: 'Mensaje Importante',
+            text: '{{message}}',
+            showHideTransition: 'slide',
+            icon: '{{message.tags}}',
+            position: 'bottom-right',
+            hideAfter: '8000'
+        })
+    </script>
+    {% endfor %}
+    {% endif %}
+
     <!-- INICIO DEL CONTENEDOR -->
     <div class="contenedor">
         <div class="contenedor-izquierda">
             <form method="post">
+                {% csrf_token %}
                 <h1>Inicia Sesion</h1>
                 <div class="input-caja">
                     <label for="email">Correo electronico</label>

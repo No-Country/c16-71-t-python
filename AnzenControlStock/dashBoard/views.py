@@ -13,8 +13,9 @@ from django.contrib.auth import login, authenticate, get_user_model
 def main(request):
     if request.method == 'GET':
         if request.session.get('id_user'):
-            messages.error(request, "Hola")
             return render(request, 'dashboard/dashboard.html', {'seccion_actual':'inicio'})
+        else:
+            return redirect('dashboard-inicio')
 
 def staff(request):
     if request.method == 'GET':
@@ -30,9 +31,6 @@ def order(request):
     return render(request, 'dashboard/order.html')
 
 def inicio(request):
-    if request.method == 'GET':
-        if request.session.get('id_user'):
-            return render(request, 'dashboard/inicio.html')
     if request.method == 'POST':
         usuario = authenticate(
             request,
@@ -49,12 +47,12 @@ def inicio(request):
                 print ("Sesion iniciada "+ str(request.session.get("id_user")))
                 messages.success(request, "Sesión iniciada correctamente")
                 return redirect("dashboard-main")
-
-            return HttpResponse(
-                "Iniciando Sesion empresa"
-            )  # return render(request, 'index_empleado.html', {'objeto': empleado})
         else:
-            return HttpResponse("Error en usuario o contraseña")
+            messages.error(request, "Error, verifique sus datos")
+            return redirect("dashboard-main")
+    else:
+        if not request.session.get('id_user'):
+            return render(request, 'dashboard/inicio.html')
 
 
 def registro(request):
