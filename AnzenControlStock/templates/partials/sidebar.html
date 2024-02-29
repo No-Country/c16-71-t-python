@@ -12,14 +12,14 @@
                 </div>
             </div>
             <ul class="sidebar-nav">
-                <li class="sidebar-item{% if seccion_actual == 'inicio' %} selected{% endif %}">
-                    <a href="#" class="sidebar-link">
+                <li class="sidebar-item{% if seccion_actual == 'dashboard' %} selected{% endif %}">
+                    <a href="{% url 'dashboard'%}" class="sidebar-link">
                         <i class="lni lni-home"></i>
                         <span class = "sidebar__text">Inicio</span>
                     </a>
                 </li>
                 <li class="sidebar-item{% if seccion_actual == 'inventario' %} selected{% endif %}">
-                    <a href="#" class="sidebar-link">
+                    <a href="{% url 'inventario' %}" class="sidebar-link">
                         <i class="lni lni-agenda"></i>
                         <span class = "sidebar__text">Inventario</span>
                     </a>
@@ -51,7 +51,7 @@
                 </li>
             </ul>
             <div class="sidebar-footer">
-                <a href="{% url 'dashboard-cerrar_sesion'%}" class="sidebar-link">
+                <a href="{% url 'cerrar_sesion'%}" class="sidebar-link">
                     <i class="lni lni-exit"></i>
                     <span>Salir</span>
                 </a>
