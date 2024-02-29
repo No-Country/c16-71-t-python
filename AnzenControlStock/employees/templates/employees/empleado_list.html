@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Empleados</title>
+</head>
+<body>
+    <h1>Listar Empleados</h1>
+
+    <table>
+        <tr>
+            <th>Nombre Completo</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+
+            
+
+        {% for empleado in empleados %}
+        <tr> 
+            <td>{{ empleado.nombre_completo }}</td>
+            <td><a href="{% url 'empleado' empleado.id %}">ver detalle</a></td>
+            <td><a href="{% url 'modificar_empleado' empleado.id %}">modificar</a></td>
+            <td><a href="{% url 'borrar_empleado' empleado.id %}">borrar</a></td>
+            <td><a href="{% url 'crear_empleado'  %}">crear nuevo</a></td>
+          
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

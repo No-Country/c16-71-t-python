@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "dashBoard.apps.DashboardConfig",
-    "login.apps.LoginConfig"
+    "login.apps.LoginConfig",
+    "employees.apps.EmployeesConfig",
 ]
 
 MIDDLEWARE = [
