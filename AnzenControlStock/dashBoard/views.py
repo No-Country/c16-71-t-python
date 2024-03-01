@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
 
-from login.models import CustomUser
-from login.models import Empresa
+from login.models import CustomUser, Empresa
+from products.models import Producto
 
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, get_user_model
@@ -109,26 +109,50 @@ def main(request):
 
 
 def inventario(request):
-    if request.method == "GET":
-        if request.session.get("id_user"):
-            return render(
-                request, "inventario/inventario.html", {"seccion_actual": "inventario"}
-            )
-
-
-def inventario(request):
     if request.method == "POST":
         return HttpResponse("Hola")
     if request.method == "GET":
         id_user = request.session.get("id_user")
         if id_user:
+            productos = Producto.obtener_productos_por_empresa(id_user)
+            print("PRODUCTOS",productos)
+            data = {"seccion_actual": "inventario",
+                    "productos": productos
+            }
             return render(
-                request, "inventario/inventario.html", {"seccion_actual": "inventario", "id_user": id_user}
+                request, "inventario/inventario.html", data
             )
         else:
-            return redirect("dashboard-inicio")
+            return redirect("inicio")
 
 
 def crear_producto(request):
+    id_user = request.session.get("id_user")
+
     if request.method == "GET":
-        return render(request, "inventario/crear_producto.html")
+        if id_user:
+            return render(request, "inventario/agregarProducto.html")
+        else:
+            return redirect("inicio")
+
+    if request.method == "POST":
+        print("POST*********", request.POST)
+        new_producto = Producto.create_producto(
+            id_user,
+            request.POST["nombreProducto"],
+            request.POST["descripcion"],
+            request.POST["precioUnitario"],
+            request.POST["cantidad"],
+        )
+
+        return redirect("inventario")
+
+
+def editar_producto(request):
+    id_user = request.session.get("id_user")
+
+    if request.method == "GET":
+        if id_user:
+            return render(request, "inventario/editarProducto.html")
+        else:
+            return redirect("inicio")

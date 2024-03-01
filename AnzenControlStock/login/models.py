@@ -68,6 +68,14 @@ class CustomUser(AbstractUser):
             return True
         return False
 
+    @classmethod
+    def obtener_usuario_por_id(cls, id_usuario):
+        try:
+            usuario = cls.objects.get(id=id_usuario)
+            return usuario
+        except cls.DoesNotExist:
+            return None
+
 
 class Empresa(models.Model):
     user = models.OneToOneField(

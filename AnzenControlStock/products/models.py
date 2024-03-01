@@ -1,14 +1,21 @@
 from django.db import models
-
+from login.models import CustomUser
+from django.utils import timezone
 
 class Proveedor(models.Model):
+    user_empresa = (
+        models.ForeignKey(  # Usuaro de la empresa a la que pertenece el proveedor
+            CustomUser,
+            on_delete=models.CASCADE,
+        )
+    )
     nombre = models.CharField(max_length=32)
     telefono = models.IntegerField()
     correo = models.CharField(max_length=32)
 
     @classmethod
-    def crear_proveedor(cls, nombre, telefono, correo):
-        proveedor = cls(nombre=nombre, telefono=telefono, correo=correo)
+    def crear_proveedor(cls, user_empresa, nombre, telefono, correo):
+        proveedor = cls(user_empresa=user_empresa, nombre=nombre, telefono=telefono, correo=correo)
         proveedor.save()
         return proveedor
 
@@ -23,30 +30,34 @@ class Proveedor(models.Model):
 
 
 class Producto(models.Model):
+    user_empresa = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+    )
     nombre= models.CharField(max_length=32)
     descripcion= models.CharField(max_length=32)
     precio_unitario = models.IntegerField()
     stock= models.IntegerField()
-    fecha_ingreso= models.DateTimeField()
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    fecha_ingreso = models.DateTimeField(auto_now_add=True)
+    # proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
 
     @classmethod
     def create_producto(
-        cls, nombre, descripcion, precio_unitario, stock, fecha_ingreso, proveedor_id
+        cls, user_empresa_id, nombre, descripcion, precio_unitario, stock
     ):
         try:
-            proveedor = Proveedor.objects.get(id=proveedor_id)
+            user_empresa = CustomUser.objects.get(id=user_empresa_id)
             producto = cls.objects.create(
+                user_empresa=user_empresa,
                 nombre=nombre,
                 descripcion=descripcion,
                 precio_unitario=precio_unitario,
                 stock=stock,
-                fecha_ingreso=fecha_ingreso,
-                proveedor=proveedor,
             )
             return producto
-        except Proveedor.DoesNotExist:
-            raise Exception("El proveedor no existe.")
+        except Exception as e:
+            print("Exception -> " + str(e))
+            return -2
 
     @classmethod
     def actualizar_producto(
@@ -57,23 +68,16 @@ class Producto(models.Model):
         precio_unitario,
         stock,
         fecha_ingreso,
-        proveedor_id,
     ):
         try:
             producto = cls.objects.get(id=producto_id)
-            proveedor = Proveedor.objects.get(id=proveedor_id)
 
-            # Verificar si el proveedor existe
-            if proveedor is None:
-                raise Exception("El proveedor no existe.")
-
-            # Actualizar el producto con el nuevo proveedor
+            # Actualizar el producto
             producto.nombre = nombre
             producto.descripcion = descripcion
             producto.precio_unitario = precio_unitario
             producto.stock = stock
             producto.fecha_ingreso = fecha_ingreso
-            producto.proveedor = proveedor
             producto.save()
 
             return producto
@@ -84,10 +88,11 @@ class Producto(models.Model):
         self.delete()
 
     @classmethod
-    def filter_by_proveedor(cls, proveedor_id):
+    def obtener_productos_por_empresa(cls, user_empresa_id):
         try:
-            proveedor = Proveedor.objects.get(id=proveedor_id)
-            productos = cls.objects.filter(proveedor=proveedor)
+            user_empresa = CustomUser.objects.get(id=user_empresa_id)
+            productos = cls.objects.filter(user_empresa=user_empresa)
             return productos
-        except Proveedor.DoesNotExist:
-            raise Exception("El proveedor no existe.")
+        except Exception as e:
+            print("Exception -> " + str(e))
+            return None

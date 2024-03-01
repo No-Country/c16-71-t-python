@@ -60,6 +60,26 @@ Stock Anzen
                     </tr>
                 </thead>
                 <tbody>
+                    {% for producto in productos %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.descripcion }}</td>
+                        <td>{{ producto.stock }}</td>
+                        <td>${{ producto.precio_unitario }}</td>
+                        <td>
+                            <a class="btn btn-editar" href="#">
+                                <img src="{% static 'imagenes/lapiz.png' %}">
+                            </a>
+                            <a class="btn btn-eliminar" href="#">
+                                <img src="{% static 'imagenes/cesto.png' %}">
+                            </a>
+                            <a class="btn btn-agregar" href="#">
+                                <img src="{% static 'imagenes/carrito.png' %}">
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
                     <tr>
                         <th scope="row">1</th>
                         <td>Producto 1</td>
