@@ -53,6 +53,10 @@ Stock Anzen
                         <label for="descripcion">Descripcion</label>
                         <input class = "inputDescripcion" type="text" id="descripcion" name="descripcion" value="{{producto.descripcion}}">
                     </div>
+                    <div class="input-caja">
+                        <label for="cantidad">Cantidad en Stock</label>
+                        <input type="text" id="cantidad" name="cantidad" value="{{producto.stock}}">
+                    </div>
                     <button class = "btn-editar" type="submit">Editar</button>
                     <a class = "btn btn-cancelar" href="{% url 'inventario' %}">Cancelar</a>
                 </form>

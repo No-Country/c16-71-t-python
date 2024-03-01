@@ -153,4 +153,14 @@ def editar_producto(request, id):
             return redirect("inicio")
 
     if request.method == "POST":
+        actualizado = Producto.actualizar_producto(
+            id,
+            request.POST["nombreProducto"],
+            request.POST["descripcion"],
+            request.POST["precioUnitario"],
+            request.POST["cantidad"],
+            request.POST["fecha_ingreso"],
+        )
+        print("Producto editado: " + actualizado.nombre)
+        messages.success(request, "Producto editado correctamente")
         return redirect("inventario")
