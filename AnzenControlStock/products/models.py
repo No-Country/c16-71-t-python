@@ -96,3 +96,12 @@ class Producto(models.Model):
         except Exception as e:
             print("Exception -> " + str(e))
             return None
+
+    @classmethod
+    def obtener_producto_por_id_y_empresa(cls, id_producto, id_user_empresa):
+        try:
+            user_empresa = CustomUser.objects.get(id=id_user_empresa)
+            producto = cls.objects.get(id=id_producto, user_empresa=user_empresa)
+            return producto
+        except (CustomUser.DoesNotExist, cls.DoesNotExist):
+            return None

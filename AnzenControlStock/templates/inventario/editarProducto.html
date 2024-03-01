@@ -30,35 +30,31 @@ Stock Anzen
                 <form method="post">
                     {% csrf_token %}
                     <div class="input-caja">
-                        <label for="#">ID</label>
-                        <input type="text" id="#" name="#">
+                        <label for="nombreProducto">Nombre del producto</label>
+                        <input type="text" id="nombreProducto" name="nombreProducto" value="{{producto.nombre}}">
                     </div>
-                    <div class="input-caja">
-                        <label for="#">Nombre del producto</label>
-                        <input type="text" id="#" name="#">
-                    </div>
-                    <div class="input-caja">
-                        <label for="#">Categoria</label>
-                        <input type="text" id="#" name="#">
+                    <!--<div class="input-caja">
+                        <label for="categoria">Categoria</label>
+                        <input type="text" id="categoria" name="categoria" value="{{producto.categoria}}">
                     </div>
                     <div class="input-caja">
                         <label for="#">Proveedor</label>
                         <input type="text" id="#" name="#">
+                    </div>-->
+                    <div class="input-caja">
+                        <label for="precioUnitario">Precio Unitario</label>
+                        <input type="text" id="precioUnitario" name="precioUnitario" value="{{producto.precio_unitario}}">
                     </div>
                     <div class="input-caja">
-                        <label for="#">Precio Unitario</label>
-                        <input type="text" id="#" name="#">
+                        <label for="fecha_ingreso">Fecha de ingreso</label>
+                        <input type="date" id="fecha_ingreso" name="fecha_ingreso" value="{{producto.fecha_ingreso|date:'Y-m-d'}}">
                     </div>
                     <div class="input-caja">
-                        <label for="#">Fecha de ingreso</label>
-                        <input type="date" id="#" name="#">
-                    </div>
-                    <div class="input-caja">
-                        <label for="#">Descripcion</label>
-                        <input class = "inputDescripcion"type="text" id="#" name="#">
+                        <label for="descripcion">Descripcion</label>
+                        <input class = "inputDescripcion" type="text" id="descripcion" name="descripcion" value="{{producto.descripcion}}">
                     </div>
                     <button class = "btn-editar" type="submit">Editar</button>
-                    <button type="submit" class = "btn-cancelar">Cancelar</button>
+                    <a class = "btn btn-cancelar" href="{% url 'inventario' %}">Cancelar</a>
                 </form>
             </div>
 

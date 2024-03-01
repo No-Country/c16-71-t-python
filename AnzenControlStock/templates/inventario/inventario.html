@@ -68,7 +68,7 @@ Stock Anzen
                         <td>{{ producto.stock }}</td>
                         <td>${{ producto.precio_unitario }}</td>
                         <td>
-                            <a class="btn btn-editar" href="#">
+                            <a class="btn btn-editar" href="{% url 'editar_producto' id=producto.id %}">
                                 <img src="{% static 'imagenes/lapiz.png' %}">
                             </a>
                             <a class="btn btn-eliminar" href="#">

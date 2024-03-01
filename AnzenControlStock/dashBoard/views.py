@@ -146,7 +146,9 @@ def editar_producto(request, id):
 
     if request.method == "GET":
         if id_user:
-            return render(request, "inventario/editarProducto.html")
+            producto = Producto.obtener_producto_por_id_y_empresa(id, id_user)
+            data = {"producto" : producto}
+            return render(request, "inventario/editarProducto.html", data)
         else:
             return redirect("inicio")
 
