@@ -71,7 +71,7 @@ Stock Anzen
                             <a class="btn btn-editar" href="{% url 'editar_producto' id=producto.id %}">
                                 <img src="{% static 'imagenes/lapiz.png' %}">
                             </a>
-                            <a class="btn btn-eliminar" href="#">
+                            <a class="btn btn-eliminar" href="{% url 'eliminar_producto' id=producto.id%}">
                                 <img src="{% static 'imagenes/cesto.png' %}">
                             </a>
                             <a class="btn btn-agregar" href="#">

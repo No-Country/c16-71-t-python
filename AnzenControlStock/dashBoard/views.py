@@ -164,3 +164,11 @@ def editar_producto(request, id):
         print("Producto editado: " + actualizado.nombre)
         messages.success(request, "Producto editado correctamente")
         return redirect("inventario")
+
+
+def eliminar_producto(request, id):
+    producto = Producto.objects.get(id=id)
+    producto.eliminar_producto()
+    messages.success(request, "Producto eliminado correctamente")
+    return redirect("inventario")
+

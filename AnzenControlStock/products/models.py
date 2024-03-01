@@ -100,8 +100,7 @@ class Producto(models.Model):
     @classmethod
     def obtener_producto_por_id_y_empresa(cls, id_producto, id_user_empresa):
         try:
-            user_empresa = CustomUser.objects.get(id=id_user_empresa)
-            producto = cls.objects.get(id=id_producto, user_empresa=user_empresa)
+            producto = cls.objects.get(id=id_producto, user_empresa_id=id_user_empresa)
             return producto
-        except (CustomUser.DoesNotExist, cls.DoesNotExist):
+        except cls.DoesNotExist:
             return None
