@@ -104,3 +104,7 @@ class Producto(models.Model):
             return producto
         except cls.DoesNotExist:
             return None
+
+
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=32)
