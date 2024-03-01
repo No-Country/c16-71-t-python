@@ -63,22 +63,14 @@ def registro2(request,id_user):
         )
     if request.method == 'POST':
         print("POST*********",request.POST)
-        foto_de_perfil = request.FILES.get("foto_perfil")
-        if foto_de_perfil:
-            foto_de_perfil = Empresa.generate_unique_filename(foto_de_perfil)
 
         new_empresa = Empresa.register(
             request.POST['id_user'],
             request.POST['nombre_de_empresa'],
-            foto_de_perfil,
             request.POST['categoria_de_negocio'],
             request.POST['teléfono'],
             request.POST['correo_electrónico_de_la_empresa']
         )
-        if not isinstance(new_empresa, int):
-            if not new_empresa.es_extension_valida(foto_de_perfil):
-                print('Error: La extension de la foto de perfil no es valida, pruebe con una de las siguientes: ".jpg", ".jpeg", ".png", ".gif"')
-                new_empresa.foto_de_perfil = None
 
         if new_empresa == -2:
             print("Ocurrio un error")
@@ -144,11 +136,12 @@ def crear_producto(request):
             request.POST["precioUnitario"],
             request.POST["cantidad"],
         )
-
+        print("Product creado: "+new_producto.nombre)
+        messages.success(request, "Producto creado correctamente")
         return redirect("inventario")
 
 
-def editar_producto(request):
+def editar_producto(request, id):
     id_user = request.session.get("id_user")
 
     if request.method == "GET":
@@ -156,3 +149,6 @@ def editar_producto(request):
             return render(request, "inventario/editarProducto.html")
         else:
             return redirect("inicio")
+
+    if request.method == "POST":
+        return redirect("inventario")
