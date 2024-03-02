@@ -1,3 +1,4 @@
+
 .contenedor{
     display: flex;
     height: 100vh;
@@ -5,6 +6,7 @@
     background-color: #F8F9FA;
     width: 1116px;
     border-radius: 8px;
+    overflow-y: scroll;
 }
 
 .contenedor-form{

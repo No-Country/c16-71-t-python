@@ -25,7 +25,8 @@ h1 {
 body {
     font-family: 'Poppins', sans-serif;
     display: flex;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
 }
 
 .wrapper {
@@ -38,6 +39,7 @@ body {
     overflow: hidden;
     transition: all 0.35s ease-in-out;
     background-color: #F8F9FA;
+    overflow-y: scroll;
 }
 
 /* INICIO DE SIDEBAR */
@@ -235,6 +237,17 @@ a.sidebar-link:hover{
 .caja3{
     width: 262px;
     padding: 6px;
+}
+
+.select-input-caja{
+    display: block;
+    width: 1074px;
+    height: 56px;
+    border-radius: 8px;
+    background-color: #DBD7F4;
+    border: 1px solid #DBD7F4;
+    outline: none;
+    margin-bottom: 8px;
 }
 
 /* FIN DE MAIN */

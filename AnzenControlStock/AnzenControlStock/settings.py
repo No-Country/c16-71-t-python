@@ -14,6 +14,10 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
+
+WSGI_APPLICATION = "AnzenControlStock.wsgi.application"
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +29,7 @@ STATIC_DIR = os.path.join(BASE_DIR,"static")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-secret_key= os.getenv("SECRETKEY")
+secret_key = os.getenv("SECRETKEY")
 SECRET_KEY = secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -44,7 +48,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "dashBoard.apps.DashboardConfig",
-    "login.apps.LoginConfig"
+    "login.apps.LoginConfig",
+    "products.apps.ProductsConfig",
 ]
 
 MIDDLEWARE = [
@@ -74,9 +79,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = "AnzenControlStock.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -140,21 +142,18 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 STATIC_URL = '/static/'
-
-
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-STATIC_ROOT = (BASE_DIR/"asert/")
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 LOGIN_REDIRECT_URL = 'dashboard-inicio'
 
 LOGIN_URL = 'user-login'
 
-STATICFILES_DIRS = [STATIC_DIR,]
-
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
