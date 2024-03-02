@@ -13,6 +13,12 @@
     padding: 0;
 }
 
+td#row{
+    display: flex;
+    flex-direction: row;
+}
+
+
 .btn-editar,
 .btn-eliminar,
 .btn-agregar{
@@ -20,6 +26,11 @@
     height: 30px;
     border: none;
     border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    margin: 3px;
 }
 
 .btn-editar{

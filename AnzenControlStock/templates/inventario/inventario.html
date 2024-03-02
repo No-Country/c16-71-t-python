@@ -2,8 +2,8 @@
 
 {% load static %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/inventario.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/inventario.css' %}">
 {% endblock%}
 
 {% block title %}
@@ -66,13 +66,23 @@ Stock Anzen
                         <td>{{ producto.descripcion }}</td>
                         <td>{{ producto.stock }}</td>
                         <td>${{ producto.precio_unitario }}</td>
-                        <td>
+                        <td id="row">
                             <a class="btn btn-editar" href="{% url 'editar_producto' id=producto.id %}">
                                 <img src="{% static 'imagenes/lapiz.png' %}">
                             </a>
-                            <a class="btn btn-eliminar" href="{% url 'eliminar_producto' id=producto.id%}">
+                            <a class="btn btn-eliminar" id="open">
                                 <img src="{% static 'imagenes/cesto.png' %}">
                             </a>
+                            <div class="mensaje">
+                                <span>Si elimina el producto no podrá recuperarlo.</span>
+                                <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                                <div class="mensaje-botones">
+                                    <a class = "btn btn-mensajeEliminar" href="{% url 'eliminar_producto' id=producto.id%}">
+                                        SI, quiero eliminar este producto
+                                    </a>
+                                    <button class = "btn-mensajeCancelar">Cancelar</button>
+                                </div>
+                            </div>
                             <a class="btn btn-agregar" href="#">
                                 <img src="{% static 'imagenes/carrito.png' %}">
                             </a>

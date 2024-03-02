@@ -1,7 +1,11 @@
 {% extends "partials/base.html" %}
 
 {% load static %}
-{% block extra_css %}<link rel="stylesheet" href="{% static 'css/editarProductos.css' %}">{% endblock%}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/editarProductos.css' %}">
+{% endblock%}
 
 {% block title %}
 Stock Anzen
@@ -35,7 +39,7 @@ Stock Anzen
                     </div>
                     <div class="input-caja">
                         <label for="categoria">Categoria</label>
-                        <select class="form-select me-2" name="categoria" id="categoria">
+                        <select class="form-select me-2 select-input-caja" name="categoria" id="categoria">
                             <option selected>Categoría</option>
                             {% for categoria in categorias %}
                             <option value="{{categoria.id}}" {% if categoria.id == producto.categoria.id %}selected{% endif %}>
@@ -70,6 +74,7 @@ Stock Anzen
             </div>
 
         </div>
+    </div>
 
 {% endblock %}
 
