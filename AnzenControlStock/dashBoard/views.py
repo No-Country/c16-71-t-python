@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 
 from login.models import CustomUser, Empresa
-from products.models import Producto
+from products.models import Producto, Categoria
 
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, get_user_model
@@ -106,10 +106,13 @@ def inventario(request):
     if request.method == "GET":
         id_user = request.session.get("id_user")
         if id_user:
+            categorias =  Categoria.objects.all()
+            print("Categorias", categorias)
             productos = Producto.obtener_productos_por_empresa(id_user)
             print("PRODUCTOS",productos)
             data = {"seccion_actual": "inventario",
-                    "productos": productos
+                    "productos": productos,
+                    "categorias": categorias,
             }
             return render(
                 request, "inventario/inventario.html", data
