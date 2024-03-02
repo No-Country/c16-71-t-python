@@ -29,6 +29,10 @@ class Proveedor(models.Model):
         self.delete()
 
 
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=32)
+
+
 class Producto(models.Model):
     user_empresa = models.ForeignKey(
         CustomUser,
@@ -39,6 +43,7 @@ class Producto(models.Model):
     precio_unitario = models.IntegerField()
     stock= models.IntegerField()
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     # proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
 
     @classmethod
@@ -104,7 +109,3 @@ class Producto(models.Model):
             return producto
         except cls.DoesNotExist:
             return None
-
-
-class Categoria(models.Model):
-    nombre = models.CharField(max_length=32)

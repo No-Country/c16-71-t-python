@@ -49,10 +49,9 @@ Stock Anzen
                         <label for="categoria">Categoria</label>
                         <select class="form-select me-2" name="categoria" id="categoria">
                             <option selected>Categoría</option>
-                            <option value="1">Electrónica</option>
-                            <option value="2">Ropa</option>
-                            <option value="3">Hogar</option>
-                            <option value="4">Deportes</option>
+                            {% for categoria in categorias %}
+                            <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+                            {% endfor %}
                         </select>
                     </div>
 
