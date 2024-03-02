@@ -14,11 +14,9 @@ Empleado = get_user_model()
 CustomUser= get_user_model()
 # Create your views here.
 
-
-
 @method_decorator(csrf_exempt, name='dispatch')
 class LoginView(View):
-    {% csrf_token %}
+
     def post(self, request):
         usuario = authenticate(
             request,
@@ -26,22 +24,22 @@ class LoginView(View):
             password = request.POST['password'] #
             )
 
-            if usuario is not None:
-                login(request, usuario)
+        if usuario is not None:
+            login(request, usuario)
 
             empresa = Empresa.objects.get(user_id = usuario.id)
             if empresa is not None:
                 return HttpResponse("Iniciando Sesion empresa") #return render(request, 'index.html', {'objeto': empresa})
             empleado = Empleado.objects.get(user_id = usuario.id)
 
-                return HttpResponse("Iniciando Sesion empresa") #return render(request, 'index_empleado.html', {'objeto': empleado})
-            else:
-                return HttpResponse("Error en usuario o contraseña")
+            return HttpResponse("Iniciando Sesion empresa") #return render(request, 'index_empleado.html', {'objeto': empleado})
+        else:
+            return HttpResponse("Error en usuario o contraseña")
 
 @method_decorator(csrf_exempt, name='dispatch')
 class RegisterUsuarioView(View):
     def post(self, request):
-        {% csrf_token %}
+
         if request.POST['password1'] == request.POST['password2']:
             try:
                 username_aleatorio=''.join(random.choice(string.     ascii_letters) for _ in range(30))
@@ -63,7 +61,7 @@ class RegisterUsuarioView(View):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class RegisterEmpresaView(View):
-    {% csrf_token %}
+
     def post(self, request):
         try:
             empresa = Empresa.objects.create(
@@ -80,3 +78,23 @@ class RegisterEmpresaView(View):
             return HttpResponse(f"Error de integridad al guardar el objeto: {e}")
         except Exception as e:
             return HttpResponse(str(e))
+        
+@method_decorator(csrf_exempt, name='dispatch')
+class RegisterEmpleado(View):
+    def post(self, request):
+        
+            try:
+            
+                empleado = CustomUser.objects.create_empleado(
+                username= request.POST['user_id'],
+                nombre= request.POST['nombre'],
+                email = request.POST['email'],
+                password = request.POST['password'],
+                cargo = request.POST['cargo'],
+                )
+                empleado.save()
+                return HttpResponse("Empleado creado con exito!")  #return render(request, 'plantilla_registro_siguiente.html', {'objeto': usuario})
+            except IntegrityError as e:
+                return HttpResponse("El Email ya esta en uso.")
+            except Exception as e:
+                return HttpResponse(str(e))
