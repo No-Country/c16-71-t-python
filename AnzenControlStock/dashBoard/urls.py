@@ -7,4 +7,5 @@ urlpatterns = [
     path("registro/", views.registro, name="dashboard-registro"),
     path("registro2/<int:id_user>/", views.registro2, name="dashboard-registro2"),
     path("registro_empleado/", views.registro, name="dashboard-registro_empleado"),
+    path("rvista_empleados/", views.registro, name="dashboard-vista_empleados"),
 ]
