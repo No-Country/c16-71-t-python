@@ -109,6 +109,45 @@ def registro2(request,id_user):
             print ("Sesion iniciada "+ str(request.session.get("id_user")))
             messages.success(request, "Sesión iniciada correctamente")
             return redirect("dashboard-main")
+    
+        
+    def registro_empleado(request,id_user):
+        if request.method == 'GET':
+            return render(
+                request,
+                "dashboard/registro_empleado.html",
+                {"id_user": id_user},
+            )
+        if request.method == 'POST':
+            print("POST*********",request.POST)
+
+            new_empleado = Empleado.register(
+                request.POST['fullName'],
+                nombre= request.POST['nombre'],
+                email = request.POST['email'],
+                password = request.POST['password'],
+                role = request.POST['cargo'],
+                permissions = request.POST['permissions']
+            )
+            if not isinstance(new_empleado, int):
+                if not new_empresa.es_extension_valida(foto_de_perfil):
+                    print('Error: La extension de la foto de perfil no es valida, pruebe con una de las siguientes: ".jpg", ".jpeg", ".png", ".gif"')
+                    new_empresa.foto_de_perfil = None
+
+            if new_empleado == -2:
+                print("Ocurrio un error")
+                return redirect("dashboard-registro_empleado", id_user=id_user)
+            else:
+                print("Se creo el empleado", new_empleado.nombre_de_empleado)
+                # Iniciar sesion automaticamente
+                request.session["id_user"] = id_user
+                print ("Sesion iniciada "+ str(request.session.get("id_user")))
+                messages.success(request, "Sesión iniciada correctamente")
+                return redirect("dashboard-main")
+            
+    def registro_empleados(request):
+    empleados = Empleado.objects.all()
+    return render(request, 'registro_empleados.html', {'empleados': empleados})
 
 
 def cerrar_sesion(request):
