@@ -126,7 +126,9 @@ def crear_producto(request):
 
     if request.method == "GET":
         if id_user:
-            return render(request, "inventario/agregarProducto.html")
+            categorias = Categoria.objects.all()
+            data = {"categorias": categorias}
+            return render(request, "inventario/agregarProducto.html", data)
         else:
             return redirect("inicio")
 
@@ -138,6 +140,7 @@ def crear_producto(request):
             request.POST["descripcion"],
             request.POST["precioUnitario"],
             request.POST["cantidad"],
+            request.POST["categoria"],
         )
         print("Product creado: "+new_producto.nombre)
         messages.success(request, "Producto creado correctamente")
@@ -150,7 +153,8 @@ def editar_producto(request, id):
     if request.method == "GET":
         if id_user:
             producto = Producto.obtener_producto_por_id_y_empresa(id, id_user)
-            data = {"producto" : producto}
+            categorias = Categoria.objects.all()
+            data = {"producto": producto, "categorias": categorias}
             return render(request, "inventario/editarProducto.html", data)
         else:
             return redirect("inicio")
@@ -163,6 +167,7 @@ def editar_producto(request, id):
             request.POST["precioUnitario"],
             request.POST["cantidad"],
             request.POST["fecha_ingreso"],
+            request.POST["categoria"],
         )
         print("Producto editado: " + actualizado.nombre)
         messages.success(request, "Producto editado correctamente")
@@ -174,4 +179,3 @@ def eliminar_producto(request, id):
     producto.eliminar_producto()
     messages.success(request, "Producto eliminado correctamente")
     return redirect("inventario")
-

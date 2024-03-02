@@ -38,7 +38,9 @@ Stock Anzen
                         <select class="form-select me-2" name="categoria" id="categoria">
                             <option selected>Categoría</option>
                             {% for categoria in categorias %}
-                            <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+                            <option value="{{categoria.id}}" {% if categoria.id == producto.categoria.id %}selected{% endif %}>
+                                {{categoria.nombre}}
+                            </option>
                             {% endfor %}
                         </select>
                     </div>
