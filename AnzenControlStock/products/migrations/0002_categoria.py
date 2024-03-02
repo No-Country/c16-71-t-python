@@ -3,6 +3,32 @@
 from django.db import migrations, models
 
 
+def create_categorias(apps, schema_editor):
+    Categoria = apps.get_model("products", "Categoria")
+    nombres = [
+        "Electrónica",
+        "Ropa",
+        "Hogar y Jardín",
+        "Alimentos y Bebidas",
+        "Salud y Belleza",
+        "Juguetes y Juegos",
+        "Automotriz",
+        "Libros y Audiolibros",
+        "Electrodomésticos",
+        "Muebles",
+        "Instrumentos Musicales",
+        "Arte y Manualidades",
+        "Cine y Música",
+        "Computadoras y Accesorios",
+        "Calzado",
+        "Bolsos y Accesorios",
+        "Bebés y Niños",
+        "Joyas y Relojes",
+    ]
+    categorias = [Categoria(nombre=nombre) for nombre in nombres]
+    Categoria.objects.bulk_create(categorias)
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -11,10 +37,19 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Categoria',
+            name="Categoria",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=32)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=32)),
             ],
         ),
+        migrations.RunPython(create_categorias),
     ]

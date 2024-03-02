@@ -37,14 +37,10 @@ Stock Anzen
                         <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
                         <select class="form-select me-2">
                             <option selected>Categoría</option>
-                            <option value="1">Electrónica</option>
-                            <option value="2">Ropa</option>
-                            <option value="3">Hogar</option>
-                            <option value="4">Deportes</option>
+                            {% for categoria in categorias %}
+                            <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+                            {% endfor %}
                         </select>
-                        <button type="submit" class = "btn btn-outline-success btn-buscar">
-                            <img src="{% static '/imagenes/lupa.png' %}" alt="">
-                        </button>
                     </form>
                 </div>
             </nav>

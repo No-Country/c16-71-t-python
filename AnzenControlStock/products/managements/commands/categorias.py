@@ -29,4 +29,4 @@ class Command(BaseCommand):
 
         for categoria_name in categorias:
             Categoria.objects.get_or_create(name=categoria_name)
-            self.stdout.write(self.style.SUCCESS(f"Se creó la área: {categoria_name}"))
+            self.stdout.write(self.style.SUCCESS(f"Se creó la categoria: {categoria_name}"))
