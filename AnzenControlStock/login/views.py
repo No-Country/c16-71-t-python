@@ -86,11 +86,12 @@ class RegisterEmpleado(View):
             try:
             
                 empleado = CustomUser.objects.create_empleado(
-                username= request.POST['user_id'],
+                username= request.POST['fullName'],
                 nombre= request.POST['nombre'],
                 email = request.POST['email'],
                 password = request.POST['password'],
-                cargo = request.POST['cargo'],
+                role = request.POST['cargo'],
+                permissions = request.POST['permissions'],
                 )
                 empleado.save()
                 return HttpResponse("Empleado creado con exito!")  #return render(request, 'plantilla_registro_siguiente.html', {'objeto': usuario})
@@ -98,3 +99,5 @@ class RegisterEmpleado(View):
                 return HttpResponse("El Email ya esta en uso.")
             except Exception as e:
                 return HttpResponse(str(e))
+        else:
+            return HttpResponse("Las contreaseñas no coinciden")
