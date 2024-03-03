@@ -10,4 +10,3 @@ tzdata==2024.1
 uvicorn==0.27.1
 virtualenv==20.25.0
 whitenoise==6.6.0
-mysqlclient==2.2.4
