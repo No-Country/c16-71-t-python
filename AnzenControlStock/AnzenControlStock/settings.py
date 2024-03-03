@@ -30,7 +30,7 @@ STATIC_DIR = os.path.join(BASE_DIR,"static")
 # SECURITY WARNING: keep the secret key used in production secret!
 
 secret_key = os.getenv("SECRETKEY")
-SECRET_KEY = secret_key
+SECRET_KEY = "secret_key"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
