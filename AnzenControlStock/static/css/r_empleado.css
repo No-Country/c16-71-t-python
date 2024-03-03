@@ -47,14 +47,14 @@ body {
     }
 
     @media only screen and (min-width: 768px){
-        .acercadeBS{
+        .container{
             display: flex;
         }
-        .imgAcercadeBS{
+        .employeeForm{
             width: 50%;
             height: 100%;
         }
-        .descripcion{
+        .form-group{
             width: 50%;
             height: 100%;
         }
