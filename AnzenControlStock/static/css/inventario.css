@@ -82,7 +82,7 @@ td#row{
 
 .btn-buscar{
     width: 60px;
-    height: 43px;
+    height: 40px;
     background-color: #F87906;
     border: none;
 }
@@ -94,10 +94,23 @@ td#row{
 .btn-agregarProducto{
     width: 186px;
     height: 40px;
-    margin-left: 700px;
+    margin-left: 10px;
     text-align: center;
     background-color: #F87906;
     color: #ffffff;
     border: none;
     border-radius: 8px;
+}
+
+.inventario-inputs{
+    margin-left: 90px;
+}
+
+.input9{
+    height: 40px;
+    width: 355px;
+}
+
+.selects{
+    width: 132px;
 }

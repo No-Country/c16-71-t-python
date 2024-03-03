@@ -28,23 +28,32 @@ Stock Anzen
                 </a>
             </div>
         </div>
-        <a class = "btn btn-agregarProducto" href="{% url 'nuevo_producto' %}">Agregar Producto</a>
+        <div class="container-fluid d-flex  justify-content-start inventario-inputs">
+            <form class="d-flex">
+                <input class="form-control me-2 input9" type="search" placeholder="Buscar" aria-label="Buscar">
+                <select class="form-select me-2 selects" name="cantidad">
+                    <option selected>Cantidad</option>
+                    {% for categoria in categorias %}
+                    <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+                    {% endfor %}
+                </select>
+                <select class="form-select me-2 selects" name="categoria">
+                    <option selected>Categoría</option>
+                    {% for categoria in categorias %}
+                    <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-outline-success btn-buscar">
+                    <img src="{% static '/imagenes/lupa.png' %}" alt="">
+                </button>
+                <a class="btn btn-agregarProducto" href="{% url 'nuevo_producto' %}">Agregar Producto</a> 
+            </form>
+        </div>         
+        
         <div class="inventario">
             <nav class="navbar navbar-expand-lg bg-body-tertiary bg-white">
                 <div class="container-fluid bg-white">
                     <span class="navbar-brand">Productos en stock</span>
-                    <form class="d-flex ms-auto">
-                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                        <select class="form-select me-2" name="categoria">
-                            <option selected>Categoría</option>
-                            {% for categoria in categorias %}
-                            <option value="{{categoria.id}}">{{categoria.nombre}}</option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit" class = "btn btn-outline-success btn-buscar">
-                            <img src="{% static '/imagenes/lupa.png' %}" alt="">
-                        </button>
-                    </form>
                 </div>
             </nav>
             <table class="table">
