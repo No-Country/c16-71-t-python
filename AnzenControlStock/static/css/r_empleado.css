@@ -45,3 +45,28 @@ body {
     button:hover {
         background-color: #f87906;
     }
+
+    @media only screen and (min-width: 768px){
+        .acercadeBS{
+            display: flex;
+        }
+        .imgAcercadeBS{
+            width: 50%;
+            height: 100%;
+        }
+        .descripcion{
+            width: 50%;
+            height: 100%;
+        }
+        .feature{
+            width: calc(100%/3);
+        }
+        .ft{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            align-content: space-around;
+            gap: 10spx;
+        }
+    }

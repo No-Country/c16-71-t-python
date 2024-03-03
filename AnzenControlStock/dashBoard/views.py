@@ -146,8 +146,8 @@ def registro2(request,id_user):
                 return redirect("dashboard-main")
             
     def registro_empleados(request):
-    empleados = Empleado.objects.all()
-    return render(request, 'registro_empleados.html', {'empleados': empleados})
+        empleados = Empleado.objects.all()
+        return render(request, 'registro_empleados.html', {'empleados': empleados})
 
 
 def cerrar_sesion(request):
