@@ -1,0 +1,54 @@
+.contenedorPerfil{
+    width: 1116px;
+    height: 1043px;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+input{
+    width: 1074px;
+    height: 56px;
+    border-radius: 8px;
+    border: 1px solid #DBD7F4;
+    padding: 18px 24px 19px 24px;
+    gap: 10px;
+    background-color: #DBD7F4;
+    color: #000000;
+}
+
+.spanUno{
+    font-size: 16px;
+    margin-bottom: 14px;
+}
+
+.botones{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 22px;
+}
+
+.btn-editar{
+    width: 137px;
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    padding: 14px 25px 14px 24px;
+    gap: 10px;
+    background-color: #F86A04;
+    color: #FFFFFf;
+}
+
+.btn-eliminarCuenta{
+    width: 195px;
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    color: #FFFFFF;
+    background-color: #FF0000;
+    padding: 14px 24px 14px 24px;
+    margin-right: 14px;
+}
