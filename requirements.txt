@@ -1,0 +1,13 @@
+asgiref==3.7.2
+Brotli==1.1.0
+click==8.1.7
+Django==4.2.10
+gunicorn==21.2.0
+mysql-connector-python==8.3.0
+python-dotenv==1.0.1
+sqlparse==0.4.4
+tzdata==2024.1
+uvicorn==0.27.1
+virtualenv==20.25.0
+whitenoise==6.6.0
+mysqlclient==2.2.4

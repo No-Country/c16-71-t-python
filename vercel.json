@@ -1,0 +1,16 @@
+{
+    "builds":[{
+        "src": "AnzenControlStock/AnzenControlStock/wsgi.py",
+        "use":"@vercel/python",
+        "config":{ "maxLambaSize": "15mb", "runtime": "python3.11"}
+    }],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "AnzenControlStock/AnzenControlStock/wsgi.py"
+        }
+    ],
+    "env": {
+        "PYTHONPATH": "dashBoard/"
+    }
+}
