@@ -148,6 +148,41 @@ def registro2(request,id_user):
     def registro_empleados(request):
         empleados = Empleado.objects.all()
         return render(request, 'registro_empleados.html', {'empleados': empleados})
+    
+    def editar_empleado(request, empleado_id):
+    empleado = Empleado.objects.get(id=empleado_id)
+    if request.method == 'POST':
+        # Aquí puedes manejar la lógica de actualización del empleado
+        # por ejemplo, obtener los datos enviados del formulario
+        nombre= request.POST['nombre'],
+        email = request.POST['email'],
+        password = request.POST['password'],
+        role = request.POST['cargo'],
+        permissions = request.POST['permissions']
+
+        # Actualizar los campos del objeto empleado
+        empleado.nombre = nombre
+        empleado.apellido = apellido
+        empleado.role = cargo
+        empleado.permissions = permissions
+        empleado.save()
+
+        # Redirigir a la página de listado de empleados
+        return redirect('vista_empleado')
+
+    return render(request, 'editar_empleado.html', {'empleado': empleado})
+
+
+def eliminar_empleado(request, empleado_id):
+    empleado = Empleado.objects.get(id=empleado_id)
+    if request.method == 'POST':
+        # Aquí puedes manejar la lógica de eliminación del empleado
+        empleado.delete()
+
+        # Redirigir a la página de listado de empleados
+        return redirect('vista_empleado')
+
+    return render(request, 'eliminar_empleado.html', {'empleado': empleado})
 
 
 def cerrar_sesion(request):

@@ -53,6 +53,8 @@ Empleados
                                     <th>Rol</th>
                                     <td>{{ empleado.role}}</td>
                                 </tr>
+                                <a href="{% url 'editar_empleado' empleado.id %}">Editar</a> |
+                                <a href="{% url 'eliminar_empleado' empleado.id %}">Eliminar</a>
                             </tbody>
                         </table>
                     </div>
