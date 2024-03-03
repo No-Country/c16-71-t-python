@@ -99,9 +99,9 @@ DATABASES = {
         'ENGINE': 'mysql.connector.django',
         'NAME': "railway",
         'USER': "root",
-        'PASSWORD': '6g2F-2CC-1D3c-ehDDb-hfh-A5dDhc44',
-        'HOST': "viaduct.proxy.rlwy.net",
-        'PORT': "59898",
+        'PASSWORD': 'beHBHH2dg2aBh-12C5F62FBCh-5bcg2g',
+        'HOST': "roundhouse.proxy.rlwy.net",
+        'PORT': "54233",
     }
 }
 

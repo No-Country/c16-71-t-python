@@ -142,7 +142,7 @@ def crear_producto(request):
             request.POST["cantidad"],
             request.POST["categoria"],
         )
-        print("Product creado: "+new_producto.nombre)
+        #print("Product creado: ",new_producto.nombre)
         messages.success(request, "Producto creado correctamente")
         return redirect("inventario")
 
