@@ -1,6 +1,6 @@
 from django.db import models
 from login.models import CustomUser
-from django.utils import timezone
+from django.db.models import Q
 
 class Proveedor(models.Model):
     user_empresa = (
@@ -114,3 +114,35 @@ class Producto(models.Model):
             return producto
         except cls.DoesNotExist:
             return None
+
+    @classmethod
+    def filtrar_por_categoria(cls, productos, categoria_id):
+        return productos.filter(categoria_id=categoria_id)
+
+    @classmethod
+    def filtrar_por_cantidad(cls, productos, cantidad_maxima):
+        return productos.filter(stock__lte=cantidad_maxima)
+
+    @classmethod
+    def filtrar_por_texto(cls, productos, texto):
+        return productos.filter(
+            Q(nombre__icontains=texto) | Q(descripcion__icontains=texto)
+        )
+
+    @classmethod
+    def filtrar(cls, productos, texto=None, por_cantidad=False, id_categoria=None):
+        # Aplicar filtrado por texto
+        if texto:
+            productos = cls.filtrar_por_texto(productos, texto)
+
+        # Aplicar filtrado por cantidad
+        if por_cantidad:
+            productos = cls.filtrar_por_cantidad(
+                productos, 20
+            )
+
+        # Aplicar filtrado por categoría
+        if id_categoria is not None:
+            productos = cls.filtrar_por_categoria(productos, id_categoria)
+
+        return productos
