@@ -93,6 +93,9 @@ class CustomUser(AbstractUser):
             raise Exception("El usuario no existe.")
         except Exception as e :
             return -2
+        
+    def eliminar_usuario(self):
+        self.delete()
 
 
 
@@ -166,6 +169,9 @@ class Empresa(models.Model):
             raise Exception("El usuario no existe.")
         except Exception as e :
             return -2
+        
+    def eliminar_empresa(self):
+        self.delete()
 
 
 
