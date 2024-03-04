@@ -3,7 +3,7 @@
         <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
-                    <img src="{% static 'imagenes/Nuevo logo.png' %}" lt="logo" width="30px">
+                    <img src="{% static 'imagenes/Nuevo_logo.png' %}" lt="logo" width="30px">
                 </button>
                 <div class="sidebar-logo">
                     <a href="#">
@@ -37,8 +37,8 @@
                     </a>
                 </li>
                 <hr class = "separador">
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                <li class="sidebar-item{% if seccion_actual == 'perfil' %} selected{% endif %}">
+                    <a href="{% url 'editar_perfil' %}" class="sidebar-link">
                         <i class="lni lni-user"></i>
                         <span class = "sidebar__text">Perfil</span>
                     </a>

@@ -85,6 +85,11 @@ def registro2(request,id_user):
             return redirect("dashboard")
 
 
+def editar_perfil(request):
+    if request.method == "GET":
+        data = {"seccion_actual": "perfil"}
+        return render(request, "login/perfil.html", data)
+
 def cerrar_sesion(request):
     request.session["id_user"] = None
     return redirect("inicio")
@@ -101,15 +106,37 @@ def main(request):
 
 
 def inventario(request):
+    id_user = request.session.get("id_user")
+    productos = Producto.obtener_productos_por_empresa(id_user)
+    print("PRODUCTOS",productos)
+    categorias =  Categoria.objects.all()
+    #print("Categorias", categorias)
+
     if request.method == "POST":
-        return HttpResponse("Hola")
+        # Obtener los datos del formulario
+        buscar_texto = request.POST.get("texto", "")
+        cantidad = request.POST.get("cantidad", None)
+        cantidad = int(cantidad)
+        id_categoria = request.POST.get("categoria", None)
+        id_categoria = None if id_categoria == "-1" else id_categoria
+
+        print("Se busca ->", buscar_texto, cantidad, id_categoria)
+
+        # Filtrar productos
+        productos_filtrados = Producto.filtrar(
+            productos, buscar_texto, cantidad, id_categoria
+        )
+        print("FILTRADOS ->", productos_filtrados)
+
+        data = {"seccion_actual": "inventario",
+                "productos": productos_filtrados,
+                "categorias": categorias,
+        }
+        return render(
+            request, "inventario/inventario.html", data
+        )
     if request.method == "GET":
-        id_user = request.session.get("id_user")
         if id_user:
-            categorias =  Categoria.objects.all()
-            print("Categorias", categorias)
-            productos = Producto.obtener_productos_por_empresa(id_user)
-            print("PRODUCTOS",productos)
             data = {"seccion_actual": "inventario",
                     "productos": productos,
                     "categorias": categorias,
