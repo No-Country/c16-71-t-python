@@ -1,5 +1,10 @@
 {% extends "partials/base.html" %}
-{% block extra_css %}<link rel="stylesheet" href="{% static 'css/inventario.css' %}">
+
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/inventario.css' %}">
+{% endblock%}
 
 {% block title %}
 Stock Anzen
@@ -8,8 +13,7 @@ Stock Anzen
 {% block content %}
 {% load static %}
 
-{% include 'dashboard/sidebar.html' %}
-{% include 'dashboard/navbar.html' %}
+{% include 'partials/sidebar.html' %}
 
     <div class="main">
         <div class="main-header">
@@ -24,24 +28,32 @@ Stock Anzen
                 </a>
             </div>
         </div>
-        <button class = "btn-agregarProducto">Agregar Producto</button>
+        <div class="container-fluid d-flex  justify-content-start inventario-inputs">
+            <form class="d-flex">
+                <input class="form-control me-2 input9" type="search" placeholder="Buscar" aria-label="Buscar">
+                <select class="form-select me-2 selects" name="cantidad">
+                    <option selected>Cantidad</option>
+                    {% for categoria in categorias %}
+                    <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+                    {% endfor %}
+                </select>
+                <select class="form-select me-2 selects" name="categoria">
+                    <option selected>Categoría</option>
+                    {% for categoria in categorias %}
+                    <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-outline-success btn-buscar">
+                    <img src="{% static '/imagenes/lupa.png' %}" alt="">
+                </button>
+                <a class="btn btn-agregarProducto" href="{% url 'nuevo_producto' %}">Agregar Producto</a>
+            </form>
+        </div>
+
         <div class="inventario">
             <nav class="navbar navbar-expand-lg bg-body-tertiary bg-white">
                 <div class="container-fluid bg-white">
                     <span class="navbar-brand">Productos en stock</span>
-                    <form class="d-flex ms-auto">
-                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                        <select class="form-select me-2">
-                            <option selected>Categoría</option>
-                            <option value="1">Electrónica</option>
-                            <option value="2">Ropa</option>
-                            <option value="3">Hogar</option>
-                            <option value="4">Deportes</option>
-                        </select>
-                        <button type="submit" class = "btn btn-outline-success btn-buscar">
-                            <img src="{% static '/imagenes/lupa.png' %}" alt="">
-                        </button>
-                    </form>
                 </div>
             </nav>
             <table class="table">
@@ -56,67 +68,36 @@ Stock Anzen
                     </tr>
                 </thead>
                 <tbody>
+                    {% for producto in productos %}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Producto 1</td>
-                        <td>Descripción del producto 1</td>
-                        <td>10</td>
-                        <td>$10.00</td>
-                        <td >
-                            <button class="btn-editar">
-                                <img src="{% static '/imagenes/lapiz.png' %}">
-                            </button>
-                            <button class="btn-eliminar" id="open">
-                                <img src="{% static '/imagenes/cesto.png' %}">
-                            </button>
-                             <div class="mensaje">
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.descripcion }}</td>
+                        <td>{{ producto.stock }}</td>
+                        <td>${{ producto.precio_unitario }}</td>
+                        <td id="row">
+                            <a class="btn btn-editar" href="{% url 'editar_producto' id=producto.id %}">
+                                <img src="{% static 'imagenes/lapiz.png' %}">
+                            </a>
+                            <a class="btn btn-eliminar" id="open">
+                                <img src="{% static 'imagenes/cesto.png' %}">
+                            </a>
+                            <div class="mensaje">
                                 <span>Si elimina el producto no podrá recuperarlo.</span>
                                 <p>¿Estás seguro de que deseas eliminar este producto?</p>
-                               <div class="mensaje-botones">
-                                    <button class = "btn-mensajeEliminar">SI, quiero eliminar este producto</button>
+                                <div class="mensaje-botones">
+                                    <a class = "btn btn-mensajeEliminar" href="{% url 'eliminar_producto' id=producto.id%}">
+                                        SI, quiero eliminar este producto
+                                    </a>
                                     <button class = "btn-mensajeCancelar">Cancelar</button>
-                               </div>
-                            <button class="btn-agregar">
-                                <img src="{% static '/imagenes/carrito.png' %}">
-                            </button>
+                                </div>
+                            </div>
+                            <a class="btn btn-agregar" href="#">
+                                <img src="{% static 'imagenes/carrito.png' %}">
+                            </a>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Producto 2</td>
-                        <td>Descripción</td>
-                        <td>20</td>
-                        <td>$20.00</td>
-                        <td >
-                            <button class="btn-editar">
-                                <img src="{% static '/imagenes/lapiz.png' %}">
-                            </button>
-                            <button class="btn-eliminar">
-                                <img src="{% static '/imagenes/cesto.png' %}">
-                            </button>
-                            <button class="btn-agregar">
-                                <img src="{% static '/imagenes/carrito.png' %}">
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Producto 3</td>
-                        <td>Descripción del producto 3</td>
-                        <td>30</td>
-                        <td>$30.00</td>
-                        <td >
-                            <button class="btn-editar">
-                                <img src="{% static '/imagenes/lapiz.png' %}">
-                            </button>
-                            <button class="btn-eliminar">
-                                <img src="{% static '/imagenes/cesto.png' %}">
-                            </button>
-                            <button class="btn-agregar">
-                                <img src="{% static '/imagenes/carrito.png' %}">
-                            </button>
-                        </td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -129,5 +110,4 @@ Stock Anzen
         crossorigin="anonymous"></script>
     <script src="{% static 'javascript/main.js' %}"></script>
 {% endblock %}
-
 

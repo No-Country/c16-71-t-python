@@ -1,6 +1,6 @@
 from django.db import models
 from login.models import CustomUser
-from django.utils import timezone
+from django.db.models import Q
 
 class Proveedor(models.Model):
     user_empresa = (
@@ -45,6 +45,9 @@ class Producto(models.Model):
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     # proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre
 
     @classmethod
     def create_producto(
@@ -114,3 +117,44 @@ class Producto(models.Model):
             return producto
         except cls.DoesNotExist:
             return None
+
+    @classmethod
+    def filtrar_por_categoria(cls, productos, categoria_id):
+        return productos.filter(categoria_id=categoria_id)
+
+    @classmethod
+    def filtrar_por_cantidad(cls, productos, cantidad_maxima):
+        return productos.filter(stock__lte=cantidad_maxima)
+
+    @classmethod
+    def filtrar_por_texto(cls, productos, texto):
+        result = productos.filter(
+            Q(nombre__icontains=texto) | Q(descripcion__icontains=texto)
+        )
+        # print("Resultado de busqueda del texto ", result)
+        return result
+
+    @classmethod
+    def filtrar(cls, productos, texto=None, por_cantidad=False, id_categoria=None):
+        # Inicia con todos los productos
+        filtrados = productos
+
+        # Aplicar filtrado por texto
+        if texto:
+            filtrados = cls.filtrar_por_texto(filtrados, texto)
+            print("Resultado de busqueda del texto ", filtrados)
+
+        # Aplicar filtrado por cantidad
+        if por_cantidad==2:
+            filtrados = cls.filtrar_por_cantidad(filtrados, 0)
+            print("Resultado de busqueda de cantidad ", filtrados)
+        elif por_cantidad:
+            filtrados = cls.filtrar_por_cantidad(filtrados, 10)
+            print("Resultado de busqueda de cantidad ", filtrados)
+
+        # Aplicar filtrado por categoría
+        if id_categoria is not None:
+            filtrados = cls.filtrar_por_categoria(filtrados, id_categoria)
+            print("Resultado de busqueda de categoria ", filtrados)
+
+        return filtrados
