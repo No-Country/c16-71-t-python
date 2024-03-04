@@ -30,12 +30,12 @@ STATIC_DIR = os.path.join(BASE_DIR,"static")
 # SECURITY WARNING: keep the secret key used in production secret!
 
 secret_key = os.getenv("SECRETKEY")
-SECRET_KEY = secret_key
+SECRET_KEY = "secret_key"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -60,6 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+     "whitenoise.middleware.WhiteNoiseMiddleware"
 ]
 
 ROOT_URLCONF = "AnzenControlStock.urls"
@@ -80,6 +81,8 @@ TEMPLATES = [
     },
 ]
 
+WSGI_APPLICATION = "AnzenControlStock.wsgi.application"
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -93,12 +96,12 @@ port = os.getenv("PORT")
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': name,
-        'USER': user,
-        'PASSWORD': password,
-        'HOST': host,
-        'PORT': port,
+        'ENGINE': 'mysql.connector.django',
+        'NAME': "railway",
+        'USER': "root",
+        'PASSWORD': 'beHBHH2dg2aBh-12C5F62FBCh-5bcg2g',
+        'HOST': "roundhouse.proxy.rlwy.net",
+        'PORT': "54233",
     }
 }
 
@@ -146,6 +149,14 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 STATIC_URL = '/static/'
+
+if not DEBUG:
+     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+    # and renames the files with unique names for each version to support long-term caching
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
@@ -157,3 +168,6 @@ LOGIN_REDIRECT_URL = 'dashboard-inicio'
 LOGIN_URL = 'user-login'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
