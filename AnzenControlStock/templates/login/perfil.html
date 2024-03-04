@@ -31,40 +31,41 @@ Stock Anzen
         <div class="contenedorPerfil">  
                 <span class = "spanUno">Datos de la cuenta</span>
                 <form method="post">
+                    {% csrf_token %}
                     <div class="input-caja">
                         <label for="#">Nombre</label>
-                        <input type="text" id="#" name="#">
+                        <input type="text" id="nombre" name="nombre" value="{{usuario.nombre}}">
                     </div>
                     <div class="input-caja">
                         <label for="#">Correo electronico</label>
-                        <input type="email" id="#" name="#">
+                        <input type="email" id="email" name="email" value="{{usuario.email}}">
                     </div>
 
                     <div class="input-caja">
                         <label for="#">Nueva contraseña</label>
-                        <input type="number" id="#" name="#">
+                        <input type="number" id="password1" name="password1" value="*****">
                     </div>
                     <div class="input-caja">
                         <label for="#">Repetir contraseña</label>
-                        <input class = "#"type="text" id="#" name="#">
+                        <input class = "#"type="text" id="password2" name="password2" value="*************">
                     </div>
 
                     <span>Datos de la Empresa</span>
                     <div class="input-caja">
                         <label for="#">Nombre de la empresa</label>
-                        <input type="text" id="#" name="#">
+                        <input type="text" id="nombreEmpresa" name="nombreEmpresa" value="{{empresa.nombre_de_la_empresa}}">
                     </div>
                     <div class="input-caja">
                         <label for="#">Tipo de industra o Categoría del negocio</label>
-                        <input type="text" id="#" name="#">
+                        <input type="text" id="categoriaNegocio" name="categoriaNegocio" value="{{empresa.categoria_de_negocio}}">
                     </div>
                     <div class="input-caja">
                         <label for="#">Número de teléfono de la empresa</label>
-                        <input type="number" id="#" name="#">
+                        <input type="number" id="telefono" name="telefono" value="{{empresa.telefono}}">
                     </div>
                     <div class="input-caja">
                         <label for="#">Correo electronico</label>
-                        <input type="email" id="#" name="#">
+                        <input type="email" id="correoElectronico" name="correoElectronico" value="{{empresa.correo_electrónico_de_la_empresa}}">
                     </div>
                     <div class="botones">
                         <div class="botones-left">

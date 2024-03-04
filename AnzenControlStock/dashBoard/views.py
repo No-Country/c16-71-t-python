@@ -86,9 +86,38 @@ def registro2(request,id_user):
 
 
 def editar_perfil(request):
+    id_user = request.session.get("id_user")
+
     if request.method == "GET":
-        data = {"seccion_actual": "perfil"}
-        return render(request, "login/perfil.html", data)
+        if id_user:
+            usuario = CustomUser.obtener_usuario_por_id(id_user)
+            empresa = Empresa.obtener_empresa_por_id(id_user)
+            data = {"empresa": empresa, "usuario": usuario}
+            return render(request, "login/perfil.html", data)
+        else:
+            return redirect("inicio")
+ 
+    if request.method == "POST":
+        user_actualizado = CustomUser.modificar_usuario(id_user,
+            request.POST["nombre"],
+            request.POST["email"],
+            request.POST["password1"]
+        )
+        print("usuario editado: " + user_actualizado.nombre)
+        if user_actualizado == 1 :
+            messages.error(request, "El mail ya esta en uso")
+        elif user_actualizado == 2 :
+            messages.error(request, "Error en la modificacion de usuario")
+        else:
+            empresa_actualizada = Empresa.modificar_empresa(id_user,
+            request.POST["nombreEmpresa"],
+            request.POST["categoriaNegocio"],
+            request.POST["telefono"],
+            request.POST["correoElectronico"])  
+
+            messages.success(request, "Se modifico el perfil correctamente")
+            return redirect("dashboard")
+
 
 def cerrar_sesion(request):
     request.session["id_user"] = None
