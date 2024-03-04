@@ -46,6 +46,9 @@ class Producto(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     # proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.nombre
+
     @classmethod
     def create_producto(
         cls, user_empresa_id, nombre, descripcion, precio_unitario, stock, categoria_id
@@ -125,24 +128,33 @@ class Producto(models.Model):
 
     @classmethod
     def filtrar_por_texto(cls, productos, texto):
-        return productos.filter(
+        result = productos.filter(
             Q(nombre__icontains=texto) | Q(descripcion__icontains=texto)
         )
+        # print("Resultado de busqueda del texto ", result)
+        return result
 
     @classmethod
     def filtrar(cls, productos, texto=None, por_cantidad=False, id_categoria=None):
+        # Inicia con todos los productos
+        filtrados = productos
+
         # Aplicar filtrado por texto
         if texto:
-            productos = cls.filtrar_por_texto(productos, texto)
+            filtrados = cls.filtrar_por_texto(filtrados, texto)
+            print("Resultado de busqueda del texto ", filtrados)
 
         # Aplicar filtrado por cantidad
-        if por_cantidad:
-            productos = cls.filtrar_por_cantidad(
-                productos, 20
-            )
+        if por_cantidad==2:
+            filtrados = cls.filtrar_por_cantidad(filtrados, 0)
+            print("Resultado de busqueda de cantidad ", filtrados)
+        elif por_cantidad:
+            filtrados = cls.filtrar_por_cantidad(filtrados, 10)
+            print("Resultado de busqueda de cantidad ", filtrados)
 
         # Aplicar filtrado por categoría
         if id_categoria is not None:
-            productos = cls.filtrar_por_categoria(productos, id_categoria)
+            filtrados = cls.filtrar_por_categoria(filtrados, id_categoria)
+            print("Resultado de busqueda de categoria ", filtrados)
 
-        return productos
+        return filtrados

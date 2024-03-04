@@ -85,6 +85,11 @@ def registro2(request,id_user):
             return redirect("dashboard")
 
 
+def editar_perfil(request):
+    if request.method == "GET":
+        data = {"seccion_actual": "perfil"}
+        return render(request, "login/perfil.html", data)
+
 def cerrar_sesion(request):
     request.session["id_user"] = None
     return redirect("inicio")
@@ -105,12 +110,13 @@ def inventario(request):
     productos = Producto.obtener_productos_por_empresa(id_user)
     print("PRODUCTOS",productos)
     categorias =  Categoria.objects.all()
-    print("Categorias", categorias)
+    #print("Categorias", categorias)
 
     if request.method == "POST":
         # Obtener los datos del formulario
-        buscar_texto = request.POST.get("buscar", "")
+        buscar_texto = request.POST.get("texto", "")
         cantidad = request.POST.get("cantidad", None)
+        cantidad = int(cantidad)
         id_categoria = request.POST.get("categoria", None)
         id_categoria = None if id_categoria == "-1" else id_categoria
 
