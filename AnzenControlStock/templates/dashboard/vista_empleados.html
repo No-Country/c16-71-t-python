@@ -1,22 +1,16 @@
-{% extends "partials/base.html"%}
-
-
-
-{% csrf_token %}
-
-
+{% extends "partials/base.html" %}
 {% load static %}
-{% block extra_css %}<link rel="stylesheet" type="text/css" href="{% static 'css/r_empleados.css' %}">{% endblock %}
+{% block extra_css %}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+
 
 {% block title %}
 Empleados
-{% endblock %}
+{% endblock%}
 
 {% block content %}
 {% load static %}
 
 {% include 'dashboard/sidebar.html' %}
-
 {% include 'dashboard/navbar.html' %}
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,7 +20,7 @@ Empleados
         </div>
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header bg-info text-white">
+                <div class="container">
                     Listado de Empleados Registrados
                 </div>
                 <div class="row p-3">
@@ -53,15 +47,13 @@ Empleados
                                     <th>Rol</th>
                                     <td>{{ empleado.role}}</td>
                                 </tr>
-                                <a href="{% url 'editar_empleado' empleado.id %}">Editar</a> |
-                                <a href="{% url 'eliminar_empleado' empleado.id %}">Eliminar</a>
+                                <a href="{}">Editar</a> |
+                                <a href="{}">Eliminar</a>
                             </tbody>
                         </table>
-                    </div>
-                    <div class="col-md-4">
-                        <img class="img-thumbnail" alt="profile-image">
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endblock %}
