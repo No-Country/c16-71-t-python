@@ -1,18 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Empleado</title>
-</head>
-<body>
-    <h1>Crear Empleado</h1>
+{% extends "partials/base.html" %}
 
-    <form method="post" action = "">
+{% block title %}
+Registro Empleado
+{% endblock %}
+
+{% block content %}
+{% load static %}
+{% include 'dashboard/sidebar.html' %}
+{% include 'dashboard/navbar.html' %}
+
+<div class="container">
+    <h1>Registro de Empleado</h1>
+
+    <form method="post" action="">
         {% csrf_token %}
-        {{form.as_p}}
+        {{ form.as_p }}
 
-        <input type="submit" value="Crear Empleado">
+        <button type="submit">Crear Empleado</button>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}
+

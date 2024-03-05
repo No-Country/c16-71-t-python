@@ -1,0 +1,71 @@
+{% extends "partials/base.html"%}
+
+
+
+{% csrf_token %}
+
+
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+
+{% block title %}
+Registro Empleado
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% include 'dashboard/sidebar.html' %}
+
+{% include 'dashboard/navbar.html' %}
+
+<html>
+    <head>
+        <title>Registro de Empleado</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/r_empleados.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        
+    </head>
+<body>
+    <div class="container">
+    <h1>Registro de Empleado</h1>
+    <form id="employeeForm">
+        <h2>Datos Personales del Empleado</h2>
+        <div class="form-group">
+            <label for="fullName">Nombre:</label>
+            <input type="text" id="fullName" name="fullName" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Repetir Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+        </div>
+            <h2>Detalles de Empleo</h2>
+        <div class="form-group">
+            <label for="role">Cargo o rol del empleado:</label>
+            <input type="text" id="role" name="role" required>
+        </div>
+        <div class="form-group">
+            <label for="permissions">Rol:</label>
+            <textarea id="permissions" name="permissions" required></textarea>
+        </div>
+        <button type="submit">Guardar</button>
+        <button type="submit">Cancelar</button>
+    </form>
+    </div>
+        <script src="script.js"></script>
+</body>
+</html>
+{% endblock %}
+

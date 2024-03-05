@@ -1,0 +1,40 @@
+{% extends "partials/base.html"%}
+
+
+
+{% csrf_token %}
+
+
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+
+{% block title %}
+Registro Empleado
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% include 'dashboard/sidebar.html' %}
+
+{% include 'dashboard/navbar.html' %}
+
+
+<html>
+<head>
+    <title>Listado de Empleados Registrados</title>
+</head>
+<body>
+    <h1>Listado de Empleados Registrados</h1>
+    
+    {% if empleados %}
+        <ul>
+            {% for empleado in empleados %}
+                <li>ID: {{ empleado.id }} - Nombre: {{ empleado.nombre }} - Roll: {{ empleado.role }} - Permisos: {{ empleado.permissions }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se han encontrado empleados registrados.</p>
+    {% endif %}
+</body>
+</html>
