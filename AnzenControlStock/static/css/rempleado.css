@@ -57,16 +57,7 @@ input{
     color: #ffffff;
 }
 
-.btn-crear{
-    width: 184px;
-    height: 48px;
-    border: none;
-    border-radius: 8px;
-    padding: 14px 24px 14px 24px;
-    gap: 10px;
-    background-color: #F86A04;
-    color: #ffffff;
-}
+
 
 .btn-cancelar{
     width: 113px;
