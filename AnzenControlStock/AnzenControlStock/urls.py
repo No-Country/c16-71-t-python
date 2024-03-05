@@ -22,5 +22,5 @@ urlpatterns = [
     path("", include("login.urls")),
     path("", include("employees.urls")),
 
-    path('', include('dashBoard.urls'))
+    path("", include('dashBoard.urls'))
 ]
