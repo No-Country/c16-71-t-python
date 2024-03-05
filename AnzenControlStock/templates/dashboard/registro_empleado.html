@@ -1,10 +1,13 @@
 {% extends "partials/base.html" %}
-{% load static %}
-{% block extra_css %}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
 
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/rempleado.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+{% endblock%}
 
 {% block title %}
-Registro Empleados
+ANZEN - Resgitro Empleado
 {% endblock%}
 
 {% block content %}
@@ -13,83 +16,73 @@ Registro Empleados
 {% include 'dashboard/sidebar.html' %}
 {% include 'dashboard/navbar.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<html>
-    <head>
-        <title>Registro de Empleado</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="{% static '/AnzenControlStock/static/css/r_empleado.css' %}">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-        
-    </head>
-    
-</html>
-
-
-
-<div class="main">
-    <div class="main-header">
-        <div class="main-header__left">
-            <p>Paginas / Inventario</p>
-            <span>Registrar Empleado</span>
+    <div class="main">
+        <div class="main-header">
+            <div class="main-header__left">
+                <p>Paginas / Empleados / Agregar Empleado</p>
+                <span>Agregar Empleado</span>
+            </div>
+            <div class="main-header__right">
+                <a href="#">
+                    <i class="lni lni-cog"></i>
+                    <span class = "sidebar__text">Iniciar sesion</span>
+                </a>
+            </div>
         </div>
-        <div class="main-header__right">
-            <a href="#">
-                <i class="lni lni-cog"></i>
-                <span class = "sidebar__text">Iniciar sesion</span>
-            </a>
-        </div>
-    </div>
-    <div class="contenedor">
-        <div class="contenedor-form">
-            <form method="post">
-                <div class="input-caja">
-                    <label for="id">ID</label>
-                    <input type="text" id="id" name="id">
-                </div>
-                <div class="input-caja">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre">
-                </div>
-                <div class="input-caja">
-                    <label for="email">Correo electrónico:</label>
-                    <input type="text" id="email" name="email" required>
-                </div>
-                <div class="input-caja">
-                    <label for="password">Contraseña:</label>
-                <input type="text" id="password" name="password" required>
-                </div>
-                <div class="input-caja">
-                    <label for="password">Repetir Contraseña:</label>
+        <div class="contenedor">
+            <div class="contenedor-form">
+                <form method="post">
+                    {% csrf_token %}
+                
+                    <div class="input-caja">
+                        <label for="nombreEmpleado">Nombre</label>
+                        <input type="text" id="nombreEmpleado" name="nombreEmpleado">
+                    </div>
+                    
+                    <div class="input-caja">
+                        <label for="mail">Correo Electrónico</label>
+                        <input type="text" id="mailEmpleado" name="maileEmpleado">
+                    </div>
+
+                    <div class="input-caja">
+                        <label for="password">Contraseña:</label>
                     <input type="text" id="password" name="password" required>
-                </div>
-                <h2>Detalles de Empleo</h2>
-                <div class="input-caja">
-                    <label for="role">Cargo o rol del empleado:</label>
-                    <input type="text" id="role" name="role" required>
-                </div>
-                <div class="input-caja">
-                    <label for="permissions">Rol:</label>
-                    <textarea id="permissions" name="permissions" required></textarea>
-                </div>
-                <button class = "btn-guardar" type="submit">Guardar</button>
-                <button type="submit" class = "btn-cancelar">Cancelar</button>
-            </form>
+                    </div>
+
+                    <div class="input-caja">
+                        <label for="password">Repetir Contraseña:</label>
+                        <input type="text" id="password" name="password" required>
+                    </div>
+
+                    
+                    <div class="input-caja">
+                        <label for="telefonoEmpleado">Numero de teléfono</label>
+                        <input id="telefonoEmpleado" name="telefonoEmpleado" required>
+                    </div>
+
+                    
+                    <div class="input-caja">
+                        <label for="rol">Rol:</label>
+                            <select class="rol">
+                                <option selected>Seleccione el Rol</option>
+                                <option value="1">Encargado</option>
+                                <option value="2">Empleado</option>
+                            </select>
+                    </label>
+                    </div>
+                    <button class = "btn-guardar" type="submit">Guardar</button>
+                    <a class = "btn btn-cancelar" href="">Cancelar</a>
+                </form>
+            </div>
+
         </div>
-    
     </div>
-</div>
 
 {% endblock %}
 
 {% block script %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-            crossorigin="anonymous"></script>
-<script src="{% static 'javascript/main.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+                crossorigin="anonymous"></script>
+    <script src="{% static 'javascript/main.js' %}"></script>
 {% endblock %}
-
