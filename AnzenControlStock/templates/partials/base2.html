@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+
+    {% block style %}
+
+    {% endblock %}
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/jquery.toast.css' %}"></link>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body style="background-color: #f8f8f8; width: 100vw; height: 100vh;">
+    <!-- Toast -->
+    {% if messages %}
+    {% for message in messages %}
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="{% static 'js/jquery.toast.js' %}"></script>
+    <script>
+        $.toast({
+            heading: 'Mensaje Importante',
+            text: '{{message}}',
+            showHideTransition: 'slide',
+            icon: '{{message.tags}}',
+            position: 'bottom-right',
+            hideAfter: '8000'
+        })
+    </script>
+    {% endfor %}
+    {% endif %}
+
+    <div class="" style="width: 100%; height:100%;">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    {% block script %}
+
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/jquery.toast.js' %}"></script>
+
+    {% include 'partials/nav.html' %}
+
+    {% include 'partials/topnav.html' %}
+
+    
+
+</body>
+
+
+</html>
+
