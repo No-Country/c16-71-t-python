@@ -75,6 +75,28 @@ class CustomUser(AbstractUser):
             return usuario
         except cls.DoesNotExist:
             return None
+    
+    @classmethod
+    def modificar_usuario(cls,user_id , nombre, email, password):      
+        try:
+            user = cls.objects.get(id=user_id)
+            # Actualizar el usuario
+            if CustomUser.validate_email(email):
+                user.email = email
+            else:
+                return -1  
+            user.nombre = nombre
+            user.password = password
+            user.save()
+            return user
+        except cls.DoesNotExist:
+            raise Exception("El usuario no existe.")
+        except Exception as e :
+            return -2
+        
+    def eliminar_usuario(self):
+        self.delete()
+
 
 
 class Empresa(models.Model):
@@ -121,6 +143,36 @@ class Empresa(models.Model):
         except Exception as e:
             print("Exception -> " + str(e))
             return -2
+    
+    @classmethod
+    def obtener_empresa_por_id(cls, id_usuario):
+        try:
+            empresa = cls.objects.get(user=id_usuario)
+            return empresa
+        except cls.DoesNotExist:
+            return None
+
+    @classmethod
+    def modificar_empresa(cls,user_id , nombre_de_la_empresa, categoria_de_negocio,
+                          teléfono, correo_electrónico_de_la_empresa):      
+        try:
+            empresa = cls.objects.get(id=user_id)
+
+            # Actualizar la empresa
+            empresa.nombre_de_la_empresa = nombre_de_la_empresa
+            empresa.categoria_de_negocio = categoria_de_negocio
+            empresa.teléfono = teléfono
+            empresa.correo_electrónico_de_la_empresa = correo_electrónico_de_la_empresa
+            empresa.save()
+            return empresa     
+        except cls.DoesNotExist:
+            raise Exception("El usuario no existe.")
+        except Exception as e :
+            return -2
+        
+    def eliminar_empresa(self):
+        self.delete()
+
 
 
 

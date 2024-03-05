@@ -1,7 +1,10 @@
 {% extends "partials/base.html"%}
 
 {% load static %}
-{% block extra_css %}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
 
 {% block title %}
 Stock ANZEN
@@ -12,39 +15,104 @@ Stock ANZEN
 
 {% include 'partials/sidebar.html' %}
 
-<div class="main">
+<d-- class="main">
     <div class="main-header">
         <div class="main-header__left">
             <p>Paginas / Inicio</p>
             <span>Inicio</span>
         </div>
-        <div class="main-header__right">
-            <a href="#">
-                <i class="lni lni-cog"></i>
-                <span class = "sidebar__text">Iniciar sesion</span>
-            </a>
+    </div>
+    <div class="contenedor">
+        <div class="contenedorArriba">
+           <div class="box1">
+                <div class="contenedorArriba-izquierda">
+                    <span>Bienvenido</span>
+                    <p>Nombre Usuario</p>
+                    <p>Controla tu stock, asegura tu exito.</p>
+                </div>
+                <div class="contenedorArriba-derecha">
+                    <img src="{% static 'imagenes/imagen9.png' %}" alt="imagen-anzen">
+                </div>
+           </div>
+        </div>
+        <div class="contenedorAbajo">
+            <div class="contenedor-izquierda">
+                <table class="table table-borderless tabla">
+                    <thead>
+                        <tr>
+                          <th scope="col">Empleado</th>
+                          <th scope="col">Producto</th>
+                          <th scope="col">Actividad</th>
+                          <th scope="col">Categoria</th>
+                          <th scope="col">Cantidad</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">Franco Ortelli</th>
+                          <td>Auriculares Sony</td>
+                          <td>Ingreso</td>
+                          <td>Reposición</td>
+                          <td>18</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Franco Ortelli</th>
+                          <td>Auriculares Sony</td>
+                          <td>Ingreso</td>
+                          <td>Reposición</td>
+                          <td>18</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Franco Ortelli</th>
+                          <td>Auriculares Sony</td>
+                          <td>Ingreso</td>
+                          <td>Reposición</td>
+                          <td>18</td>
+                        </tr>                
+                      </tbody>
+                </table>
+            </div>
+            <div class="contenedor-derecha">
+                <div class="rectangulo1">
+                    <div class="rectangulo-texto">
+                        <span>productos en niveles <br>bajos o agotados</span>
+                        <p>21</p>
+                    </div>
+                    <div class="alerta">
+                        <img src="{% static 'imagenes/alerta.png' %}" alt="alerta">
+                    </div>
+                </div>
+                <div class="rectangulo2">
+                    <div class="rectangulo-texto">
+                        <span>Cantidad de productos <br>agotados</span>
+                        <p>5</p>
+                    </div>
+                    <div class="alerta">
+                        <img src="{% static 'imagenes/alerta.png' %}" alt="alerta">
+                    </div>
+                </div>
+                <div class="rectangulo3">
+                    <div class="rectangulo-texto">
+                        <span>Vendedor Destacado</span>
+                        <p>Franco Ortelli</p>
+                    </div>
+                    <div class="alerta">
+                        <img src="{% static 'imagenes/estrella.png' %}" alt="estrella">
+                    </div>
+                </div>
+                <div class="rectangulo4">
+                    <div class="rectangulo-texto">
+                        <span>Proveedor Destacado</span>
+                        <p>Angela Duarte</p>
+                    </div>            
+                    <div class="alerta">
+                        <img src="{% static 'imagenes/estrella.png' %}" alt="estrella">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="main-center">
-        <div class="caja1">
-            <div class = "caja1__texto">
-                <span>Ventas de hoy</span>
-                <span>$1,953,000</span>
-            </div>
-            <div class="alerta">
-            </div>
-        </div>
-        <div class="caja2">
-            <span>Cantidad de productos en niveles bajos o agotados</span>
-            <div class="alerta">
-            </div>
-        </div>
-        <div class="caja3">
-            <span>Vendedor Destacado</span>
-            <div class="alerta"></div>
-        </div>
-    </div>
-</div>
+
 {% endblock %}
 
 
