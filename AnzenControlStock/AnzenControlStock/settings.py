@@ -95,13 +95,13 @@ host = os.getenv("HOST")
 port = os.getenv("PORT")
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': "railway",
-        'USER': "root",
-        'PASSWORD': 'beHBHH2dg2aBh-12C5F62FBCh-5bcg2g',
-        'HOST': "roundhouse.proxy.rlwy.net",
-        'PORT': "54233",
+    "default": {
+        "ENGINE": "django.db.backends.mysql",  #'mysql.connector.django',
+        "NAME": name,  # "railway",
+        "USER": user,  # "root",
+        "PASSWORD": password,  #'beHBHH2dg2aBh-12C5F62FBCh-5bcg2g',
+        "HOST": host,  # "roundhouse.proxy.rlwy.net",
+        "PORT": port,  # "54233",
     }
 }
 
