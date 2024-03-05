@@ -57,7 +57,6 @@ ANZEN - Empleados
                         <th scope="col">Empleado</th>
                         <th scope="col">Email</th>
                         <th scope="col">Rol</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -78,7 +77,7 @@ ANZEN - Empleados
                                 <span>Si elimina el Empleado no podrá recuperarlo.</span>
                                 <p>¿Estás seguro de que deseas eliminar este Empleado?</p>
                                 <div class="mensaje-botones">
-                                    <a class = "btn btn-mensajeEliminar" href="">
+                                    <a class = "btn btn-mensajeEliminar" href="{% url 'eliminar_empleado' id=empleado.nombre%}">
                                         SI, quiero eliminar este Empleado
                                     </a>
                                     <button class = "btn-mensajeCancelar">Cancelar</button>
