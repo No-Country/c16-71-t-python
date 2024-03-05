@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/empleados.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+{% endblock%}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmar Eliminación de Empleado</title>
 </head>
 <body>
-    <h1>Confirmar Eliminación de Empleado</h1>
+   
 
     <p>¿Estás seguro de que deseas eliminar este empleado?</p>
 

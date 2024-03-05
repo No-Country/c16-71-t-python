@@ -1,12 +1,10 @@
 {% load static %}
-<title>{% block title %}Resgistro{% endblock %}</title>
-
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static '/AnzenControlStock/static/inicio.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inicio.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -17,33 +15,33 @@
     <!-- INICIO DEL CONTENEDOR -->
     <div class="contenedor">
         <div class="contenedor-izquierda">
-            <form action="">
+            <form method="post">
+                {% csrf_token %}
                 <h1>Registro</h1>
                 <div class="input-caja">
-                    <label for="">Nombre</label>
-                    <input type="text">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre">
                 </div>
                 <div class="input-caja">
-                    <label for="">Correo electronico</label>
-                    <input type="email">
+                    <label for="email">Correo electronico</label>
+                    <input type="email" id="email" name="email">
                 </div>
                 <div class="input-caja">
-                    <label for="">Contraseña</label>
-                    <input type="password">
+                    <label for="password1">Contraseña</label>
+                    <input type="password" id="password1" name="password1">
                 </div>
                 <div class="input-caja">
-                    <label for="">Repetir contraseña</label>
-                    <input type="password">
+                    <label for="password2">Repetir contraseña</label>
+                    <input type="password" id="password2" name="password2">
                 </div>
                 <button type="submit">Siguiente</button>
             </form>
         </div>
         <div class="contenedor-derecha">
+            <img src="{% static 'imagenes/right_side.png' %}" alt="">
             <span class = "contenedor-derecha__texto">Tu stock seguro con ANZEN</span>
         </div>
     </div>
     <!-- FIN DEL CONTENEDOR -->
 </body>
-
-
-{% endblock %}
+</html>

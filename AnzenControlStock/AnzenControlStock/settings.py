@@ -90,19 +90,11 @@ port = os.getenv("PORT")
 
 DATABASES = {
     'default': {
-<<<<<<< HEAD
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Anzen',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',  # Cambia esto si tu base de datos está en otro host
-=======
-        'ENGINE': 'mysql.connector.django',
-        'NAME': 'AnzenDB',
-        'USER': 'root',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',  # Cambia esto si tu base de datos está en otro host
->>>>>>> GabrielJ
         'PORT': '3306',       # Cambia el puerto si es necesario
     }
 }

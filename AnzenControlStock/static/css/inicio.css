@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.contenedor{
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: #F8F9FA;
+}
+
+.contenedor-izquierda, .contenedor-derecha{
+    flex: 1;
+}
+
+.contenedor-izquierda{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.contenedor-derecha {
+    background-image: url('{% static "right_side.png" %}');
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.contenedor-izquierda form{
+    background-color: #ffffff;
+    min-width:  571px;
+    min-height: 451px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+}
+
+.contenedor-izquierda label{
+    display: block;
+    font-size: 16px;
+    color: #11142D;
+    line-height: 19.2px;
+}
+
+.contenedor-izquierda h1{
+    font-weight: 700;
+    line-height: 32.68px;
+    color: #252F40;
+    margin-bottom: 35px;
+}
+
+.contenedor-izquierda input{
+    height: 56px;
+    width: 444px;
+    border-radius: 8px;
+    background-color: #F7F7FC;
+    border: 1px solid #DBD7F4;
+    padding: 12px;
+    margin-bottom: 15px;
+    outline: none;
+    font-size: 16px;
+}
+
+.contenedor-izquierda input:focus{
+    border: 1px solid #F87906;
+}
+
+.contenedor-izquierda button{
+    width: 157px;
+    height: 40px;
+    background-color: #F87906;
+    color: #ffffff;
+    margin-top: 20px;
+    border-radius: 8px;
+    padding: 11px 24px 11px 24px;
+    gap: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.registro-olvidaste{
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    margin: 18px 0;
+}
+
+.registro-olvidaste a{
+    color: #252F40;
+    cursor: pointer;
+}
+
+.contenedor-derecha__texto{
+    position: absolute;
+    bottom: 60px;
+    margin-left: 250px;
+    font-size: 20px;
+    line-height: 24px;
+    font-family: "Open Sans",sans-serif;
+}
+
+.input-caja__imagen{
+    display: flex;
+}
+
+.input-caja1{
+    width: 75%;
+}
+
+.input-caja1 label{
+    margin-bottom: 10px;
+}
+
+.img{
+    width: 90px;
+    height: 80px;
+    background-color: #D0D5DD;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+@media screen and (max-width: 1208px) {
+    .contenedor-derecha__texto{
+        margin-left: 180px;
+    }
+}
+
+@media screen and (max-width: 1156px) {
+    .contenedor-derecha{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 629px) {
+    .contenedor-izquierda form{
+        min-width: 100%;
+        min-height: 100vh;
+    }
+}

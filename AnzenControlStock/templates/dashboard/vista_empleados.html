@@ -1,0 +1,59 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+
+
+{% block title %}
+Empleados
+{% endblock%}
+
+{% block content %}
+{% load static %}
+
+{% include 'dashboard/sidebar.html' %}
+{% include 'dashboard/navbar.html' %}
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <div class="row my-4">
+        <div class="col-md-4">
+    
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="container">
+                    Listado de Empleados Registrados
+                </div>
+                <div class="row p-3">
+                    <div class="col-md-8">
+                        <table class="table table-borderless">
+                            <thead>
+                                <span class="h4">Imformacion de Empleado</span class="h4">
+                                <hr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <td>{{ empleado.nombre }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{ empleado.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Permisos</th>
+                                    <td>{{ empleado.permissions }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Rol</th>
+                                    <td>{{ empleado.role}}</td>
+                                </tr>
+                                <a href="{}">Editar</a> |
+                                <a href="{}">Eliminar</a>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

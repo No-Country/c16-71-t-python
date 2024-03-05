@@ -1,13 +1,11 @@
 {% load static %}
-{% block title %}Inicio{% endblock %}
-
-{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/AnzenControlStock/static/inicio.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inicio.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -18,19 +16,19 @@
     <!-- INICIO DEL CONTENEDOR -->
     <div class="contenedor">
         <div class="contenedor-izquierda">
-            <form action="">
+            <form method="post">
                 <h1>Inicia Sesion</h1>
                 <div class="input-caja">
-                    <label for="">Correo electronico</label>
-                    <input type="text">
+                    <label for="email">Correo electronico</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@ejemplo.com">
                 </div>
                 <div class="input-caja">
-                    <label for="">Contraseña</label>
-                    <input type="password">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password">
                 </div>
                 <div class="registro-olvidaste">
                     <div class="registro">
-                        <a href="registro.html">Registro</a>
+                        <a href="{% url 'dashboard-registro' %}">Registro</a>
                     </div>
                     <div class="olvidaste">
                         <a href="#">¿Olvidaste tu contraseña?</a>
@@ -40,10 +38,10 @@
             </form>
         </div>
         <div class="contenedor-derecha">
+            <img src="{% static 'imagenes/right_side.png' %}" alt="">
             <span class = "contenedor-derecha__texto">Tu stock seguro con ANZEN</span>
         </div>
     </div>
     <!-- FIN DEL CONTENEDOR -->
 </body>
 </html>
-{% endblock %}

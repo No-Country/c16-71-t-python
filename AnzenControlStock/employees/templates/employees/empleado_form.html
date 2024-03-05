@@ -1,23 +1,53 @@
 {% extends "partials/base.html" %}
 
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/rempleado.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+{% endblock%}
+
 {% block title %}
-Registro Empleado
-{% endblock %}
+ANZEN - Resgitro Empleado
+{% endblock%}
 
 {% block content %}
 {% load static %}
+
 {% include 'dashboard/sidebar.html' %}
 {% include 'dashboard/navbar.html' %}
 
-<div class="container">
-    <h1>Registro de Empleado</h1>
-
-    <form method="post" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-
-        <button type="submit">Crear Empleado</button>
-    </form>
+<div class="main">
+    <div class="main-header">
+        <div class="main-header__left">
+            <p>Páginas / Empleados / Agregar Empleado</p>
+            <span>Agregar Empleado</span>
+        </div>
+        <div class="main-header__right">
+            <a href="#">
+                <i class="lni lni-cog"></i>
+                <span class="sidebar__text">Iniciar sesión</span>
+            </a>
+        </div>
+    </div>
+    <div class="contenedor">
+        <div class="contenedor-form">
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+        
+                <button type="submit">Crear Empleado</button>
+            </form>
+            
+        </div>
+    </div>
 </div>
+
+
 {% endblock %}
 
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+                crossorigin="anonymous"></script>
+    <script src="{% static 'javascript/main.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "partials/base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+{% endblock %}
+
+{% block title %}
+Registro Empleados
+{% endblock %}
+
+{% block content %}
+{% include 'dashboard/sidebar.html' %}
+{% include 'dashboard/navbar.html' %}
+
+<div class="main">
+    <div class="main-header">
+        <div class="main-header__left">
+            <p>Paginas / Inventario</p>
+            <span>Registrar Empleado</span>
+        </div>
+        <div class="main-header__right">
+            <a href="#">
+                <i class="lni lni-cog"></i>
+                <span class="sidebar__text">Iniciar sesion</span>
+            </a>
+        </div>
+    </div>
+    <div class="contenedor">
+        <div class="contenedor-form">
+            <form method="post">
+                <div class="input-caja">
+                    <label for="id">ID</label>
+                    <input type="text" id="id" name="id">
+                </div>
+                <div class="input-caja">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre">
+                </div>
+                <div class="input-caja">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="text" id="email" name="email" required>
+                </div>
+                <div class="input-caja">
+                    <label for="password">Contraseña:</label>
+                    <input type="text" id="password" name="password" required>
+                </div>
+                <div class="input-caja">
+                    <label for="password">Repetir Contraseña:</label>
+                    <input type="text" id="password" name="password" required>
+                </div>
+                <h2>Detalles de Empleo</h2>
+                <div class="input-caja">
+                    <label for="role">Cargo o rol del empleado:</label>
+                    <input type="text" id="role" name="role" required>
+                </div>
+                <div class="input-caja">
+                    <label for="permissions">Rol:</label>
+                    <textarea id="permissions" name="permissions" required></textarea>
+                </div>
+                <button class="btn-guardar" type="submit">Guardar</button>
+                <button class="btn-cancelar" type="button">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+<script src="{% static 'javascript/main.js' %}"></script>
+{% endblock %}
+
+
