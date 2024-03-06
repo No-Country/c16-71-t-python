@@ -102,10 +102,6 @@ td#row{
     border-radius: 8px;
 }
 
-.inventario-inputs{
-    margin-left: 90px;
-}
-
 .input9{
     height: 40px;
     width: 355px;
@@ -116,5 +112,5 @@ td#row{
 }
 
 .inventario-nav{
-    margin-left 90px;
+    margin-left: 90px;
 }
