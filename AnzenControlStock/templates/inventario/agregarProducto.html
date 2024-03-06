@@ -40,11 +40,15 @@ Stock Anzen
                         <label for="nombreProducto">Nombre del producto</label>
                         <input type="text" id="nombreProducto" name="nombreProducto">
                     </div>
-                    <!--
                     <div class="input-caja">
                         <label for="proveedor">Proveedor</label>
-                        <input type="text" id="proveedor" name="proveedor">
-                    </div>-->
+                        <select class="form-select me-2 select-input-caja" name="proveedor" id="proveedor">
+                            <option selected>Proveedor</option>
+                            {% for proveedor in proveedores %}
+                            <option value="{{proveedor.id}}">{{proveedor.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                     <div class="input-caja">
                         <label for="categoria">Categoria</label>
                         <select class="form-select me-2 select-input-caja" name="categoria" id="categoria">

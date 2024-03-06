@@ -198,6 +198,7 @@ def crear_producto(request):
     if request.method == "GET":
         if id_user:
             categorias = Categoria.objects.all()
+            proveedores = Proveedor.objects.all()
             data = {
                 "categorias": categorias,
                 "proveedores": proveedores,
@@ -216,9 +217,13 @@ def crear_producto(request):
             request.POST["precioUnitario"],
             request.POST["cantidad"],
             request.POST["categoria"],
+            request.POST["proveedor"],
         )
-        # print("Product creado: ",new_producto.nombre)
-        messages.success(request, "Producto creado correctamente")
+        print("Product creado: ",new_producto)
+        if new_producto == -2:
+            messages.error(request, "Ocurrio un error al crea el producto")
+        else:
+            messages.success(request, "Producto creado correctamente")
         return redirect("inventario")
 
 
@@ -229,7 +234,9 @@ def editar_producto(request, id):
         if id_user:
             producto = Producto.obtener_producto_por_id_y_empresa(id, id_user)
             categorias = Categoria.objects.all()
+            proveedores = Proveedor.objects.all()
             data = {
+                "proveedores": proveedores,
                 "producto": producto,
                 "categorias": categorias,
                 "seccion_actual": "inventario",
@@ -247,6 +254,7 @@ def editar_producto(request, id):
             request.POST["cantidad"],
             request.POST["fecha_ingreso"],
             request.POST["categoria"],
+            request.POST["proveedor"],
         )
         print("Producto editado: " + actualizado.nombre)
         messages.success(request, "Producto editado correctamente")
@@ -280,7 +288,6 @@ def eliminar_empleado(request, empleado_id):
 def cerrar_sesion(request):
     request.session["id_user"] = None
     return redirect("dashboard-inicio")
-
 
 
 def proveedores(request):

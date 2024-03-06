@@ -64,6 +64,7 @@ class Producto(models.Model):
             user_empresa = CustomUser.objects.get(id=user_empresa_id)
             categoria = Categoria.objects.get(id=categoria_id)
             proveedor = Proveedor.objects.get(id=proveedor_id)
+            print("Proveedor a utilizar,", proveedor)
             producto = cls.objects.create(
                 user_empresa=user_empresa,
                 nombre=nombre,
@@ -117,6 +118,7 @@ class Producto(models.Model):
         try:
             user_empresa = CustomUser.objects.get(id=user_empresa_id)
             productos = cls.objects.filter(user_empresa=user_empresa)
+            print("-------", productos)
             return productos
         except Exception as e:
             print("Exception -> " + str(e))
