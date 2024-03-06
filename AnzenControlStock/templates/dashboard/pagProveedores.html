@@ -1,0 +1,131 @@
+{% extends "partials/base.html" %}
+
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/pagProveedores.css' %}">
+{% endblock%}
+
+{% block title %}
+Stock Anzen
+{% endblock%}
+
+{% block content %}
+{% load static %}
+
+{% include 'partials/sidebar.html' %}
+
+    <div class="main">
+        <div class="main-header">
+            <div class="main-header__left">
+                <p>Páginas / Inventario</p>
+                <span>Inventario</span>
+            </div>
+        </div>
+        <div class="container-fluid d-flex  justify-content-start inventario-inputs">
+                <a class="btn btn-agregarProducto" href="{% url 'nuevo_producto' %}">Agregar Proveedor</a> 
+            </form>
+        </div>         
+        
+        <div class="inventario">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary bg-white">
+                <div class="container-fluid bg-white">
+                    <span class="navbar-brand">Proveedores</span>
+                </div>
+            </nav>
+            <div class="contenedorAbajo">
+                <div class="contenedor-izquierda">
+                    <table class="table table-borderless tabla">
+                        <thead>
+                            <tr>
+                              <th scope="col">Nombre</th>
+                              <th scope="col">Correo electronico</th>
+                              <th scope="col">telefono</th>
+                              <th scope="col">Acciones</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">Franco Ortelli</th>
+                              <td>Auriculares Sony</td>
+                              <td>Ingreso</td>
+                              <td id="row">
+                                <a class="btn btn-editar" href="#">
+                                    <img src="{% static 'imagenes/lapiz.png' %}">
+                                </a>
+                                <a class="btn btn-eliminar" id="open">
+                                    <img src="{% static 'imagenes/cesto.png' %}">
+                                </a>
+                                <div class="mensaje">
+                                    <span>Si elimina el producto no podrá recuperarlo.</span>
+                                    <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                                    <div class="mensaje-botones">
+                                        <a class = "btn btn-mensajeEliminar" href="#">
+                                            SI, quiero eliminar este producto
+                                        </a>
+                                        <button class = "btn-mensajeCancelar">Cancelar</button>
+                                    </div>
+                                </div>
+                            </td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Franco Ortelli</th>
+                              <td>Auriculares Sony</td>
+                              <td>Ingreso</td>
+                              <td id="row">
+                                <a class="btn btn-editar" href="#">
+                                    <img src="{% static 'imagenes/lapiz.png' %}">
+                                </a>
+                                <a class="btn btn-eliminar" id="open">
+                                    <img src="{% static 'imagenes/cesto.png' %}">
+                                </a>
+                                <div class="mensaje">
+                                    <span>Si elimina el producto no podrá recuperarlo.</span>
+                                    <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                                    <div class="mensaje-botones">
+                                        <a class = "btn btn-mensajeEliminar" href="#">
+                                            SI, quiero eliminar este producto
+                                        </a>
+                                        <button class = "btn-mensajeCancelar">Cancelar</button>
+                                    </div>
+                                </div>
+                            </td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Franco Ortelli</th>
+                              <td>Auriculares Sony</td>
+                              <td>Ingreso</td>
+                              <td id="row">
+                                <a class="btn btn-editar" href="#">
+                                    <img src="{% static 'imagenes/lapiz.png' %}">
+                                </a>
+                                <a class="btn btn-eliminar" id="open">
+                                    <img src="{% static 'imagenes/cesto.png' %}">
+                                </a>
+                                <div class="mensaje">
+                                    <span>Si elimina el producto no podrá recuperarlo.</span>
+                                    <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                                    <div class="mensaje-botones">
+                                        <a class = "btn btn-mensajeEliminar" href="#">
+                                            SI, quiero eliminar este producto
+                                        </a>
+                                        <button class = "btn-mensajeCancelar">Cancelar</button>
+                                    </div>
+                                </div>
+                            </td>
+                            </tr>                
+                          </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'javascript/main.js' %}"></script>
+{% endblock %}
+

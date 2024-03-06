@@ -70,14 +70,14 @@ Stock Anzen
                     <div class="botones">
                         <div class="botones-left">
                             <button class = "btn-editar" type="submit">Editar</button>
-                            <a class = "btn btn-cancelar">Cancelar</a>
-                        </div>
-                        <div class="botones-right">
-                            <button class = "btn-eliminarCuenta">Eliminar mi cuenta</button>
+                            <a class = "btn btn-cancelar" href="{%  url 'dashboard' %}">Cancelar</a >
                         </div>
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="botones-right">
+            <a class = "btn btn-eliminarCuenta" href="{%  url 'eliminar_empresa' id=usuario.id %}">Eliminar mi cuenta</a>
         </div>
     </div>
 

@@ -1,0 +1,104 @@
+{% extends "partials/base.html" %}
+
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/rempleado.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+{% endblock%}
+
+{% block title %}
+ANZEN - Resgitro Empleado
+{% endblock%}
+
+{% block content %}
+{% load static %}
+
+{% include 'partials/sidebar.html' %}
+    <div class="main">
+        <div class="main-header">
+            <div class="main-header__left">
+                <p>Paginas / Empleados / Agregar Empleado</p>
+                <span>Agregar Empleado</span>
+            </div>
+        </div>
+        <div class="contenedor">
+            <div class="contenedor-form">
+                <form method="post">
+                    {% csrf_token %}
+                
+                    <div class="input-caja">
+                        <label for="nombreEmpleado">Nombre</label>
+                        <input type="text" id="nombreEmpleado" name="nombreEmpleado" value="{{empleado.user.nombre}}">
+                    </div>
+                    
+                    <div class="input-caja">
+                        <label for="mail">Correo Electrónico</label>
+                        <input type="text" id="mailEmpleado" name="mailEmpleado" value="{{empleado.user.email}}">
+                    </div>
+
+                    <div class="input-caja">
+                        <label for="password">Contraseña</label>
+                    <input type="password" id="password1" name="password1" required >
+                    </div>
+
+                    <div class="input-caja">
+                        <label for="password">Repetir Contraseña</label>
+                        <input type="password" id="password2" name="password2" required >
+                    </div>
+
+                    
+                    <div class="input-caja">
+                        <label for="telefonoEmpleado">Numero de teléfono</label>
+                        <input id="telefonoEmpleado" name="telefonoEmpleado" required value="{{empleado.telefono}}">
+                    </div>
+
+                    
+                    <div class="input-caja">
+                        <label for="rol">Rol:</label>
+                            <select class="rol" id="rol" name="rol">
+                                <option selected>Seleccione el Rol</option>
+                                <option value="Administrador">Administrador</option>
+                                <option value="Encargado">Encargado</option>
+                            </select>
+                    </label>
+                    </div>
+                    <button class = "btn-guardar" type="submit">Guardar</button>
+
+                    <a class = "btn btn-cancelar" href="{% url 'vista_empleados' %}">Cancelar</a>
+                </form>
+            </div>
+
+            <!DOCTYPE html>
+
+            
+
+        <script>
+        var dashboardContainer = document.getElementById("dashboardContainer");
+        if (dashboardContainer) {
+            dashboardContainer.addEventListener("click", function (e) {
+            // Please sync "Vista Home" to the project
+            });
+        }
+        
+        var billingContainer = document.getElementById("billingContainer");
+        if (billingContainer) {
+            billingContainer.addEventListener("click", function (e) {
+            // Please sync "Vista Proveedores" to the project
+            });
+        }
+        </script>
+    </body>
+
+
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+                crossorigin="anonymous"></script>
+    <script src="{% static 'javascript/main.js' %}"></script>
+{% endblock %}

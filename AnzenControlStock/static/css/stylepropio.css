@@ -334,15 +334,17 @@ input{
 
 
   .crear-proveedor-btn {
-    background-color: #ff7f0e; /* Color naranja */
+    background-color: #F86A04; /* Color naranja */
     color: #fff; /* Color del texto */
     border: none;
     border-radius: 5px; /* Bordes suaves */
-    padding: 5px 10px; /* Espaciado interno */
     margin: auto 5px auto 5px;
     font-size: 16px; /* Tamaño del texto */
     cursor: pointer;
-    transition: background-color 0.3s; /* Transición suave al pasar el ratón */
+    transition: background-color 0.3s;
+    Width: 184px;
+    height: 57px;
+    gap: 10px;
   }
 
 .padre{
@@ -354,6 +356,22 @@ input{
 
 }
 
+.btn-editar,
+.btn-eliminar,
+.btn-agregar{
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 12px;
+}
+
+.btn-editar{
+    background-color: #2152FF;
+}
+
+.btn-eliminar{
+    background-color: #FF0000;
+}
 
 
 
@@ -368,7 +386,9 @@ input{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    width: 773px;
+    height: 331px;
+
   }
 
   /* Estilos para la tabla */
