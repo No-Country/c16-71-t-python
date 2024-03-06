@@ -41,6 +41,7 @@ class Migration(migrations.Migration):
                 ('stock', models.IntegerField()),
                 ('fecha_ingreso', models.DateTimeField(auto_now_add=True)),
                 ('categoria', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.categoria')),
+                ('proveedor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.proveedor')),
                 ('user_empresa', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

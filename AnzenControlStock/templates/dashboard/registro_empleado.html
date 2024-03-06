@@ -20,12 +20,6 @@ ANZEN - Resgitro Empleado
                 <p>Paginas / Empleados / Agregar Empleado</p>
                 <span>Agregar Empleado</span>
             </div>
-            <div class="main-header__right">
-                <a href="#">
-                    <i class="lni lni-cog"></i>
-                    <span class = "sidebar__text">Iniciar sesion</span>
-                </a>
-            </div>
         </div>
         <div class="contenedor">
             <div class="contenedor-form">
@@ -34,28 +28,28 @@ ANZEN - Resgitro Empleado
                 
                     <div class="input-caja">
                         <label for="nombreEmpleado">Nombre</label>
-                        <input type="text" id="nombreEmpleado" name="nombreEmpleado">
+                        <input type="text" id="nombreEmpleado" name="nombreEmpleado" value="{{empleado.user.nombre}}">
                     </div>
                     
                     <div class="input-caja">
                         <label for="mail">Correo Electrónico</label>
-                        <input type="text" id="mailEmpleado" name="mailEmpleado">
+                        <input type="text" id="mailEmpleado" name="mailEmpleado" value="{{empleado.user.email}}">
                     </div>
 
                     <div class="input-caja">
                         <label for="password">Contraseña</label>
-                    <input type="password" id="password1" name="password1" required>
+                    <input type="password" id="password1" name="password1" required >
                     </div>
 
                     <div class="input-caja">
                         <label for="password">Repetir Contraseña</label>
-                        <input type="password" id="password2" name="password2" required>
+                        <input type="password" id="password2" name="password2" required >
                     </div>
 
                     
                     <div class="input-caja">
                         <label for="telefonoEmpleado">Numero de teléfono</label>
-                        <input id="telefonoEmpleado" name="telefonoEmpleado" required>
+                        <input id="telefonoEmpleado" name="telefonoEmpleado" required value="{{empleado.telefono}}">
                     </div>
 
                     
@@ -70,7 +64,7 @@ ANZEN - Resgitro Empleado
                     </div>
                     <button class = "btn-guardar" type="submit">Guardar</button>
 
-                    <a class = "btn btn-cancelar" href="dashboard/main.html">Cancelar</a>
+                    <a class = "btn btn-cancelar" href="{% url 'vista_empleados' %}">Cancelar</a>
                 </form>
             </div>
 

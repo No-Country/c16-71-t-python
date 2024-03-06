@@ -241,7 +241,7 @@ class Empleado(models.Model):
     @classmethod
     def obtener_empleado_por_id_y_empresa(cls, id_empleado, id_user_empresa):
         try:
-            empleado = cls.objects.get(id=id_empleado, id_empresa=id_user_empresa)
+            empleado = cls.objects.get(user_id=id_empleado, id_empresa=id_user_empresa)
             return empleado
         except cls.DoesNotExist:
             return None

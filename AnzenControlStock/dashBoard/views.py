@@ -242,7 +242,46 @@ def eliminar_producto(request, id):
     messages.success(request, "Producto eliminado correctamente")
     return redirect("inventario")
 
-def empleados(request):
+def editar_empleado(request, id):
+    print(id)
+    id_user = request.session.get("id_user")
+    empleado = Empleado.obtener_empleado_por_id_y_empresa(id,id_user)
+    print("Empleados",empleado)
+    print(id_user)
+
+    if request.method == "GET":
+        if id_user:
+            data = {"seccion_actual": "empleados",
+                    "empleado": empleado,
+            }
+            return render(
+                request, "dashboard/registro_empleado.html", data
+            )
+        else:
+            return redirect("inicio")
+    else:
+        if request.POST['password1'] == request.POST['password2'] and request.POST['nombreEmpleado'] and request.POST['mailEmpleado']:
+            user_actualizado = CustomUser.modificar_usuario(empleado.user.id,
+            request.POST["nombreEmpleado"],
+            request.POST["mailEmpleado"],
+            request.POST["password1"]
+        )
+        #print("usuario editado: ", user_actualizado.nombre)
+        if user_actualizado == 1 :
+            messages.error(request, "El mail ya esta en uso")
+        elif user_actualizado == 2 :
+            messages.error(request, "Error en la modificacion de usuario")
+        else:
+            empleado_actualizado = Empleado.modificar_empleado(user_actualizado.id,
+            request.POST["rol"],
+            request.POST["telefonoEmpleado"]
+            )  
+            print(empleado_actualizado)
+            messages.success(request, "Se modifico el empleado correctamente")
+            return redirect("vista_empleados")
+
+
+def vista_empleados(request):
     id_user = request.session.get("id_user")
     empleados = Empleado.obtener_empleado_por_empresa(id_user)
     print("Empleados",empleados)
@@ -254,7 +293,28 @@ def empleados(request):
                     "empleados": empleados,
             }
             return render(
-                request, "dashboard/registro_empleado.html", data
+                request, "dashboard/vista_empleados.html", data
+            )
+        else:
+            return redirect("inicio")
+        
+def eliminar_empleado(request, id):
+    empleado = Empleado.objects.get(user_id=id)
+    empleado.eliminar_empleado()
+    messages.success(request, "Empleado eliminado correctamente")
+    return redirect("vista_empleados")
+
+
+def registro_empleado(request):
+    id_user = request.session.get("id_user")
+    empleados = Empleado.obtener_empleado_por_empresa(id_user)
+    print("Empleados",empleados)
+    print(id_user)
+
+    if request.method == "GET":
+        if id_user:
+            return render(
+                request, "dashboard/registro_empleado.html"
             )
         else:
             return redirect("inicio")
@@ -264,11 +324,11 @@ def empleados(request):
             if new_user == -1:
                 print("El correo ya existe, mostrar un mensaje de error con toast")
                 messages.error(request, "Error, el email utilizado ya existe")
-                return redirect("empleados")
+                return redirect("vista_empleados")
             elif new_user == -2:
                 print("Ocurrio un error durante el registro")
                 messages.error(request, "Ocurrio un error durante el registro")
-                return redirect("empleados")
+                return redirect("vista_empleados")
             else:
                 print("El usuario ",new_user.nombre, "fue creado")
                 new_empleado = Empleado.register(
@@ -282,7 +342,12 @@ def empleados(request):
                 print("empleado creado: ",new_empleado.telefono)
                 print("empleado creado: ",new_empleado.id_empresa)
                 messages.success(request, "Empleado creado correctamente")
-                return redirect("empleados")
+                return redirect("vista_empleados")
         else:
-            return redirect("empleados")
-
+            return redirect("vista_empleados")
+        
+def eliminar_empresa(request, id):
+    empresa = Empresa.objects.get(user_id=id)
+    empresa.eliminar_empresa()
+    messages.success(request, "Cuenta eliminada correctamente")
+    return redirect("inicio")

@@ -43,8 +43,8 @@ class Producto(models.Model):
     precio_unitario = models.IntegerField()
     stock= models.IntegerField()
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    # proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)   
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre
