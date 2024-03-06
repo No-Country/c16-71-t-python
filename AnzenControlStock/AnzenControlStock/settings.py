@@ -97,11 +97,11 @@ port = os.getenv("PORT")
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': "railway",
-        'USER': "root",
-        'PASSWORD': 'beHBHH2dg2aBh-12C5F62FBCh-5bcg2g',
-        'HOST': "roundhouse.proxy.rlwy.net",
-        'PORT': "54233",
+        'NAME': "defaultdb",
+        'USER': "avnadmin",
+        'PASSWORD': 'AVNS_U5akln3cD6RNhl5KkS8',
+        'HOST': "anzendb-anzendb.a.aivencloud.com",
+        'PORT': "26112",
     }
 }
 
