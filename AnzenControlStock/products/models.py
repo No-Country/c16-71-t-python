@@ -15,15 +15,21 @@ class Proveedor(models.Model):
 
     @classmethod
     def crear_proveedor(cls, user_empresa, nombre, telefono, correo):
-        proveedor = cls(user_empresa=user_empresa, nombre=nombre, telefono=telefono, correo=correo)
-        proveedor.save()
-        return proveedor
+        try:
+            proveedor = cls(user_empresa=user_empresa, nombre=nombre, telefono=telefono, correo=correo)
+            proveedor.save()
+            return proveedor
+        except Exception as e:
+            print("Exception -> " + str(e))
+            return -2
 
-    def actualizar_proveedor(self, nombre, telefono, correo):
-        self.nombre = nombre
-        self.telefono = telefono
-        self.correo = correo
-        self.save()
+    @classmethod
+    def actualizar_proveedor(cls, id_proveedor, nombre, telefono, correo):
+        proveedor = cls.objects.get(id=id_proveedor)
+        proveedor.nombre = nombre
+        proveedor.telefono = telefono
+        proveedor.correo = correo
+        proveedor.save()
 
     def eliminar_proveedor(self):
         self.delete()
@@ -44,7 +50,7 @@ class Producto(models.Model):
     stock= models.IntegerField()
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    # proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    #proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre

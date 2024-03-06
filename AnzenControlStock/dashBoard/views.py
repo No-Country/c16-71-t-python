@@ -31,7 +31,7 @@ def inicio(request):
         else:
             messages.error(request, "Error, verifique sus datos")
             return redirect("inicio")
-    else:       
+    else:
         return render(request, 'login/inicio.html')
 
 
@@ -99,17 +99,17 @@ def editar_perfil(request):
             return render(request, "login/perfil.html", data)
         else:
             return redirect("inicio")
-        
+
     usuario = CustomUser.obtener_usuario_por_id(id_user)
     empresa = Empresa.obtener_empresa_por_id(id_user)
     data = {"empresa": empresa, "usuario": usuario}
 
     if request.method == "POST":
         if request.POST["password1"] != request.POST["password2"]:
-            
+
             messages.error(request, "Error, las contraseñas no son iguales")
             return render(request, "login/perfil.html", data)
-        else:  
+        else:
             user_actualizado = CustomUser.modificar_usuario(id_user,
                 request.POST["nombre"],
                 request.POST["email"],
@@ -125,7 +125,7 @@ def editar_perfil(request):
                 request.POST["nombreEmpresa"],
                 request.POST["categoriaNegocio"],
                 request.POST["telefono"],
-                request.POST["correoElectronico"])  
+                request.POST["correoElectronico"])
                 if empresa_actualizada == -2:
                     messages.error(request, "Error, las contraseñas no son iguales")
                     return render(request, "login/perfil.html", data)
@@ -250,3 +250,7 @@ def eliminar_producto(request, id):
     producto.eliminar_producto()
     messages.success(request, "Producto eliminado correctamente")
     return redirect("inventario")
+
+
+def proveedores(request):
+    return render(request, "dashboard/proveedores.html")

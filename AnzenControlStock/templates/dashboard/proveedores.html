@@ -1,5 +1,9 @@
 {% extends "partials/base.html" %}
-{% block extra_css %}<link rel="stylesheet" href="/c16-71-t-python/AnzenControlStock/static/css/proveedores.css">
+
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/proveedores.css' %}">
+{% endblock%}
 
 {% block title %}
 Proveedores
@@ -8,68 +12,8 @@ Proveedores
 {% block content %}
 {% load static %}
 
-{% include 'dashboard/sidebar.html' %}
-{% include 'dashboard/navbar.html' %}
+{% include 'partials/sidebar.html' %}
 
-    <div class="wrapper">
-        <aside id="sidebar">
-            <div class="d-flex">
-                <button class="toggle-btn" type="button">
-                    <img src="{% static 'imagenes/Nuevo logo.png' %}" lt="logo" width="30px">
-                </button>
-                <div class="sidebar-logo">
-                    <a href="#">
-                        <img src="{% static 'imagenes/letraLogo.png' %}" lt="logo" width="150px">
-                    </a>
-                </div>
-            </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-home"></i>
-                        <span class = "sidebar__text">Inicio</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span class = "sidebar__text">Inventario</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-users"></i>
-                        <span class = "sidebar__text">Empleados</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-delivery"></i>
-                        <span class = "sidebar__text">Provedores</span>
-                    </a>
-                </li>
-                <hr class = "separador">
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-user"></i>
-                        <span class = "sidebar__text">Perfil</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-cog"></i>
-                        <span class = "sidebar__text">Iniciar sesion</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="sidebar-footer">
-                <a href="#" class="sidebar-link">
-                    <i class="lni lni-exit"></i>
-                    <span>Salir</span>
-                </a>
-            </div>
-        </aside>
-    </div>
     <div class="main">
         <div class="main-header">
             <div class="main-header__left">
@@ -114,7 +58,7 @@ Proveedores
                     <button type="submit" class = "btn-cancelar">Cancelar</button>
                 </form>
             </div>
-        
+
         </div>
     </div>
 
