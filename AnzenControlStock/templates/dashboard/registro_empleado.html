@@ -65,17 +65,39 @@ ANZEN - Resgitro Empleado
                         <label for="rol">Rol:</label>
                             <select class="rol">
                                 <option selected>Seleccione el Rol</option>
-                                <option value="1">Encargado</option>
-                                <option value="2">Empleado-t1</option>
-                                <option value="2">Empleado-t2</option>
-                                <option value="2">Empleado-t3</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Encargado</option>
                             </select>
                     </label>
                     </div>
                     <button class = "btn-guardar" type="submit">Guardar</button>
-                    <a class = "btn btn-cancelar" href="">Cancelar</a>
+
+                    <a class = "btn btn-cancelar" href="dashboard/main.html">Cancelar</a>
                 </form>
             </div>
+
+            <!DOCTYPE html>
+
+            
+
+        <script>
+        var dashboardContainer = document.getElementById("dashboardContainer");
+        if (dashboardContainer) {
+            dashboardContainer.addEventListener("click", function (e) {
+            // Please sync "Vista Home" to the project
+            });
+        }
+        
+        var billingContainer = document.getElementById("billingContainer");
+        if (billingContainer) {
+            billingContainer.addEventListener("click", function (e) {
+            // Please sync "Vista Proveedores" to the project
+            });
+        }
+        </script>
+    </body>
+
+
 
         </div>
     </div>
