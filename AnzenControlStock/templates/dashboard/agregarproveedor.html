@@ -17,7 +17,7 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <title>ControlStock</title>
-    <script src="/proveedores.js"></script>
+    <script src="/agregarproveedores.js" defer></script>
 </head>
 <body>
     <div class="wrapper">
@@ -83,7 +83,7 @@
         <div class="main-header">
             <div class="main-header__left">
                 <p>Paginas / Inicio</p>
-                <span>Proveedores</span>
+                <span>Agregar proveedor</span>
             </div>
             <div class="main-header__right">
                 <a href="#">
@@ -92,32 +92,29 @@
                 </a>
             </div>
         </div>
-<div class="padre">
-          <button class="crear-proveedor-btn">Crear Proveedor</button>
-
+    <div class="contenedor">
+        <div class="contenedor-form">
+            <form method="post">
+                <div class="input-caja">
+                    <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
         </div>
-<div class="tabla-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Correo Electrónico</th>
-          <th>Teléfono</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-        <td>Juancito</td>
-        <td>Juan@hotmail.com</td>
-        <td>12345678910</td>
-        <td><button>eliminar</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required>
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+        </div>
+        <div class="botones">
+                <button class = "btn-guardar" type="submit">Guardar</button>
+                <button type="submit" class = "btn-cancelar">Cancelar</button>
+            </div>
+            </form>
+        </div>
     </div>
-    </div>
+    </div> 
     <!-- FIN DEL CONTENEDOR -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
