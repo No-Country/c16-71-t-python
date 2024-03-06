@@ -257,6 +257,29 @@ def eliminar_producto(request, id):
     producto.eliminar_producto()
     messages.success(request, "Producto eliminado correctamente")
     return redirect("inventario")
+def vista_empleados(request):
+
+    return render(request, 'dashboard/vista_empleados.html')
+
+def registro_empleado(request):
+
+    return render(request, 'dashboard/registro_empleado.html')
+
+
+def editar_empleado(request):
+    empleados = Empleado.objects.all()
+    return render(request, 'editar_empleado.html', {'empleados': empleados})
+
+
+def eliminar_empleado(request, empleado_id):
+    empleados = Empleado.objects.all()
+    return render(request, 'eliminar_empleado.html', {'empleados': empleados})
+
+
+def cerrar_sesion(request):
+    request.session["id_user"] = None
+    return redirect("dashboard-inicio")
+
 
 
 def proveedores(request):
