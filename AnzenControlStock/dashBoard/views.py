@@ -21,13 +21,19 @@ def inicio(request):
 
         if usuario is not None:
             login(request, usuario)
-
-            empresa = Empresa.objects.get(user_id=usuario.id)
-            if empresa is not None:
+            
+            if usuario.es_empresa == True:
                 request.session["id_user"] = usuario.id
                 print ("Sesion iniciada "+ str(request.session.get("id_user")))
                 messages.success(request, "Sesión iniciada correctamente")
                 return redirect("dashboard")
+            else:
+                request.session["id_user"] = usuario.id
+                print ("Sesion iniciada "+ str(request.session.get("id_user")))
+                messages.success(request, "Sesión iniciada correctamente")
+                return redirect("dashboard")
+
+                
         else:
             messages.error(request, "Error, verifique sus datos")
             return redirect("inicio")
@@ -41,7 +47,7 @@ def registro(request):
     if request.method == 'POST':
         # verificaciones
         if request.POST['password1'] == request.POST['password2'] and request.POST['nombre'] and request.POST['email']:
-            new_user = CustomUser.register(request.POST['nombre'], request.POST['email'], request.POST['password1'])
+            new_user = CustomUser.register(request.POST['nombre'], request.POST['email'], request.POST['password1'], True)
             if new_user == -1:
                 print("El correo ya existe, mostrar un mensaje de error con toast")
                 messages.error(request, "Error, el email utilizado ya existe")
@@ -240,7 +246,7 @@ def empleados(request):
     id_user = request.session.get("id_user")
     empleados = Empleado.obtener_empleado_por_empresa(id_user)
     print("Empleados",empleados)
-    #print("Categorias", categorias)
+    print(id_user)
 
     if request.method == "GET":
         if id_user:
@@ -248,7 +254,35 @@ def empleados(request):
                     "empleados": empleados,
             }
             return render(
-                request, "empleado/empleados.html", data
+                request, "dashboard/registro_empleado.html", data
             )
         else:
             return redirect("inicio")
+    else:
+        if request.POST['password1'] == request.POST['password2'] and request.POST['nombreEmpleado'] and request.POST['mailEmpleado']:
+            new_user = CustomUser.register(request.POST['nombreEmpleado'], request.POST['mailEmpleado'], request.POST['password1'], False)
+            if new_user == -1:
+                print("El correo ya existe, mostrar un mensaje de error con toast")
+                messages.error(request, "Error, el email utilizado ya existe")
+                return redirect("empleados")
+            elif new_user == -2:
+                print("Ocurrio un error durante el registro")
+                messages.error(request, "Ocurrio un error durante el registro")
+                return redirect("empleados")
+            else:
+                print("El usuario ",new_user.nombre, "fue creado")
+                new_empleado = Empleado.register(
+                    new_user.id,
+                    request.POST["rol"],
+                    request.POST["telefonoEmpleado"],
+                    id_user
+                )
+                print("empleado creado: ",new_empleado.user.nombre)
+                print("empleado creado: ",new_empleado.user)
+                print("empleado creado: ",new_empleado.telefono)
+                print("empleado creado: ",new_empleado.id_empresa)
+                messages.success(request, "Empleado creado correctamente")
+                return redirect("empleados")
+        else:
+            return redirect("empleados")
+

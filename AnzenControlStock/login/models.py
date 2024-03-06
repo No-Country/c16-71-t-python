@@ -21,7 +21,7 @@ class CustomUser(AbstractUser):
         return self.username
 
     @classmethod
-    def register(cls, nombre, email, password, es_empresa=True):
+    def register(cls, nombre, email, password, es_empresa):
         """
     Este método crea un nuevo usuario en el sistema con el rol de empresa.
 
@@ -179,11 +179,12 @@ class Empleado(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    telefono = models.IntegerField(null=True)
     rol = models.CharField(max_length=32)
     id_empresa = models.IntegerField(null=True)
 
     @classmethod
-    def register(cls, user_id, rol, id_user_empresa):
+    def register(cls, user_id, rol,telefono , id_user_empresa):
         """
     :return: La instancia de empleado creada si el registro fue exitoso.
             -2 si ocurre algún error durante el registro.
@@ -192,6 +193,7 @@ class Empleado(models.Model):
             empleado = Empleado.objects.create(
                 user_id=user_id,
                 rol=rol,
+                telefono=telefono,
                 id_empresa = id_user_empresa
             )
             empleado.save()
@@ -209,12 +211,13 @@ class Empleado(models.Model):
             return None
 
     @classmethod
-    def modificar_empleado(cls,user_id , rol):      
+    def modificar_empleado(cls,user_id , rol, telefono):      
         try:
             empleado = cls.objects.get(id=user_id)
 
             # Actualizar la empresa
             empleado.rol = rol
+            empleado.telefono = telefono
             empleado.save()
             return empleado     
         except cls.DoesNotExist:
@@ -229,7 +232,7 @@ class Empleado(models.Model):
     def obtener_empleado_por_empresa(cls, user_empresa_id):
         try:
             user_empresa = CustomUser.objects.get(id=user_empresa_id)
-            empleados = cls.objects.filter(id_empresa=user_empresa)
+            empleados = cls.objects.filter(id_empresa=user_empresa.id)
             return empleados
         except Exception as e:
             print("Exception -> " + str(e))
