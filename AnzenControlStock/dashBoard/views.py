@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
 
-from login.models import CustomUser, Empresa
+from login.models import CustomUser, Empresa, Empleado
 from products.models import Producto, Categoria
 
 from django.contrib import messages
@@ -235,3 +235,20 @@ def eliminar_producto(request, id):
     producto.eliminar_producto()
     messages.success(request, "Producto eliminado correctamente")
     return redirect("inventario")
+
+def empleados(request):
+    id_user = request.session.get("id_user")
+    empleados = Empleado.obtener_empleado_por_empresa(id_user)
+    print("Empleados",empleados)
+    #print("Categorias", categorias)
+
+    if request.method == "GET":
+        if id_user:
+            data = {"seccion_actual": "empleados",
+                    "empleados": empleados,
+            }
+            return render(
+                request, "empleado/empleados.html", data
+            )
+        else:
+            return redirect("inicio")

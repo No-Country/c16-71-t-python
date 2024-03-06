@@ -21,7 +21,7 @@ class CustomUser(AbstractUser):
         return self.username
 
     @classmethod
-    def register(cls, nombre, email, password):
+    def register(cls, nombre, email, password, es_empresa=True):
         """
     Este método crea un nuevo usuario en el sistema con el rol de empresa.
 
@@ -44,7 +44,7 @@ class CustomUser(AbstractUser):
                     nombre= nombre,
                     email = email,
                     password = password,
-                    es_empresa = True
+                    es_empresa = es_empresa
                     )
                 usuario.save()
                 return usuario
@@ -173,9 +173,6 @@ class Empresa(models.Model):
     def eliminar_empresa(self):
         self.delete()
 
-
-
-
 class Empleado(models.Model):
     user = models.OneToOneField(
         CustomUser,
@@ -183,3 +180,65 @@ class Empleado(models.Model):
         primary_key=True,
     )
     rol = models.CharField(max_length=32)
+    id_empresa = models.IntegerField(null=True)
+
+    @classmethod
+    def register(cls, user_id, rol, id_user_empresa):
+        """
+    :return: La instancia de empleado creada si el registro fue exitoso.
+            -2 si ocurre algún error durante el registro.
+        """
+        try:
+            empleado = Empleado.objects.create(
+                user_id=user_id,
+                rol=rol,
+                id_empresa = id_user_empresa
+            )
+            empleado.save()
+            return empleado
+        except Exception as e:
+            print("Exception -> " + str(e))
+            return -2
+    
+    @classmethod
+    def obtener_empleado_por_id(cls, id_usuario):
+        try:
+            empleado = cls.objects.get(user=id_usuario)
+            return empleado
+        except cls.DoesNotExist:
+            return None
+
+    @classmethod
+    def modificar_empleado(cls,user_id , rol):      
+        try:
+            empleado = cls.objects.get(id=user_id)
+
+            # Actualizar la empresa
+            empleado.rol = rol
+            empleado.save()
+            return empleado     
+        except cls.DoesNotExist:
+            raise Exception("El usuario no existe.")
+        except Exception as e :
+            return -2
+        
+    def eliminar_empleado(self):
+        self.delete()
+
+    @classmethod
+    def obtener_empleado_por_empresa(cls, user_empresa_id):
+        try:
+            user_empresa = CustomUser.objects.get(id=user_empresa_id)
+            empleados = cls.objects.filter(id_empresa=user_empresa)
+            return empleados
+        except Exception as e:
+            print("Exception -> " + str(e))
+            return None
+
+    @classmethod
+    def obtener_empleado_por_id_y_empresa(cls, id_empleado, id_user_empresa):
+        try:
+            empleado = cls.objects.get(id=id_empleado, id_empresa=id_user_empresa)
+            return empleado
+        except cls.DoesNotExist:
+            return None
