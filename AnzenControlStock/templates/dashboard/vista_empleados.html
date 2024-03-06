@@ -36,14 +36,7 @@ ANZEN - Empleados
             <button class = "btn-crear" href="dashboard/registro_empleado.html">Crear Empleado</button>
         </div>
 
-        <div class="container-fluid d-flex  justify-content-start inventario-inputs">
-            <form class="d-flex ms-auto" method="post">
-                {% csrf_token %}
-                <input class="form-control me-2 input9" id="texto" name="texto" type="search" placeholder="Buscar" aria-label="Buscar">
-                <button type="submit" class="btn btn-outline-success btn-buscar">
-                    <img src="{% static '/imagenes/lupa.png' %}" alt="">
-            </form>
-        </div>
+        
     </div>      
         <div></div>
         <div class="empleados">
@@ -52,140 +45,49 @@ ANZEN - Empleados
                     <span class="navbar-brand">Empleados</span>
     
                 </div>
+            
             </nav>
-            
-            <div class="shift-01">
-                <div class="container1"></div>
-                <div class="shift-key-frame">
-                <div class="employee-tag-info-button">
-                    <div class="employee-01">
-                    <div class="container2"></div>
-                    <div class="employee-tag-info-button1">
-                        <div class="employee-tag-info-button2">
-                    
-
-                        <img
-                            class="face-3-icon"
-                            loading="lazy"
-                            alt=""
-                            src="{% static '/imagenes/nico.jpeg' %}"
-                        />
-                        </div>
-                        <div class="tag-info">
-                        <b class="nicolas-brites">Nicolas Brites</b>
-                        <button class="tag">
-                            <b class="info">Admin</b>
-                        </button>
-                        </div>
-                    </div>
-                    <img
-                        class="button-icon"
-                        loading="lazy"
-                        alt=""
-                        src="{% static '/imagenes/ellipsismenu.png' %}"
-                    />
-                    </div>
-                    <div class="employee-04">
-                    <div class="container3"></div>
-                    <div class="frame-parent6">
-                        <div class="avatar-general-parent">
-
-                        <img
-                            class="face-2-icon"
-                            alt=""
-                            src="{% static '/imagenes/jessy.jpeg' %}"
-                        />
-                        </div>
-                        <div class="frame-wrapper2">
-                        <div class="tag-info-parent">
-                            <div class="tag-info1">
-                            <b class="jenny-wilson">Jessica Armona</b>
-                            </div>
-                            <div class="tag1">
-                            <b class="primary">
-                                <p class="encargado-de">Encargado de</p>
-                                <p class="inventario6">inventario</p>
-                            </b>
+        </nav>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Empleado</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for empleado in empleados %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ empleado.nombre }}</td>
+                    <td>{{ empleado.email }}</td>
+                    <td>{{ empleado.rol }}</td>
+                    <td id="row">
+                        <a class="btn btn-editar" href="">
+                            <img src="{% static 'imagenes/lapiz.png' %}">
+                        </a>
+                        <a class="btn btn-eliminar" id="open">
+                            <img src="{% static 'imagenes/cesto' %}">
+                        </a>
+                        <div class="mensaje">
+                            <span>Si elimina el Empleado no podrá recuperarlo.</span>
+                            <p>¿Estás seguro de que deseas eliminar este Empleado?</p>
+                            <div class="mensaje-botones">
+                                <a class = "btn btn-mensajeEliminar" href="{% url 'eliminar_empleado' id=empleado.nombre%}">
+                                    SI, quiero eliminar este Empleado
+                                </a>
+                                <button class = "btn-mensajeCancelar">Cancelar</button>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                    <img
-                        class="button-icon"
-                        loading="lazy"
-                        
-                        src="{% static '/imagenes/ellipsismenu.png' %}"
-                    />
-                    </div>
-            
-                    <div class="employee-02">
-                        <div class="container4"></div>
-                        <div class="employee-frame">
-                        <div class="avatar-instance">
-                            <div class="members-frame">
-                            <img
-                                class="members-icon"
-                                alt=""
-                                src="{% static '/imagenes/franco.jpeg' %}"
-                            />
-                            </div>
-                        </div>
-                        <div class="employee-frame1">
-                            <b class="dianne-russell">Franco Ortelli</b>
-                            <div class="text-instance">
-                            <div class="tag2">
-                                <b class="success">Vendedor</b>
-                            </div>
-                            <div class="tag3">
-                                <b class="primary1">
-                                <p class="encargado-de1">Encargado de</p>
-                                <p class="inventario7">inventario</p>
-                                </b>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                        <img
-                            class="button-icon"
-                            loading="lazy"
-                            alt=""
-                            src="{% static '/imagenes/ellipsismenu.png' %}"
-                        />
-                    </div>
-                    </div>
-                    <div class="employee-03">
-                    <div class="container5"></div>
-                    <div class="tag4">
-                        <b class="warning">Chef</b>
-                    </div>
-                    <div class="avatar-instance1">
-                        <div class="text-instance1">
-                        <img
-                            class="face-4-icon"
-                            loading="lazy"
-                            alt=""
-                            src="{% static '/imagenes/furai.jpeg' %}"
-                        />
-                        </div>
-                        <div class="text-instance2">
-                        <b class="esther-howard">Leo Herman</b>
-                        <div class="tag5">
-                            <b class="success1">Vendedor</b>
-                        </div>
-                        </div>
-                    </div>
-                    <img
-                        class="button-icon"
-                        loading="lazy"
-                        alt=""
-                        src="{% static '/imagenes/ellipsismenu.png' %}"
-                    />
-                </div>
-                
-            </div>
-            </div>
-        </section>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         </div>
+            
+            
     </div>
 
     {% endblock %}
@@ -198,42 +100,139 @@ ANZEN - Empleados
     {% endblock %}
 
 
-</nav>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Empleado</th>
-            <th scope="col">Email</th>
-            <th scope="col">Rol</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for empleado in empleados %}
-        <tr>
-            <th scope="row">{{ forloop.counter }}</th>
-            <td>{{ empleado.nombre }}</td>
-            <td>{{ empleado.email }}</td>
-            <td>{{ empleado.rol }}</td>
-            <td id="row">
-                <a class="btn btn-editar" href="">
-                    <img src="{% static 'imagenes/lapiz.png' %}">
-                </a>
-                <a class="btn btn-eliminar" id="open">
-                    <img src="{% static 'imagenes/cesto' %}">
-                </a>
-                <div class="mensaje">
-                    <span>Si elimina el Empleado no podrá recuperarlo.</span>
-                    <p>¿Estás seguro de que deseas eliminar este Empleado?</p>
-                    <div class="mensaje-botones">
-                        <a class = "btn btn-mensajeEliminar" href="{% url 'eliminar_empleado' id=empleado.nombre%}">
-                            SI, quiero eliminar este Empleado
-                        </a>
-                        <button class = "btn-mensajeCancelar">Cancelar</button>
-                    </div>
+
+
+
+
+<div class="shift-01">
+    <div class="container1"></div>
+    <div class="shift-key-frame">
+    <div class="employee-tag-info-button">
+        <div class="employee-01">
+        <div class="container2"></div>
+        <div class="employee-tag-info-button1">
+            <div class="employee-tag-info-button2">
+        
+
+            <img
+                class="face-3-icon"
+                loading="lazy"
+                alt=""
+                src="{% static '/imagenes/nico.jpeg' %}"
+            />
+            </div>
+            <div class="tag-info">
+            <b class="nicolas-brites">Nicolas Brites</b>
+            <button class="tag">
+                <b class="info">Admin</b>
+            </button>
+            </div>
+        </div>
+        <img
+            class="button-icon"
+            loading="lazy"
+            alt=""
+            src="{% static '/imagenes/ellipsismenu.png' %}"
+        />
+        </div>
+        <div class="employee-04">
+        <div class="container3"></div>
+        <div class="frame-parent6">
+            <div class="avatar-general-parent">
+
+            <img
+                class="face-2-icon"
+                alt=""
+                src="{% static '/imagenes/jessy.jpeg' %}"
+            />
+            </div>
+            <div class="frame-wrapper2">
+            <div class="tag-info-parent">
+                <div class="tag-info1">
+                <b class="jenny-wilson">Jessica Armona</b>
                 </div>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                <div class="tag1">
+                <b class="primary">
+                    <p class="encargado-de">Encargado de</p>
+                    <p class="inventario6">inventario</p>
+                </b>
+                </div>
+            </div>
+            </div>
+        </div>
+        <img
+            class="button-icon"
+            loading="lazy"
+            
+            src="{% static '/imagenes/ellipsismenu.png' %}"
+        />
+        </div>
+
+        <div class="employee-02">
+            <div class="container4"></div>
+            <div class="employee-frame">
+            <div class="avatar-instance">
+                <div class="members-frame">
+                <img
+                    class="members-icon"
+                    alt=""
+                    src="{% static '/imagenes/franco.jpeg' %}"
+                />
+                </div>
+            </div>
+            <div class="employee-frame1">
+                <b class="dianne-russell">Franco Ortelli</b>
+                <div class="text-instance">
+                <div class="tag2">
+                    <b class="success">Vendedor</b>
+                </div>
+                <div class="tag3">
+                    <b class="primary1">
+                    <p class="encargado-de1">Encargado de</p>
+                    <p class="inventario7">inventario</p>
+                    </b>
+                </div>
+                </div>
+            </div>
+            </div>
+            <img
+                class="button-icon"
+                loading="lazy"
+                alt=""
+                src="{% static '/imagenes/ellipsismenu.png' %}"
+            />
+        </div>
+        </div>
+        <div class="employee-03">
+        <div class="container5"></div>
+        <div class="tag4">
+            <b class="warning">Chef</b>
+        </div>
+        <div class="avatar-instance1">
+            <div class="text-instance1">
+            <img
+                class="face-4-icon"
+                loading="lazy"
+                alt=""
+                src="{% static '/imagenes/furai.jpeg' %}"
+            />
+            </div>
+            <div class="text-instance2">
+            <b class="esther-howard">Leo Herman</b>
+            <div class="tag5">
+                <b class="success1">Vendedor</b>
+            </div>
+            </div>
+        </div>
+        <img
+            class="button-icon"
+            loading="lazy"
+            alt=""
+            src="{% static '/imagenes/ellipsismenu.png' %}"
+        />
+    </div>
+    
+</div>
+</div>
+</section>
 </div>
