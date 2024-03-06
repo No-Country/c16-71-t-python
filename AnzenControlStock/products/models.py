@@ -58,11 +58,12 @@ class Producto(models.Model):
 
     @classmethod
     def create_producto(
-        cls, user_empresa_id, nombre, descripcion, precio_unitario, stock, categoria_id
+        cls, user_empresa_id, nombre, descripcion, precio_unitario, stock, categoria_id, proveedor_id
     ):
         try:
             user_empresa = CustomUser.objects.get(id=user_empresa_id)
             categoria = Categoria.objects.get(id=categoria_id)
+            proveedor = Proveedor.objects.get(id=proveedor_id)
             producto = cls.objects.create(
                 user_empresa=user_empresa,
                 nombre=nombre,
@@ -70,6 +71,7 @@ class Producto(models.Model):
                 precio_unitario=precio_unitario,
                 stock=stock,
                 categoria= categoria,
+                proveedor = proveedor,
             )
             return producto
         except Exception as e:
@@ -86,10 +88,12 @@ class Producto(models.Model):
         stock,
         fecha_ingreso,
         categoria_id,
+        proveedor_id,
     ):
         try:
             producto = cls.objects.get(id=producto_id)
             categoria = Categoria.objects.get(id=categoria_id)
+            proveedor = Proveedor.objects.get(id=proveedor_id)
 
             # Actualizar el producto
             producto.nombre = nombre
@@ -98,6 +102,7 @@ class Producto(models.Model):
             producto.stock = stock
             producto.fecha_ingreso = fecha_ingreso
             producto.categoria = categoria
+            producto.proveedor = proveedor
             producto.save()
 
             return producto

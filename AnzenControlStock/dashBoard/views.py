@@ -200,6 +200,7 @@ def crear_producto(request):
             categorias = Categoria.objects.all()
             data = {
                 "categorias": categorias,
+                "proveedores": proveedores,
                 "seccion_actual": "inventario",
             }
             return render(request, "inventario/agregarProducto.html", data)
