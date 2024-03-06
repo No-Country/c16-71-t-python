@@ -4,7 +4,6 @@
 {% block extra_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 <link rel="stylesheet" href="{% static 'css/stylepropio.css' %}">
-<link rel="stylesheet" href="{% static 'css/proveedores.css' %}">
 {% endblock%}
 
 
@@ -15,8 +14,6 @@ Stock Anzen
 
 {% block content %}
 {% load static %}
-
-{% include 'partials/sidebar.html' %}
 
 {% include 'partials/sidebar.html' %}
 
@@ -79,39 +76,6 @@ Stock Anzen
     </table>
   </div>
     </div>
-        <div class="contenedor">
-            <div class="contenedor-form">
-                <form method="post">
-                    <div class="input-caja">
-                        <label for="id">ID</label>
-                        <input type="text" id="id" name="id">
-                    </div>
-                    <div class="input-caja">
-                        <label for="nombreProducto">Nombre del producto</label>
-                        <input type="text" id="nombreProducto" name="nombreProducto">
-                    </div>
-                    <div class="input-caja">
-                        <label for="categoria">Categoria</label>
-                        <input type="text" id="categoria" name="categoria">
-                    </div>
-                    <div class="input-caja">
-                        <label for="proveedor">Proveedor</label>
-                        <input type="text" id="proveedor" name="proveedor">
-                    </div>
-                    <div class="input-caja">
-                        <label for="precioUnitario">Precio Unitario</label>
-                        <input type="text" id="precioUnitario" name="precioUnitario">
-                    </div>
-                    <div class="input-caja">
-                        <label for="descripcion">Descripcion</label>
-                        <input class = "inputDescripcion"type="text" id="descripcion" name="descripcion">
-                    </div>
-                    <button class = "btn-guardar" type="submit">Guardar</button>
-                    <button type="submit" class = "btn-cancelar">Cancelar</button>
-                </form>
-            </div>
-
-        </div>
     </div>
     <!-- FIN DEL CONTENEDOR -->
     {% endblock %}
