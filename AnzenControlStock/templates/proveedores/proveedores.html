@@ -24,12 +24,12 @@ Stock Anzen
                 <span>Proveedores</span>
             </div>
         </div>
-<div class="padre">
-          <button class="crear-proveedor-btn">Crear Proveedor</button>
+        <div class="padre">
+            <a class="btn crear-proveedor-btn" href="{% url 'nuevo_proveedor'%}">Crear Proveedor</a>
 
         </div>
 <div class="tabla-container">
-    <table>
+    <table class="tabla-furai">
       <thead>
         <tr>
           <th>Nombre</th>
@@ -39,42 +39,24 @@ Stock Anzen
         </tr>
       </thead>
       <tbody>
-        <tr>
-        <td>Juancito</td>
-        <td>Juan@hotmail.com</td>
-        <td>12345678910</td>
-        <td><button class="btn-editar">
-            <img src="{% static 'imagenes/lapiz.png' %}">
-        </button>
-        <button class="btn-eliminar">
-            <img src="{% static 'imagenes/cesto.png' %}">
-        </button></td>
-        </tr>
-        <tr>
-        <td>cito</td>
-        <td>Juan@hotmail.com</td>
-        <td>12345678910</td>
-        <td><button class="btn-editar">
-            <img src="{% static 'imagenes/lapiz.png' %}">
-        </button>
-        <button class="btn-eliminar">
-            <img src="{% static 'imagenes/cesto.png' %}">
-        </button></td>
-        </tr>
-        <tr>
-        <td>Juan</td>
-        <td>Juan@hotmail.com</td>
-        <td>12345678910</td>
-        <td><button class="btn-editar">
-            <img src="{% static 'imagenes/lapiz.png' %}">
-        </button>
-        <button class="btn-eliminar">
-            <img src="{% static 'imagenes/cesto.png' %}">
-        </button></td>
-        </tr>
-      </tbody>
+        {% for proveedor in proveedores%}
+            <tr>
+                <td>{{proveedor.nombre}}</td>
+                <td>{{proveedor.correo}}</td>
+                <td>{{proveedor.telefono}}</td>
+                <td>
+                    <button class="btn-editar">
+                        <img src="{% static 'imagenes/lapiz.png' %}">
+                    </button>
+                    <button class="btn-eliminar">
+                        <img src="{% static 'imagenes/cesto.png' %}">
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
-  </div>
+    </div>
     </div>
     </div>
     <!-- FIN DEL CONTENEDOR -->

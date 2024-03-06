@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 
 from login.models import CustomUser, Empresa
-from products.models import Producto, Categoria
+from products.models import Producto, Categoria, Proveedor
 
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, get_user_model
@@ -198,7 +198,10 @@ def crear_producto(request):
     if request.method == "GET":
         if id_user:
             categorias = Categoria.objects.all()
-            data = {"categorias": categorias}
+            data = {
+                "categorias": categorias,
+                "seccion_actual": "inventario",
+            }
             return render(request, "inventario/agregarProducto.html", data)
         else:
             return redirect("inicio")
@@ -213,7 +216,7 @@ def crear_producto(request):
             request.POST["cantidad"],
             request.POST["categoria"],
         )
-        #print("Product creado: ",new_producto.nombre)
+        # print("Product creado: ",new_producto.nombre)
         messages.success(request, "Producto creado correctamente")
         return redirect("inventario")
 
@@ -225,7 +228,11 @@ def editar_producto(request, id):
         if id_user:
             producto = Producto.obtener_producto_por_id_y_empresa(id, id_user)
             categorias = Categoria.objects.all()
-            data = {"producto": producto, "categorias": categorias}
+            data = {
+                "producto": producto,
+                "categorias": categorias,
+                "seccion_actual": "inventario",
+            }
             return render(request, "inventario/editarProducto.html", data)
         else:
             return redirect("inicio")
@@ -253,4 +260,47 @@ def eliminar_producto(request, id):
 
 
 def proveedores(request):
-    return render(request, "dashboard/proveedores.html")
+    id_user = request.session.get("id_user")
+
+    if request.method == "GET":
+        if id_user:
+            proveedores = Proveedor.objects.all()
+            data = {
+                "proveedores": proveedores,
+                "seccion_actual": "proveedores",
+            }
+            return render(request, "proveedores/proveedores.html", data)
+        else:
+            return redirect("inicio")
+
+
+def crear_proveedor(request):
+    id_user = request.session.get("id_user")
+
+    if request.method == "GET":
+        if id_user:
+            data = {
+                "seccion_actual": "proveedores",
+            }
+            return render(request, "proveedores/agregarproveedor.html", data)
+        else:
+            return redirect("inicio")
+
+    if request.method == "POST":
+        print("POST*********", request.POST)
+        new_proveedor = Proveedor.crear_proveedor(
+            id_user,
+            request.POST["nombre"],
+            request.POST["telefono"],
+            request.POST["correo"],
+        )
+        print("Proveedor creado: ",new_proveedor.nombre)
+        messages.success(request, "Proveedor creado correctamente")
+        return redirect("proveedores")
+
+def editar_proveedor(request, id):
+    pass
+
+
+def eliminar_proveedor(request, id):
+    pass

@@ -14,8 +14,9 @@ class Proveedor(models.Model):
     correo = models.CharField(max_length=32)
 
     @classmethod
-    def crear_proveedor(cls, user_empresa, nombre, telefono, correo):
+    def crear_proveedor(cls, user_empresa_id, nombre, telefono, correo):
         try:
+            user_empresa = CustomUser.objects.get(id=user_empresa_id)
             proveedor = cls(user_empresa=user_empresa, nombre=nombre, telefono=telefono, correo=correo)
             proveedor.save()
             return proveedor
@@ -50,7 +51,7 @@ class Producto(models.Model):
     stock= models.IntegerField()
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    #proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre
