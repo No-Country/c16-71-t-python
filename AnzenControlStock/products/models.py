@@ -1,6 +1,7 @@
 from django.db import models
-from login.models import CustomUser
+from login.models import CustomUser, Empleado
 from django.db.models import Q
+from datetime import datetime
 
 class Proveedor(models.Model):
     user_empresa = (
@@ -172,3 +173,53 @@ class Producto(models.Model):
             print("Resultado de busqueda de categoria ", filtrados)
 
         return filtrados
+    
+class Transaccion(models.Model):
+    user_empresa = (
+        models.ForeignKey(  # Usuaro de la empresa a la que pertenece el proveedor
+            CustomUser,
+            on_delete=models.CASCADE,
+        )
+    )
+    user_empleado = (
+        models.ForeignKey(  # El empleado que hace el movimiento
+            Empleado,
+            on_delete=models.CASCADE,
+        )
+    )
+    tipo_de_transaccion = models.CharField(max_length=32)
+    cantidad = models.IntegerField()
+    descripcion = models.CharField(max_length=32)
+    fecha_y_hora = models.DateTimeField()
+
+    @classmethod
+    def create_transaccion(
+        cls, user_empresa_id, user_empleado_id, tipo_de_transaccion, cantidad, descripcion, 
+    ):
+        try:
+            user_empresa = CustomUser.objects.get(id=user_empresa_id)
+            user_empleado = Empleado.objects.get(user_id=user_empleado_id)
+            print("Empleado a utilizar,", user_empleado.nombre)
+            transaccion = cls.objects.create(
+                user_empresa=user_empresa,
+                user_empleado=user_empleado,
+                tipo_de_transaccion=tipo_de_transaccion,
+                cantidad=cantidad,
+                descripcion=descripcion,
+                fecha_y_hora = datetime.now()
+            )
+            return transaccion
+        except Exception as e:
+            print("Exception -> " + str(e))
+            return -2
+        
+    @classmethod
+    def obtener_transaccion_por_empresa(cls, user_empresa_id):
+        try:
+            user_empresa = CustomUser.objects.get(id=user_empresa_id)
+            transacciones = cls.objects.filter(user_empresa=user_empresa)
+            print("-------", transacciones)
+            return transacciones
+        except Exception as e:
+            print("Exception -> " + str(e))
+            return None
