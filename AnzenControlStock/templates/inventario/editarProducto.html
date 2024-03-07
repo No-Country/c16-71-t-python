@@ -42,7 +42,7 @@ Stock Anzen
                         <select class="form-select me-2 select-input-caja" name="proveedor" id="proveedor">
                             <option selected>Proveedor</option>
                             {% for proveedor in proveedores %}
-                            <option value="{{proveedor.id}}" {% if categoria.id == producto.categoria.id %}selected{% endif %}>
+                            <option value="{{proveedor.id}}" {% if proveedor.id == producto.proveedor.id %}selected{% endif %}>
                                 {{proveedor.nombre}}
                             </option>
                             {% endfor %}

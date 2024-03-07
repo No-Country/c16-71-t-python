@@ -444,8 +444,38 @@ def crear_proveedor(request):
         return redirect("proveedores")
 
 def editar_proveedor(request, id):
-    pass
+    id_user = request.session.get("id_user")
+
+    if request.method == "GET":
+        if id_user:
+            proveedor = Proveedor.objects.get(id=id)
+            data = {
+                "proveedor": proveedor,
+                "seccion_actual": "proveedores",
+            }
+            print("PROVEEDOR A EDITAR", proveedor.nombre, proveedor.correo)
+            return render(request, "proveedores/editarProveedor.html", data)
+        else:
+            return redirect("inicio")
+
+    if request.method == "POST":
+        actualizado = Proveedor.actualizar_proveedor(
+            id,
+            request.POST["nombre"],
+            request.POST["telefono"],
+            request.POST["correo"],
+        )
+        if actualizado == -2:
+            messages.error(request, "Error al editar el proveedor")
+        else:
+            messages.success(request, "Proveedor editado correctamente")
+        print("Proveedor editado: ", actualizado)
+
+        return redirect("proveedores")
 
 
 def eliminar_proveedor(request, id):
-    pass
+    proveedor = Proveedor.objects.get(id=id)
+    proveedor.eliminar_proveedor()
+    messages.success(request, "Proveedor eliminado correctamente")
+    return redirect("proveedores")

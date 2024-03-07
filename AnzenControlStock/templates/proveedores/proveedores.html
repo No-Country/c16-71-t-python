@@ -45,24 +45,24 @@ Stock Anzen
                             </tr>
                         </thead>
                     <tbody>
-                        {% for proveedor in proveedores%}
+                        {% for proveedor in proveedores %}
                         <tr>
                             <th scope="row">{{proveedor.nombre}}</th>
-                            <td>{{proveedor.correo}}</td>
                             <td>{{proveedor.telefono}}</td>
+                            <td>{{proveedor.correo}}</td>
                             <td id="row">
-                                <button class="btn-editar">
+                                <a class="btn btn-editar" href="{% url 'editar_proveedor' id=proveedor.id %}">
                                     <img src="{% static 'imagenes/lapiz.png' %}">
-                                </button>
-                                <button class="btn-eliminar">
+                                </a>
+                                <a class="btn btn-eliminar" href="{% url 'eliminar_proveedor' id=proveedor.id %}">
                                     <img src="{% static 'imagenes/cesto.png' %}">
-                                </button>
+                                </a>
                                 <div class="mensaje">
-                                    <span>Si elimina el producto no podrá recuperarlo.</span>
-                                    <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                                    <span>Si elimina el proveedor no podrá recuperarlo.</span>
+                                    <p>¿Estás seguro de que deseas eliminar este proveedor?</p>
                                     <div class="mensaje-botones">
                                         <a class = "btn btn-mensajeEliminar" href="#">
-                                            SI, quiero eliminar este producto
+                                            SI, quiero eliminar este proveedor
                                         </a>
                                         <button class = "btn-mensajeCancelar">Cancelar</button>
                                     </div>
