@@ -15,9 +15,7 @@ ANZEN - Empleados
 {% block content %}
 {% load static %}
 
-{% include 'dashboard/sidebar.html' %}
-{% include 'dashboard/navbar.html' %}
-
+{% include 'partials/sidebar.html' %}
     <div class="main">
         <div class="main-header">
             <div class="main-header__left">
@@ -33,7 +31,7 @@ ANZEN - Empleados
         </div>
     <div class="contenedor">
         <div class="contenedor-form">
-            <button class = "btn-crear" href="dashboard/registro_empleado.html">Crear Empleado</button>
+            <a class = "btn btn-crear" href="{% url 'registro_empleado' %}">Crear Empleado</a>
         </div>
 
         
@@ -51,6 +49,7 @@ ANZEN - Empleados
         <table class="table">
             <thead>
                 <tr>
+                    <th scope="col"></th>
                     <th scope="col">Empleado</th>
                     <th scope="col">Email</th>
                     <th scope="col">Rol</th>
@@ -60,11 +59,11 @@ ANZEN - Empleados
                 {% for empleado in empleados %}
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ empleado.nombre }}</td>
-                    <td>{{ empleado.email }}</td>
+                    <td>{{ empleado.user.nombre }}</td>
+                    <td>{{ empleado.user.email }}</td>
                     <td>{{ empleado.rol }}</td>
                     <td id="row">
-                        <a class="btn btn-editar" href="">
+                        <a class="btn btn-editar" href="{% url 'editar_empleado' id=empleado.user.id%}">
                             <img src="{% static 'imagenes/lapiz.png' %}">
                         </a>
                         <a class="btn btn-eliminar" id="open">
@@ -74,9 +73,9 @@ ANZEN - Empleados
                             <span>Si elimina el Empleado no podrá recuperarlo.</span>
                             <p>¿Estás seguro de que deseas eliminar este Empleado?</p>
                             <div class="mensaje-botones">
-                                <a class = "btn btn-mensajeEliminar" href="{% url 'eliminar_empleado' id=empleado.nombre%}">
+                            <a class = "btn btn-mensajeEliminar" href="{% url 'eliminar_empleado' id=empleado.user.id%}">
                                     SI, quiero eliminar este Empleado
-                                </a>
+                                </a> 
                                 <button class = "btn-mensajeCancelar">Cancelar</button>
                             </div>
                         </div>
