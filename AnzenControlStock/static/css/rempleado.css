@@ -5,7 +5,6 @@
     background-color: #F8F9FA;
     width: 1116px;
     border-radius: 8px;
-    overflow-y: scroll;
 }
 
 .contenedor-form{
@@ -14,7 +13,6 @@
     width: 100%;
     height: 802px;
     width: 1116px;
-    background-color: #ffffff;
     margin-left: 15px;
 }
 
@@ -69,3 +67,7 @@ input{
     background-color: #FFFFFF;
     color: #92929D;
 }
+
+.btn btn-crear{
+    margin-left: 810px;
+}    
