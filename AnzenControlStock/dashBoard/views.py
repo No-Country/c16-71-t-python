@@ -335,10 +335,6 @@ def eliminar_empleado(request, id):
     messages.success(request, "Empleado eliminado correctamente")
     return redirect("vista_empleados")
 
-
-
-    return render(request, 'dashboard/vista_empleados.html')
-
 def registro_empleado(request):
     id_user = request.session.get("id_user")
     empleados = Empleado.obtener_empleado_por_empresa(id_user)
@@ -388,10 +384,6 @@ def eliminar_empresa(request, id):
 
     return render(request, 'dashboard/registro_empleado.html')
 
-
-def cerrar_sesion(request):
-    request.session["id_user"] = None
-    return redirect("dashboard-inicio")
 
 
 def proveedores(request):
