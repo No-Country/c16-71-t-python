@@ -204,7 +204,7 @@ def crear_producto(request):
     if request.method == "GET":
         if id_user:
             categorias = Categoria.objects.all()
-            proveedores = Proveedor.objects.all()
+            proveedores = Proveedor.obtener_proveedores_por_empresa(id_user)
             data = {
                 "categorias": categorias,
                 "proveedores": proveedores,
@@ -240,7 +240,7 @@ def editar_producto(request, id):
         if id_user:
             producto = Producto.obtener_producto_por_id_y_empresa(id, id_user)
             categorias = Categoria.objects.all()
-            proveedores = Proveedor.objects.all()
+            proveedores = Proveedor.obtener_proveedores_por_empresa(id_user)
             data = {
                 "proveedores": proveedores,
                 "producto": producto,
@@ -385,13 +385,12 @@ def eliminar_empresa(request, id):
     return render(request, 'dashboard/registro_empleado.html')
 
 
-
 def proveedores(request):
     id_user = request.session.get("id_user")
 
     if request.method == "GET":
         if id_user:
-            proveedores = Proveedor.objects.all()
+            proveedores = Proveedor.obtener_proveedores_por_empresa(id_user)
             data = {
                 "proveedores": proveedores,
                 "seccion_actual": "proveedores",

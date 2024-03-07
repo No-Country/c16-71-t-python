@@ -36,6 +36,17 @@ class Proveedor(models.Model):
     def eliminar_proveedor(self):
         self.delete()
 
+    @classmethod
+    def obtener_proveedores_por_empresa(cls, user_empresa_id):
+        try:
+            user_empresa = CustomUser.objects.get(id=user_empresa_id)
+            proveedores = cls.objects.filter(user_empresa=user_empresa)
+            print("-------", proveedores)
+            return proveedores
+        except Exception as e:
+            print("Exception -> " + str(e))
+            return None
+
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=32)
@@ -173,7 +184,7 @@ class Producto(models.Model):
             print("Resultado de busqueda de categoria ", filtrados)
 
         return filtrados
-    
+
 class Transaccion(models.Model):
     user_empresa = (
         models.ForeignKey(  # Usuaro de la empresa a la que pertenece el proveedor
@@ -194,7 +205,7 @@ class Transaccion(models.Model):
 
     @classmethod
     def create_transaccion(
-        cls, user_empresa_id, user_empleado_id, tipo_de_transaccion, cantidad, descripcion, 
+        cls, user_empresa_id, user_empleado_id, tipo_de_transaccion, cantidad, descripcion,
     ):
         try:
             user_empresa = CustomUser.objects.get(id=user_empresa_id)
@@ -212,7 +223,7 @@ class Transaccion(models.Model):
         except Exception as e:
             print("Exception -> " + str(e))
             return -2
-        
+
     @classmethod
     def obtener_transaccion_por_empresa(cls, user_empresa_id):
         try:
