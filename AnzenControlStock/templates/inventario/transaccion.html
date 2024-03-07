@@ -1,0 +1,45 @@
+{% extends "partials/base.html" %}
+
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/transaccion.css' %}">
+{% endblock%}
+
+{% block title %}
+Stock Anzen
+{% endblock%}
+
+{% block content %}
+{% load static %}
+
+{% include 'partials/sidebar.html' %}
+
+    <div class="main">
+        <div class="main-header">
+            <div class="main-header__left">
+                <p>Páginas / Inventario</p>
+                <span>Transaccion</span>
+            </div>
+        </div>
+        <div class="contenedor">
+            <h1 class = "contenedor__title">Transaccion de Stock</h1>
+            <span class = "contenedor_span">Producto: nombre Producto</span>
+            <div class="input-caja">
+                <label for="text">Cantidad</label>
+                <input type="text" id="#" name="#">
+            </div>
+            <div class="botones-left">
+                <button class = "btn-editar" type="submit">Guardar</button>
+                <a class = "btn btn-cancelar">Cancelar</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'javascript/main.js' %}"></script>
+{% endblock %}
