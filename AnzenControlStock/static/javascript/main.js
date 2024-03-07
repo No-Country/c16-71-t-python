@@ -31,3 +31,25 @@ document.addEventListener("DOMContentLoaded", function() {
       mensajeDiv.style.display = 'none';
   });
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const eliminarBtn = document.querySelector('.btn-eliminarCuenta');
+  const mensajeDiv = document.querySelector('.mensaje');
+
+  eliminarBtn.addEventListener('click', function() {
+    mensajeDiv.style.display = 'block';
+    mensajeDiv.style.width = '454px';
+    mensajeDiv.style.height = '260px';
+    mensajeDiv.style.backgroundColor = '#FFFFFF';
+    mensajeDiv.style.border = "1px solid #000000";
+    mensajeDiv.style.borderRadius = '8px';
+    mensajeDiv.style.position = 'absolute';
+    mensajeDiv.style.left = '414px';
+    mensajeDiv.style.top = '71px';
+    mensajeDiv.style.display = 'flex';
+    mensajeDiv.style.justifyContent = 'center';
+    mensajeDiv.style.flexDirection = 'column';
+    mensajeDiv.style.alignItems = 'center';
+});
+});

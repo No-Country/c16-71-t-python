@@ -50,3 +50,38 @@ input{
     background-color: #FF0000;
     margin-right: 14px;
 }
+
+.mensaje {
+    width: 454px;
+    height: 260px;
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    position: absolute;
+    left: 214px;
+    top: 61px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+}
+
+.btn-mensajeEliminar {
+    width: 297px;
+    height: 49px;
+    border-radius: 8px;
+    background-color: #F86A04;
+    color: #ffffff;
+    border: none;
+    font-size: 16px;
+}
+
+.btn-mensajeCancelar {
+    width: 68px;
+    height: 19px;
+    color: #92929D;
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+}

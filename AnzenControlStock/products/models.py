@@ -14,16 +14,23 @@ class Proveedor(models.Model):
     correo = models.CharField(max_length=32)
 
     @classmethod
-    def crear_proveedor(cls, user_empresa, nombre, telefono, correo):
-        proveedor = cls(user_empresa=user_empresa, nombre=nombre, telefono=telefono, correo=correo)
-        proveedor.save()
-        return proveedor
+    def crear_proveedor(cls, user_empresa_id, nombre, telefono, correo):
+        try:
+            user_empresa = CustomUser.objects.get(id=user_empresa_id)
+            proveedor = cls(user_empresa=user_empresa, nombre=nombre, telefono=telefono, correo=correo)
+            proveedor.save()
+            return proveedor
+        except Exception as e:
+            print("Exception -> " + str(e))
+            return -2
 
-    def actualizar_proveedor(self, nombre, telefono, correo):
-        self.nombre = nombre
-        self.telefono = telefono
-        self.correo = correo
-        self.save()
+    @classmethod
+    def actualizar_proveedor(cls, id_proveedor, nombre, telefono, correo):
+        proveedor = cls.objects.get(id=id_proveedor)
+        proveedor.nombre = nombre
+        proveedor.telefono = telefono
+        proveedor.correo = correo
+        proveedor.save()
 
     def eliminar_proveedor(self):
         self.delete()
@@ -43,7 +50,7 @@ class Producto(models.Model):
     precio_unitario = models.IntegerField()
     stock= models.IntegerField()
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)   
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -51,11 +58,13 @@ class Producto(models.Model):
 
     @classmethod
     def create_producto(
-        cls, user_empresa_id, nombre, descripcion, precio_unitario, stock, categoria_id
+        cls, user_empresa_id, nombre, descripcion, precio_unitario, stock, categoria_id, proveedor_id
     ):
         try:
             user_empresa = CustomUser.objects.get(id=user_empresa_id)
             categoria = Categoria.objects.get(id=categoria_id)
+            proveedor = Proveedor.objects.get(id=proveedor_id)
+            print("Proveedor a utilizar,", proveedor)
             producto = cls.objects.create(
                 user_empresa=user_empresa,
                 nombre=nombre,
@@ -63,6 +72,7 @@ class Producto(models.Model):
                 precio_unitario=precio_unitario,
                 stock=stock,
                 categoria= categoria,
+                proveedor = proveedor,
             )
             return producto
         except Exception as e:
@@ -79,10 +89,12 @@ class Producto(models.Model):
         stock,
         fecha_ingreso,
         categoria_id,
+        proveedor_id,
     ):
         try:
             producto = cls.objects.get(id=producto_id)
             categoria = Categoria.objects.get(id=categoria_id)
+            proveedor = Proveedor.objects.get(id=proveedor_id)
 
             # Actualizar el producto
             producto.nombre = nombre
@@ -91,6 +103,7 @@ class Producto(models.Model):
             producto.stock = stock
             producto.fecha_ingreso = fecha_ingreso
             producto.categoria = categoria
+            producto.proveedor = proveedor
             producto.save()
 
             return producto
@@ -105,6 +118,7 @@ class Producto(models.Model):
         try:
             user_empresa = CustomUser.objects.get(id=user_empresa_id)
             productos = cls.objects.filter(user_empresa=user_empresa)
+            print("-------", productos)
             return productos
         except Exception as e:
             print("Exception -> " + str(e))

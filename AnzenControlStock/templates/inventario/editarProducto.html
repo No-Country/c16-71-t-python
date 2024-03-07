@@ -38,6 +38,17 @@ Stock Anzen
                         <input type="text" id="nombreProducto" name="nombreProducto" value="{{producto.nombre}}">
                     </div>
                     <div class="input-caja">
+                        <label for="proveedor">Proveedor</label>
+                        <select class="form-select me-2 select-input-caja" name="proveedor" id="proveedor">
+                            <option selected>Proveedor</option>
+                            {% for proveedor in proveedores %}
+                            <option value="{{proveedor.id}}" {% if proveedor.id == producto.proveedor.id %}selected{% endif %}>
+                                {{proveedor.nombre}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="input-caja">
                         <label for="categoria">Categoria</label>
                         <select class="form-select me-2 select-input-caja" name="categoria" id="categoria">
                             <option selected>Categoría</option>
@@ -48,10 +59,6 @@ Stock Anzen
                             {% endfor %}
                         </select>
                     </div>
-                    <!--<div class="input-caja">
-                        <label for="#">Proveedor</label>
-                        <input type="text" id="#" name="#">
-                    </div>-->
                     <div class="input-caja">
                         <label for="precioUnitario">Precio Unitario</label>
                         <input type="text" id="precioUnitario" name="precioUnitario" value="{{producto.precio_unitario}}">

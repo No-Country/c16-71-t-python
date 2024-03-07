@@ -86,7 +86,7 @@ class CustomUser(AbstractUser):
             else:
                 return -1  
             user.nombre = nombre
-            user.password = password
+            user.set_password = password
             user.save()
             return user
         except cls.DoesNotExist:
@@ -156,7 +156,7 @@ class Empresa(models.Model):
     def modificar_empresa(cls,user_id , nombre_de_la_empresa, categoria_de_negocio,
                           teléfono, correo_electrónico_de_la_empresa):      
         try:
-            empresa = cls.objects.get(id=user_id)
+            empresa = cls.objects.get(user_id=user_id)
 
             # Actualizar la empresa
             empresa.nombre_de_la_empresa = nombre_de_la_empresa

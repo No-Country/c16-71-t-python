@@ -24,7 +24,6 @@ td#row{
     background-color: #F8F9FA;
     width: 1116px;
     border-radius: 8px;
-    overflow-y: scroll;
 }
 
 .contenedor-form{
@@ -32,7 +31,6 @@ td#row{
     padding: 15px;
     width: 100%;
     width: 1116px;
-    background-color: #ffffff;
     margin-left: 15px;
 }
 
@@ -136,4 +134,8 @@ td#row{
 
 .selects{
     width: 132px;
+}
+
+.btn-crear{
+    margin-left: 810px;
 }

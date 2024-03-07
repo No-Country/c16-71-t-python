@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 
 from login.models import CustomUser, Empresa, Empleado
-from products.models import Producto, Categoria
+from products.models import Producto, Categoria, Proveedor
 
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, get_user_model
@@ -21,7 +21,7 @@ def inicio(request):
 
         if usuario is not None:
             login(request, usuario)
-            
+
             if usuario.es_empresa == True:
                 request.session["id_user"] = usuario.id
                 print ("Sesion iniciada "+ str(request.session.get("id_user")))
@@ -33,7 +33,7 @@ def inicio(request):
                 messages.success(request, "Sesión iniciada correctamente")
                 return redirect("dashboard")
 
-                
+
         else:
             messages.error(request, "Error, verifique sus datos")
             return redirect("inicio")
@@ -59,6 +59,9 @@ def registro(request):
             else:
                 print("El usuario ",new_user.nombre, "fue creado")
                 return redirect("registro2", id_user=new_user.id) #Se le pasa el name del url
+        else:
+            messages.error(request, "Error, las contraseñas no son iguales")
+            return redirect("registro")
 
 def registro2(request,id_user):
     if request.method == 'GET':
@@ -102,27 +105,39 @@ def editar_perfil(request):
             return render(request, "login/perfil.html", data)
         else:
             return redirect("inicio")
- 
-    if request.method == "POST":
-        user_actualizado = CustomUser.modificar_usuario(id_user,
-            request.POST["nombre"],
-            request.POST["email"],
-            request.POST["password1"]
-        )
-        print("usuario editado: " + user_actualizado.nombre)
-        if user_actualizado == 1 :
-            messages.error(request, "El mail ya esta en uso")
-        elif user_actualizado == 2 :
-            messages.error(request, "Error en la modificacion de usuario")
-        else:
-            empresa_actualizada = Empresa.modificar_empresa(id_user,
-            request.POST["nombreEmpresa"],
-            request.POST["categoriaNegocio"],
-            request.POST["telefono"],
-            request.POST["correoElectronico"])  
 
-            messages.success(request, "Se modifico el perfil correctamente")
-            return redirect("dashboard")
+    usuario = CustomUser.obtener_usuario_por_id(id_user)
+    empresa = Empresa.obtener_empresa_por_id(id_user)
+    data = {"empresa": empresa, "usuario": usuario}
+
+    if request.method == "POST":
+        if request.POST["password1"] != request.POST["password2"]:
+
+            messages.error(request, "Error, las contraseñas no son iguales")
+            return render(request, "login/perfil.html", data)
+        else:
+            user_actualizado = CustomUser.modificar_usuario(id_user,
+                request.POST["nombre"],
+                request.POST["email"],
+                request.POST["password1"]
+            )
+            print("usuario editado: " + user_actualizado.nombre)
+            if user_actualizado == 1 :
+                messages.error(request, "El mail ya esta en uso")
+            elif user_actualizado == 2 :
+                messages.error(request, "Error en la modificacion de usuario")
+            else:
+                empresa_actualizada = Empresa.modificar_empresa(id_user,
+                request.POST["nombreEmpresa"],
+                request.POST["categoriaNegocio"],
+                request.POST["telefono"],
+                request.POST["correoElectronico"])
+                if empresa_actualizada == -2:
+                    messages.error(request, "Error, las contraseñas no son iguales")
+                    return render(request, "login/perfil.html", data)
+                else:
+                    messages.success(request, "Se modifico el perfil correctamente")
+                    return redirect("dashboard")
 
 
 def cerrar_sesion(request):
@@ -189,7 +204,12 @@ def crear_producto(request):
     if request.method == "GET":
         if id_user:
             categorias = Categoria.objects.all()
-            data = {"categorias": categorias}
+            proveedores = Proveedor.objects.all()
+            data = {
+                "categorias": categorias,
+                "proveedores": proveedores,
+                "seccion_actual": "inventario",
+            }
             return render(request, "inventario/agregarProducto.html", data)
         else:
             return redirect("inicio")
@@ -203,9 +223,13 @@ def crear_producto(request):
             request.POST["precioUnitario"],
             request.POST["cantidad"],
             request.POST["categoria"],
+            request.POST["proveedor"],
         )
-        #print("Product creado: ",new_producto.nombre)
-        messages.success(request, "Producto creado correctamente")
+        print("Product creado: ",new_producto)
+        if new_producto == -2:
+            messages.error(request, "Ocurrio un error al crea el producto")
+        else:
+            messages.success(request, "Producto creado correctamente")
         return redirect("inventario")
 
 
@@ -216,7 +240,13 @@ def editar_producto(request, id):
         if id_user:
             producto = Producto.obtener_producto_por_id_y_empresa(id, id_user)
             categorias = Categoria.objects.all()
-            data = {"producto": producto, "categorias": categorias}
+            proveedores = Proveedor.objects.all()
+            data = {
+                "proveedores": proveedores,
+                "producto": producto,
+                "categorias": categorias,
+                "seccion_actual": "inventario",
+            }
             return render(request, "inventario/editarProducto.html", data)
         else:
             return redirect("inicio")
@@ -230,6 +260,7 @@ def editar_producto(request, id):
             request.POST["cantidad"],
             request.POST["fecha_ingreso"],
             request.POST["categoria"],
+            request.POST["proveedor"],
         )
         print("Producto editado: " + actualizado.nombre)
         messages.success(request, "Producto editado correctamente")
@@ -275,7 +306,7 @@ def editar_empleado(request, id):
             empleado_actualizado = Empleado.modificar_empleado(user_actualizado.id,
             request.POST["rol"],
             request.POST["telefonoEmpleado"]
-            )  
+            )
             print(empleado_actualizado)
             messages.success(request, "Se modifico el empleado correctamente")
             return redirect("vista_empleados")
@@ -297,13 +328,16 @@ def vista_empleados(request):
             )
         else:
             return redirect("inicio")
-        
+
 def eliminar_empleado(request, id):
     empleado = Empleado.objects.get(user_id=id)
     empleado.eliminar_empleado()
     messages.success(request, "Empleado eliminado correctamente")
     return redirect("vista_empleados")
 
+
+
+    return render(request, 'dashboard/vista_empleados.html')
 
 def registro_empleado(request):
     id_user = request.session.get("id_user")
@@ -345,9 +379,103 @@ def registro_empleado(request):
                 return redirect("vista_empleados")
         else:
             return redirect("vista_empleados")
-        
+
 def eliminar_empresa(request, id):
     empresa = Empresa.objects.get(user_id=id)
     empresa.eliminar_empresa()
     messages.success(request, "Cuenta eliminada correctamente")
     return redirect("inicio")
+
+    return render(request, 'dashboard/registro_empleado.html')
+
+
+def editar_empleado(request):
+    empleados = Empleado.objects.all()
+    return render(request, 'editar_empleado.html', {'empleados': empleados})
+
+
+def eliminar_empleado(request, empleado_id):
+    empleados = Empleado.objects.all()
+    return render(request, 'eliminar_empleado.html', {'empleados': empleados})
+
+
+def cerrar_sesion(request):
+    request.session["id_user"] = None
+    return redirect("dashboard-inicio")
+
+
+def proveedores(request):
+    id_user = request.session.get("id_user")
+
+    if request.method == "GET":
+        if id_user:
+            proveedores = Proveedor.objects.all()
+            data = {
+                "proveedores": proveedores,
+                "seccion_actual": "proveedores",
+            }
+            return render(request, "proveedores/proveedores.html", data)
+        else:
+            return redirect("inicio")
+
+
+def crear_proveedor(request):
+    id_user = request.session.get("id_user")
+
+    if request.method == "GET":
+        if id_user:
+            data = {
+                "seccion_actual": "proveedores",
+            }
+            return render(request, "proveedores/agregarproveedor.html", data)
+        else:
+            return redirect("inicio")
+
+    if request.method == "POST":
+        print("POST*********", request.POST)
+        new_proveedor = Proveedor.crear_proveedor(
+            id_user,
+            request.POST["nombre"],
+            request.POST["telefono"],
+            request.POST["correo"],
+        )
+        print("Proveedor creado: ",new_proveedor.nombre)
+        messages.success(request, "Proveedor creado correctamente")
+        return redirect("proveedores")
+
+def editar_proveedor(request, id):
+    id_user = request.session.get("id_user")
+
+    if request.method == "GET":
+        if id_user:
+            proveedor = Proveedor.objects.get(id=id)
+            data = {
+                "proveedor": proveedor,
+                "seccion_actual": "proveedores",
+            }
+            print("PROVEEDOR A EDITAR", proveedor.nombre, proveedor.correo)
+            return render(request, "proveedores/editarProveedor.html", data)
+        else:
+            return redirect("inicio")
+
+    if request.method == "POST":
+        actualizado = Proveedor.actualizar_proveedor(
+            id,
+            request.POST["nombre"],
+            request.POST["telefono"],
+            request.POST["correo"],
+        )
+        if actualizado == -2:
+            messages.error(request, "Error al editar el proveedor")
+        else:
+            messages.success(request, "Proveedor editado correctamente")
+        print("Proveedor editado: ", actualizado)
+
+        return redirect("proveedores")
+
+
+def eliminar_proveedor(request, id):
+    proveedor = Proveedor.objects.get(id=id)
+    proveedor.eliminar_proveedor()
+    messages.success(request, "Proveedor eliminado correctamente")
+    return redirect("proveedores")
