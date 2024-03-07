@@ -19,32 +19,33 @@ Stock Anzen
     <div class="main-header">
         <div class="main-header__left">
             <p>Paginas / Proveedor</p>
-            <span>Agregar Proveedor</span>
+            <span>Editar Proveedor</span>
         </div>
     </div>
 <div class="contenedor">
     <div class="contenedor-form">
         <form method="post">
+            {% csrf_token %}
             <div class="input-caja">
                 <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-    </div>
-    <div class="form-group">
-        <label for="telefono">Teléfono:</label>
-        <input type="tel" id="telefono" name="telefono" required>
-    </div>
-    <div class="form-group">
-        <label for="correo">Correo Electrónico:</label>
-        <input type="email" id="correo" name="correo" required>
-    </div>
-    <div class="botones">
-            <button class = "btn-guardar" type="submit">Guardar</button>
-            <button type="submit" class = "btn-cancelar">Cancelar</button>
+            <input type="text" id="nombre" name="nombre" value="{{proveedor.nombre}}" required>
         </div>
-        </form>
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" value="{{proveedor.telefono}}" required>
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" value="{{proveedor.correo}}" required>
+        </div>
+        <div class="botones">
+                <button class = "btn-guardar" type="submit">Guardar</button>
+                <a class = "btn btn-cancelar">Cancelar</a>
+            </div>
+            </form>
+        </div>
     </div>
-</div>
-</div> 
+    </div>
 
 {% endblock %}
 
@@ -53,4 +54,4 @@ Stock Anzen
                 integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
                 crossorigin="anonymous"></script>
     <script src="{% static 'javascript/main.js' %}"></script>
-{% endblock %}
+{% endblock %}
