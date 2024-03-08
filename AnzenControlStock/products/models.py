@@ -137,9 +137,9 @@ class Producto(models.Model):
             return None
 
     @classmethod
-    def obtener_producto_por_id_y_empresa(cls, id_producto, id_user_empresa):
+    def obtener_producto_por_id(cls, id_producto):
         try:
-            producto = cls.objects.get(id=id_producto, user_empresa_id=id_user_empresa)
+            producto = cls.objects.get(id=id_producto)
             return producto
         except cls.DoesNotExist:
             return None
@@ -221,7 +221,7 @@ class Transaccion(models.Model):
         )
     )
     user_empleado = models.IntegerField()
-    # producto = models.ForeignKey(Producto, on_delete=models.CASCADE)  #+++++++++++++++++++++++++++++++++++++++FALTA MIGRAR
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)  #+++++++++++++++++++++++++++++++++++++++FALTA MIGRAR
     tipo_de_transaccion = models.CharField(max_length=32) #Compra o salida
     cantidad = models.IntegerField()
     descripcion = models.CharField(max_length=100) #en compra: reposicion, en salida: venta o rotura
@@ -232,7 +232,7 @@ class Transaccion(models.Model):
 
     @classmethod
     def create_transaccion(
-        cls, user_empresa_id, user_empleado, tipo_de_transaccion, cantidad, descripcion,
+        cls, user_empresa_id, user_empleado, producto, tipo_de_transaccion, cantidad, descripcion,
     ):
         try:
             user_empresa = CustomUser.objects.get(id=user_empresa_id)
@@ -240,6 +240,7 @@ class Transaccion(models.Model):
             transaccion = cls.objects.create(
                 user_empresa=user_empresa,
                 user_empleado=user_empleado,
+                producto=producto,
                 tipo_de_transaccion=tipo_de_transaccion,
                 cantidad=cantidad,
                 descripcion=descripcion,
@@ -268,6 +269,6 @@ class Transaccion(models.Model):
         try:
             empleado = Empleado.objects.get(user_id=self.user_empleado)
             print("Empleado -> ", empleado.user.nombre)
-            return self.empleado.user.nombre
+            return empleado.user.nombre
         except Empleado.DoesNotExist:
             return "Empleado no encontrado"

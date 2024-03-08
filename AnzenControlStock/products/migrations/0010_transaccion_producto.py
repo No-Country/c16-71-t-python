@@ -14,7 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='transaccion',
             name='producto',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='products.producto'),
-            preserve_default=False,
-        ),
+            field=models.ForeignKey( to='products.producto', on_delete=django.db.models.deletion.CASCADE)
+        )
     ]
