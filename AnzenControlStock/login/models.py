@@ -107,7 +107,7 @@ class Empresa(models.Model):
     )
     nombre_de_la_empresa= models.CharField(max_length=32)
     categoria_de_negocio= models.CharField(max_length=32)
-    teléfono= models.IntegerField(null=True)
+    teléfono= models.CharField(max_length=32, null=True)
     correo_electrónico_de_la_empresa= models.CharField(max_length=32)
 
     @classmethod
@@ -179,7 +179,7 @@ class Empleado(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
-    telefono = models.IntegerField(null=True)
+    telefono = models.CharField(max_length=32, null=True)
     rol = models.CharField(max_length=32)
     id_empresa = models.IntegerField(null=True)
 

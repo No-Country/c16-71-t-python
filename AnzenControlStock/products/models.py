@@ -11,7 +11,7 @@ class Proveedor(models.Model):
         )
     )
     nombre = models.CharField(max_length=32)
-    telefono = models.IntegerField()
+    telefono = models.CharField(max_length=32)
     correo = models.CharField(max_length=32)
 
     @classmethod

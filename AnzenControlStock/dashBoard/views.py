@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 
 from login.models import CustomUser, Empresa, Empleado
-from products.models import Producto, Categoria, Proveedor
+from products.models import Producto, Categoria, Proveedor, Transaccion
 
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, get_user_model
@@ -229,12 +229,16 @@ def crear_producto(request):
         if new_producto == -2:
             messages.error(request, "Ocurrio un error al crea el producto")
         else:
+            transaccion = Transaccion.create_transaccion(id_user, id_user, "Primer ingreso", new_producto.stock,
+                                                          "Creacion e ingreso de producto a stock")
+            print("Transaccion :" ,transaccion)
             messages.success(request, "Producto creado correctamente")
         return redirect("inventario")
 
 
 def editar_producto(request, id):
     id_user = request.session.get("id_user")
+
 
     if request.method == "GET":
         if id_user:
@@ -263,13 +267,21 @@ def editar_producto(request, id):
             request.POST["proveedor"],
         )
         print("Producto editado: " + actualizado.nombre)
+        transaccion = Transaccion.create_transaccion(id_user, id_user, "Modificacion", actualizado.stock,
+                                                          "Modificacion del producto en stock stock")
+        print("Transaccion :" ,transaccion)
         messages.success(request, "Producto editado correctamente")
         return redirect("inventario")
 
 
 def eliminar_producto(request, id):
+    id_user = request.session.get("id_user")
+
     producto = Producto.objects.get(id=id)
     producto.eliminar_producto()
+    transaccion = Transaccion.create_transaccion(id_user, id_user, "Modificacion", 0,
+                                                          "Modificacion del producto en stock stock")
+    print("Transaccion :" ,transaccion)
     messages.success(request, "Producto eliminado correctamente")
     return redirect("inventario")
 
