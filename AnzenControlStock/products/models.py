@@ -276,8 +276,8 @@ class Transaccion(models.Model):
 
     def obtener_empleado_nombre(self):
         try:
-            empleado = Empleado.objects.get(user_id=self.user_empleado)
-            print("Empleado -> ", empleado.user.nombre)
-            return empleado.user.nombre
+            empleado = CustomUser.objects.get(user_id=self.user_empleado)
+            print("Empleado -> ", empleado.nombre)
+            return empleado.nombre
         except Empleado.DoesNotExist:
             return "Empleado no encontrado"
