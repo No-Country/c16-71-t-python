@@ -221,7 +221,8 @@ class Transaccion(models.Model):
         )
     )
     user_empleado = models.IntegerField()
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)  #+++++++++++++++++++++++++++++++++++++++FALTA MIGRAR
+    nombre_producto = models.CharField(max_length=32)
+    descripcion_producto = models.CharField(max_length=100)
     tipo_de_transaccion = models.CharField(max_length=32) #Compra o salida
     cantidad = models.IntegerField()
     descripcion = models.CharField(max_length=100) #en compra: reposicion, en salida: venta o rotura
@@ -232,7 +233,14 @@ class Transaccion(models.Model):
 
     @classmethod
     def create_transaccion(
-        cls, user_empresa_id, user_empleado, producto, tipo_de_transaccion, cantidad, descripcion,
+        cls,
+        user_empresa_id,
+        user_empleado,
+        nombre_producto,
+        descripcion_producto,
+        tipo_de_transaccion,
+        cantidad,
+        descripcion,
     ):
         try:
             user_empresa = CustomUser.objects.get(id=user_empresa_id)
@@ -240,7 +248,8 @@ class Transaccion(models.Model):
             transaccion = cls.objects.create(
                 user_empresa=user_empresa,
                 user_empleado=user_empleado,
-                producto=producto,
+                nombre_producto=nombre_producto,
+                descripcion_producto=descripcion_producto,
                 tipo_de_transaccion=tipo_de_transaccion,
                 cantidad=cantidad,
                 descripcion=descripcion,

@@ -24,12 +24,14 @@
                         <span class = "sidebar__text">Inventario</span>
                     </a>
                 </li>
+                {% if user.es_empresa %}
                 <li class="sidebar-item{% if seccion_actual == 'empleados' %} selected{% endif %}">
                     <a href="{% url 'vista_empleados' %}" class="sidebar-link">
                         <i class="lni lni-users"></i>
                         <span class = "sidebar__text">Empleados</span>
                     </a>
                 </li>
+                {% endif %}
                 <li class="sidebar-item{% if seccion_actual == 'proveedores' %} selected{% endif %}">
                     <a href="{% url 'proveedores' %}" class="sidebar-link">
                         <i class="lni lni-delivery"></i>
@@ -37,18 +39,14 @@
                     </a>
                 </li>
                 <hr class = "separador">
+                {% if user.es_empresa %}
                 <li class="sidebar-item{% if seccion_actual == 'perfil' %} selected{% endif %}">
                     <a href="{% url 'editar_perfil' %}" class="sidebar-link">
                         <i class="lni lni-user"></i>
                         <span class = "sidebar__text">Perfil</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-cog"></i>
-                        <span class = "sidebar__text">Iniciar sesion</span>
-                    </a>
-                </li>
+                {% endif %}
             </ul>
             <div class="sidebar-footer">
                 <a href="{% url 'cerrar_sesion'%}" class="sidebar-link">

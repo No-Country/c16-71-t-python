@@ -261,8 +261,8 @@ def crear_producto(request):
         if new_producto == -2:
             messages.error(request, "Ocurrio un error al crea el producto")
         else:
-            transaccion = Transaccion.create_transaccion(id_empresa, id_user, new_producto, "Primer ingreso", new_producto.stock,
-                                                          "Creacion e ingreso de producto a stock")
+            transaccion = Transaccion.create_transaccion(id_empresa, id_user, new_producto.nombre, new_producto.descripcion,
+                                                        "Primer ingreso", new_producto.stock,"Creacion e ingreso de producto a stock")
             print("Transaccion :" ,transaccion)
             messages.success(request, "Producto creado correctamente")
         return redirect("inventario")
@@ -304,8 +304,8 @@ def editar_producto(request, id):
             request.POST["proveedor"],
         )
         print("Producto editado: " + actualizado.nombre)
-        transaccion = Transaccion.create_transaccion(id_empresa, id_user, actualizado, "Modificacion", actualizado.stock,
-                                                          "Modificacion del producto en  stock")
+        transaccion = Transaccion.create_transaccion(id_empresa, id_user, actualizado.nombre, actualizado.descripcion,
+                                                    "Modificacion", actualizado.stock,"Modificacion del producto en  stock")
         print("Transaccion :" ,transaccion)
         messages.success(request, "Producto editado correctamente")
         return redirect("inventario")
@@ -322,9 +322,9 @@ def eliminar_producto(request, id):
 
 
     producto = Producto.objects.get(id=id)
-    transaccion = Transaccion.create_transaccion(id_empresa, id_user, producto, "Eliminacion", 0,
+    transaccion = Transaccion.create_transaccion(id_empresa, id_user, producto.nombre, producto.descripcion, "Eliminacion", 0,
                                                           "Eliminacion del producto en  stock")
-    producto.eliminar_producto()   
+    producto.eliminar_producto()
     print("Transaccion :" ,transaccion)
     messages.success(request, "Producto eliminado correctamente")
     return redirect("inventario")
@@ -358,7 +358,7 @@ def comprar_producto(request, id):
         cantidad_a_comprar = request.POST["cantidad"]
         Producto.agregar_cantidad(id, int(cantidad_a_comprar))
         transaccion = Transaccion.create_transaccion(
-            id_empresa, id_user,producto, "Compra", cantidad_a_comprar, "Reposicion"
+            id_empresa, id_user, producto.nombre, producto.descripcion, "Compra", cantidad_a_comprar, "Reposicion"
         )
         print("Transaccion :", transaccion)
         messages.success(request, "Producto comprado correctamente")
@@ -395,7 +395,7 @@ def vender_producto(request, id):
         resultado = Producto.quitar_cantidad(id, int(cantidad_a_vender))
         if resultado != -1:
             transaccion = Transaccion.create_transaccion(
-                id_empresa, id_user, producto, "Venta", cantidad_a_vender, "Venta"
+                id_empresa, id_user, producto.nombre, producto.descripcion, "Venta", cantidad_a_vender, "Venta"
             )
             print("Transaccion :", transaccion)
             messages.success(request, "Producto vendido correctamente")

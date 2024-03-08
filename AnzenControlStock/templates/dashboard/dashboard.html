@@ -43,6 +43,7 @@ Stock ANZEN
                             <th scope="col">Fecha</th>
                             <th scope="col">Empleado</th>
                             <th scope="col">Producto</th>
+                            <th scope="col">Descripcion producto</th>
                             <th scope="col">Actividad</th>
                             <th scope="col">Categoria</th>
                             <th scope="col">Cantidad</th>
@@ -53,7 +54,8 @@ Stock ANZEN
                         <tr>
                             <th scope="row">{{actividad.fecha_y_hora|date:"Y-m-d"}}</th>
                             <th>{{actividad.obtener_empleado_nombre}}</th>
-                            <td>{{actividad.producto.nombre}}</td>
+                            <td>{{actividad.nombre_producto}}</td>
+                            <td>{{actividad.descripcion_producto}}</td>
                             <td>{{actividad.tipo_de_transaccion}}</td>
                             <td>{{actividad.descripcion}}</td>
                             <td>{{actividad.cantidad}}</td>
