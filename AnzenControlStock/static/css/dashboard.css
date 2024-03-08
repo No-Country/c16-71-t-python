@@ -31,13 +31,15 @@
     margin-top: 15px;
     display: flex;
     justify-content: space-around;
+    height: auto;
 }
 
 .tabla{
-    width: 609px;
-    height: 490px;
+    width: auto;
+    height: auto;
     background-color: #FFFFFF;
     border-radius: 8px;
+    box-shadow: -3px 3px 5px #000000;
 }
 
 .table thead th{
