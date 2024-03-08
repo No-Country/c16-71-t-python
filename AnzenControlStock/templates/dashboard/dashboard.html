@@ -27,7 +27,7 @@ Stock ANZEN
            <div class="box1">
                 <div class="contenedorArriba-izquierda">
                     <span>Bienvenido</span>
-                    <p>Nombre Usuario</p>
+                    <p>{{user.nombre}}</p>
                     <p>Controla tu stock, asegura tu exito.</p>
                 </div>
                 <div class="contenedorArriba-derecha">
@@ -40,36 +40,26 @@ Stock ANZEN
                 <table class="table table-borderless tabla">
                     <thead>
                         <tr>
-                          <th scope="col">Empleado</th>
-                          <th scope="col">Producto</th>
-                          <th scope="col">Actividad</th>
-                          <th scope="col">Categoria</th>
-                          <th scope="col">Cantidad</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Empleado</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Actividad</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Cantidad</th>
                         </tr>
-                      </thead>
-                      <tbody>
+                    </thead>
+                    <tbody>
+                        {% for actividad in actividades %}
                         <tr>
-                          <th scope="row">Franco Ortelli</th>
-                          <td>Auriculares Sony</td>
-                          <td>Ingreso</td>
-                          <td>Reposición</td>
-                          <td>18</td>
+                            <th scope="row">{{actividad.fecha_y_hora|date:"Y-m-d"}}</th>
+                            <th>{{actividad.obtener_empleado_nombre}}</th>
+                            <td>Producto falta migrar</td>
+                            <td>{{actividad.tipo_de_transaccion}}</td>
+                            <td>{{actividad.descripcion}}</td>
+                            <td>{{actividad.cantidad}}</td>
                         </tr>
-                        <tr>
-                          <th scope="row">Franco Ortelli</th>
-                          <td>Auriculares Sony</td>
-                          <td>Ingreso</td>
-                          <td>Reposición</td>
-                          <td>18</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Franco Ortelli</th>
-                          <td>Auriculares Sony</td>
-                          <td>Ingreso</td>
-                          <td>Reposición</td>
-                          <td>18</td>
-                        </tr>                
-                      </tbody>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
             <div class="contenedor-derecha">
@@ -104,7 +94,7 @@ Stock ANZEN
                     <div class="rectangulo-texto">
                         <span>Proveedor Destacado</span>
                         <p>Angela Duarte</p>
-                    </div>            
+                    </div>
                     <div class="alerta">
                         <img src="{% static 'imagenes/estrella.png' %}" alt="estrella">
                     </div>

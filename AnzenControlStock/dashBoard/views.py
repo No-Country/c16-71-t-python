@@ -146,10 +146,19 @@ def cerrar_sesion(request):
 
 
 def main(request):
+    id_user = request.session.get("id_user")
+    transacciones = Transaccion.obtener_transaccion_por_empresa(id_user)
+    print("Transacciones", transacciones)
+
     if request.method == "GET":
-        if request.session.get("id_user"):
+        if id_user:
+
+            data = {
+                "seccion_actual": "dashboard",
+                "actividades": transacciones,
+            }
             return render(
-                request, "dashboard/dashboard.html", {"seccion_actual": "dashboard"}
+                request, "dashboard/dashboard.html", data
             )
         else:
             return redirect("inicio")
@@ -167,7 +176,8 @@ def inventario(request):
     productos = Producto.obtener_productos_por_empresa(id_empresa)
     print("PRODUCTOS",productos)
     categorias =  Categoria.objects.all()
-    #print("Categorias", categorias)
+    # print("Categorias", categorias)
+
 
     if request.method == "POST":
         # Obtener los datos del formulario
@@ -213,6 +223,7 @@ def crear_producto(request):
     else:
         empleado = Empleado.obtener_empleado_por_id(id_user)
         user_empleado = empleado.id_empresa
+
 
     if request.method == "GET":
         if id_user:
@@ -311,10 +322,78 @@ def eliminar_producto(request, id):
     return redirect("inventario")
 
 def comprar_producto(request, id):
-    pass
+    id_user = request.session.get("id_user")
+
+    if request.method == "GET":
+        if id_user:
+            producto = Producto.obtener_producto_por_id_y_empresa(id, id_user)
+            data = {
+                "tipo_transaccion": "Compra",
+                "producto": producto,
+                "seccion_actual": "inventario",
+            }
+            return render(request, "inventario/transaccion.html", data)
+        else:
+            return redirect("inicio")
+
+    if request.method == "POST":
+
+        user = CustomUser.obtener_usuario_por_id(id_user)
+        if (
+            user.es_empresa
+        ):  # LOGICA PARA SABER SI ES EMPRESA O NO EL QUE HIZO LA TRANSACCION
+            user_empleado = user.id
+        else:
+            empleado = Empleado.obtener_empleado_por_id(id_user)
+            user_empleado = empleado.id_empresa
+
+        cantidad_a_comprar = request.POST["cantidad"]
+        Producto.agregar_cantidad(id, int(cantidad_a_comprar))
+        transaccion = Transaccion.create_transaccion(
+            id_user, user_empleado, "Compra", cantidad_a_comprar, "Reposicion"
+        )
+        print("Transaccion :", transaccion)
+        messages.success(request, "Producto comprado correctamente")
+        return redirect("inventario")
 
 def vender_producto(request, id):
-    pass
+    id_user = request.session.get("id_user")
+
+    if request.method == "GET":
+        if id_user:
+            producto = Producto.obtener_producto_por_id_y_empresa(id, id_user)
+            data = {
+                "tipo_transaccion": "Venta",
+                "producto": producto,
+                "seccion_actual": "inventario",
+            }
+            return render(request, "inventario/transaccion.html", data)
+        else:
+            return redirect("inicio")
+
+    if request.method == "POST":
+
+        user = CustomUser.obtener_usuario_por_id(id_user)
+        if (
+            user.es_empresa
+        ):  # LOGICA PARA SABER SI ES EMPRESA O NO EL QUE HIZO LA TRANSACCION
+            user_empleado = user.id
+        else:
+            empleado = Empleado.obtener_empleado_por_id(id_user)
+            user_empleado = empleado.id_empresa
+
+        cantidad_a_vender = request.POST["cantidad"]
+        resultado = Producto.quitar_cantidad(id, int(cantidad_a_vender))
+        if resultado != -1:
+            transaccion = Transaccion.create_transaccion(
+                id_user, user_empleado, "Venta", cantidad_a_vender, "Venta"
+            )
+            print("Transaccion :", transaccion)
+            messages.success(request, "Producto vendido correctamente")
+        else:
+            messages.error(request, "La cantidad a vender no puede ser mayor a la cantidad en stock")
+        return redirect("inventario")
+
 
 def editar_empleado(request, id):
     print(id)

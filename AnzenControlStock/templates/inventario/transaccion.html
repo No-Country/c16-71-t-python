@@ -23,16 +23,19 @@ Stock Anzen
             </div>
         </div>
         <div class="contenedor">
-            <h1 class = "contenedor__title">Transaccion de Stock</h1>
-            <span class = "contenedor_span">Producto: nombre Producto</span>
-            <div class="input-caja">
-                <label for="text">Cantidad</label>
-                <input type="text" id="#" name="#">
-            </div>
-            <div class="botones-left">
-                <button class = "btn-editar" type="submit">Guardar</button>
-                <a class = "btn btn-cancelar">Cancelar</a>
-            </div>
+            <h1 class = "contenedor__title">Transaccion de Stock: {{tipo_transaccion}}</h1>
+            <span class = "contenedor_span">Producto: {{producto.nombre}}</span>
+            <form method="post">
+            {% csrf_token %}
+                <div class="input-caja">
+                    <label for="text">Cantidad</label>
+                    <input type="text" id="cantidad" name="cantidad">
+                </div>
+                <div class="botones-left">
+                    <button class = "btn-editar" type="submit">Guardar</button>
+                    <a class = "btn btn-cancelar">Cancelar</a>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}
