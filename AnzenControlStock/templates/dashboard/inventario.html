@@ -21,15 +21,10 @@ Stock Anzen
                 <p>Páginas / Inventario</p>
                 <span>Inventario</span>
             </div>
-            <div class="main-header__right">
-                <a href="#">
-                    <i class="lni lni-cog"></i>
-                    <span class="sidebar__text">Iniciar sesión</span>
-                </a>
-            </div>
         </div>
         <div class="container-fluid d-flex  justify-content-start inventario-inputs">
             <form class="d-flex">
+                {% csrf_token %}
                 <input class="form-control me-2 input9" type="search" placeholder="Buscar" aria-label="Buscar">
                 <select class="form-select me-2 selects" name="cantidad">
                     <option selected>Cantidad</option>

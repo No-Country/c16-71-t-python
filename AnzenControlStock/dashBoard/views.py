@@ -304,6 +304,12 @@ def eliminar_producto(request, id):
     messages.success(request, "Producto eliminado correctamente")
     return redirect("inventario")
 
+def comprar_producto(request, id):
+    pass
+
+def vender_producto(request, id):
+    pass
+
 def editar_empleado(request, id):
     print(id)
     id_user = request.session.get("id_user")

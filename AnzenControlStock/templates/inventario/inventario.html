@@ -88,10 +88,10 @@ Stock Anzen
                                     <button class = "btn-mensajeCancelar">Cancelar</button>
                                 </div>
                             </div>
-                            <button class="btn btn-agregar" type="submit">
+                            <a class="btn btn-agregar" href="{% url 'vender_producto' id=producto.id%}" >
                                 <img src="{% static 'imagenes/carrito.png' %}">
-                            </button>
-                              <a class="btn btn-agregar">
+                            </a>
+                              <a class="btn btn-agregar" href="{% url 'comprar_producto' id=producto.id%}">
                                 <img class = "transaccion"src="{% static 'imagenes/mas.png' %}">
                             </a>
                         </td>
