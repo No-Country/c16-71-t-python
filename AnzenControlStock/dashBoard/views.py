@@ -200,6 +200,13 @@ def inventario(request):
 
 def crear_producto(request):
     id_user = request.session.get("id_user")
+    user = CustomUser.obtener_usuario_por_id(id_user)
+    if user.es_empresa: # LOGICA PARA SABER SI ES EMPRESA O NO EL QUE HIZO LA TRANSACCION
+        user_empleado = user.id
+    else:
+        empleado = Empleado.obtener_empleado_por_id(id_user)
+        user_empleado = empleado.id_empresa
+
 
     if request.method == "GET":
         if id_user:
@@ -229,7 +236,7 @@ def crear_producto(request):
         if new_producto == -2:
             messages.error(request, "Ocurrio un error al crea el producto")
         else:
-            transaccion = Transaccion.create_transaccion(id_user, id_user, "Primer ingreso", new_producto.stock,
+            transaccion = Transaccion.create_transaccion(id_user, user_empleado, "Primer ingreso", new_producto.stock,
                                                           "Creacion e ingreso de producto a stock")
             print("Transaccion :" ,transaccion)
             messages.success(request, "Producto creado correctamente")
@@ -238,7 +245,12 @@ def crear_producto(request):
 
 def editar_producto(request, id):
     id_user = request.session.get("id_user")
-
+    user = CustomUser.obtener_usuario_por_id(id_user)
+    if user.es_empresa: # LOGICA PARA SABER SI ES EMPRESA O NO EL QUE HIZO LA TRANSACCION
+        user_empleado = user.id
+    else:
+        empleado = Empleado.obtener_empleado_por_id(id_user)
+        user_empleado = empleado.id_empresa
 
     if request.method == "GET":
         if id_user:
@@ -267,8 +279,8 @@ def editar_producto(request, id):
             request.POST["proveedor"],
         )
         print("Producto editado: " + actualizado.nombre)
-        transaccion = Transaccion.create_transaccion(id_user, id_user, "Modificacion", actualizado.stock,
-                                                          "Modificacion del producto en stock stock")
+        transaccion = Transaccion.create_transaccion(id_user, user_empleado, "Modificacion", actualizado.stock,
+                                                          "Modificacion del producto en  stock")
         print("Transaccion :" ,transaccion)
         messages.success(request, "Producto editado correctamente")
         return redirect("inventario")
@@ -276,11 +288,18 @@ def editar_producto(request, id):
 
 def eliminar_producto(request, id):
     id_user = request.session.get("id_user")
+    user = CustomUser.obtener_usuario_por_id(id_user)
+    if user.es_empresa: # LOGICA PARA SABER SI ES EMPRESA O NO EL QUE HIZO LA TRANSACCION
+        user_empleado = user.id
+    else:
+        empleado = Empleado.obtener_empleado_por_id(id_user)
+        user_empleado = empleado.id_empresa
+
 
     producto = Producto.objects.get(id=id)
     producto.eliminar_producto()
-    transaccion = Transaccion.create_transaccion(id_user, id_user, "Modificacion", 0,
-                                                          "Modificacion del producto en stock stock")
+    transaccion = Transaccion.create_transaccion(id_user, user_empleado, "Eliminacion", 0,
+                                                          "Eliminacion del producto en  stock")
     print("Transaccion :" ,transaccion)
     messages.success(request, "Producto eliminado correctamente")
     return redirect("inventario")

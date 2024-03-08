@@ -58,7 +58,7 @@ class Producto(models.Model):
         on_delete=models.CASCADE,
     )
     nombre= models.CharField(max_length=32)
-    descripcion= models.CharField(max_length=32)
+    descripcion= models.CharField(max_length=100)
     precio_unitario = models.IntegerField()
     stock= models.IntegerField()
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
@@ -192,25 +192,19 @@ class Transaccion(models.Model):
             on_delete=models.CASCADE,
         )
     )
-    user_empleado = (
-        models.ForeignKey(  # El empleado que hace el movimiento
-            Empleado,
-            on_delete=models.CASCADE,
-        )
-    )
+    user_empleado = models.IntegerField()
     tipo_de_transaccion = models.CharField(max_length=32)
     cantidad = models.IntegerField()
-    descripcion = models.CharField(max_length=32)
+    descripcion = models.CharField(max_length=100)
     fecha_y_hora = models.DateTimeField()
 
     @classmethod
     def create_transaccion(
-        cls, user_empresa_id, user_empleado_id, tipo_de_transaccion, cantidad, descripcion,
+        cls, user_empresa_id, user_empleado, tipo_de_transaccion, cantidad, descripcion,
     ):
         try:
             user_empresa = CustomUser.objects.get(id=user_empresa_id)
-            user_empleado = Empleado.objects.get(user_id=user_empleado_id)
-            print("Empleado a utilizar,", user_empleado.nombre)
+            print("Empleado a utilizar,", user_empleado)
             transaccion = cls.objects.create(
                 user_empresa=user_empresa,
                 user_empleado=user_empleado,
