@@ -157,7 +157,14 @@ def main(request):
 
 def inventario(request):
     id_user = request.session.get("id_user")
-    productos = Producto.obtener_productos_por_empresa(id_user)
+    user = CustomUser.obtener_usuario_por_id(id_user)
+    if user.es_empresa: # LOGICA PARA SABER SI ES EMPRESA O NO EL QUE INICIO SESION
+        id_empresa = user.id
+    else:
+        empleado = Empleado.obtener_empleado_por_id(id_user)
+        id_empresa = empleado.id_empresa
+
+    productos = Producto.obtener_productos_por_empresa(id_empresa)
     print("PRODUCTOS",productos)
     categorias =  Categoria.objects.all()
     #print("Categorias", categorias)
@@ -206,7 +213,6 @@ def crear_producto(request):
     else:
         empleado = Empleado.obtener_empleado_por_id(id_user)
         user_empleado = empleado.id_empresa
-
 
     if request.method == "GET":
         if id_user:
@@ -424,10 +430,16 @@ def eliminar_empresa(request, id):
 
 def proveedores(request):
     id_user = request.session.get("id_user")
+    user = CustomUser.obtener_usuario_por_id(id_user)
+    if user.es_empresa: # LOGICA PARA SABER SI ES EMPRESA O NO EL QUE INICIO SESION
+        id_empresa = user.id
+    else:
+        empleado = Empleado.obtener_empleado_por_id(id_user)
+        id_empresa = empleado.id_empresa
 
     if request.method == "GET":
         if id_user:
-            proveedores = Proveedor.obtener_proveedores_por_empresa(id_user)
+            proveedores = Proveedor.obtener_proveedores_por_empresa(id_empresa)
             data = {
                 "proveedores": proveedores,
                 "seccion_actual": "proveedores",
