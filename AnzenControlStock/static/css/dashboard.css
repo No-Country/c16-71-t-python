@@ -16,6 +16,15 @@
     display: flex;
     padding: 10px;
     margin-bottom: 10px;
+    box-shadow: -3px 3px 5px #000000;
+}
+
+.contenedorArriba-izquierda span{
+    font-size: 22px;
+}
+
+.contenedorArriba-izquierda p{
+    font-size: 19px;
 }
 
 .contenedorAbajo{
